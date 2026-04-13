@@ -1,16 +1,9 @@
-<h2>Panel de administración</h2>
+<h2>Gestión de turnos</h2>
 
 <!-- FORMULARIO -->
-<h3>Crear turno</h3>
-
 <form (ngSubmit)="crearHorario()">
-  <label>Empleado</label>
-  <select [(ngModel)]="form.employee_id" name="employee_id" required>
-    <option value="">Selecciona un empleado</option>
-    <option *ngFor="let emp of empleados" [value]="emp.id">
-      {{ emp.name }} ({{ emp.email }})
-    </option>
-  </select>
+  <label>Empleado (ID)</label>
+  <input type="number" [(ngModel)]="form.employee_id" name="employee_id" required />
 
   <label>Inicio</label>
   <input type="datetime-local" [(ngModel)]="form.start_time" name="start_time" required />
@@ -50,7 +43,7 @@
   </tr>
 </table>
 
-<!-- EDICIÓN -->
+///formulario de edicion: se muestra al seleccionar un turno para editar.
 <div *ngIf="editando" class="modal-edicion">
   <h3>Editar turno</h3>
 
@@ -63,3 +56,4 @@
   <button (click)="guardarEdicion()">Guardar</button>
   <button (click)="editando = null">Cancelar</button>
 </div>
+

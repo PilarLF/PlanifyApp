@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-login',
   imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './login.html',
@@ -32,12 +33,12 @@ export class Login {
       //si es valido lo anterior:
       const { email, password } = this.loginForm.value;
       
-      this.authService.login(email, password).subscribe({
+      this.authService.login({ email, password }).subscribe({
         next: (response: any) => {
           //guardo el token en localStorage
           localStorage.setItem('token', response.token);
           //redirigo al dashboard según el rol 
-          if (response.role === 'admin') {
+          if (response.role === 'ADMIN') {
             this.router.navigate(['/admin/dashboard']);
           } else {
             this.router.navigate(['/employee/dashboard']);

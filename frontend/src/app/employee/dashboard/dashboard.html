@@ -1,1 +1,41 @@
-<p>dashboard works!</p>
+<h2>Panel del empleado</h2>
+
+<!-- Estado -->
+<div *ngIf="status">
+  <p><strong>Estado:</strong>
+    <span *ngIf="status.isClockedIn">Fichado</span>
+    <span *ngIf="!status.isClockedIn">No fichado</span>
+  </p>
+
+  <p><strong>Último fichaje:</strong>
+    {{ status.lastClockIn || status.lastClockOut || '—' }}
+  </p>
+
+  <button *ngIf="!status.isClockedIn" (click)="clockIn()">Fichar entrada</button>
+  <button *ngIf="status.isClockedIn" (click)="clockOut()">Fichar salida</button>
+</div>
+
+<hr>
+
+<!-- Turno actual -->
+<div *ngIf="turnoActual">
+  <h3>Turno actual</h3>
+  <p><strong>Inicio:</strong> {{ turnoActual.start_time | date:'short' }}</p>
+  <p><strong>Fin:</strong> {{ turnoActual.end_time | date:'short' }}</p>
+
+  <p>
+    <strong>Situación:</strong>
+    <span *ngIf="estaDentroDelTurno()">Dentro del turno</span>
+    <span *ngIf="!estaDentroDelTurno()">Fuera del turno</span>
+  </p>
+</div>
+
+<hr>
+
+<!-- Lista de turnos -->
+<h3>Mis turnos</h3>
+<ul>
+  <li *ngFor="let t of misTurnos">
+    {{ t.start_time | date:'short' }} → {{ t.end_time | date:'short' }}
+  </li>
+</ul>

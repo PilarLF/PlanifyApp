@@ -62,3 +62,8 @@ pool.connect((err, _client, release) => {
 });
 
 ```
+### BACKEND CON ANGULAR
+Comenzamos creando los **modelos**: user, schedule, time-entry, entiroment. Son la base de tipos que usarán todo lo demás. 
+```
+PS C:\Users\plope\OneDrive\tfm\planify-app\frontend\src\app> mkdir models
+``` 

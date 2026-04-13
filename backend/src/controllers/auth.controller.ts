@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { pool } from '../config/db';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { AuthRequest } from '../middleware/auth.middleware';
 
 export async function login(req: Request, res: Response) {
   const { email, password } = req.body;
@@ -65,5 +66,16 @@ export async function register(req: Request, res: Response) {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Error en el servidor' });
+  }
+}
+
+export async function getEmployees(req: Request, res: Response) {
+  try {
+    const result = await pool.query(
+      "SELECT id, nombre, email FROM usuarios WHERE role = 'EMPLOYEE'"
+    );
+    return res.json(result.rows);
+  } catch (error) {
+    return res.status(500).json({ message: "Error en el servidor" });
   }
 }

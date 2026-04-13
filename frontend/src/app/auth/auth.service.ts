@@ -10,10 +10,22 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string) {
-    return this.http.post(`${this.apiUrl}/login`, { email, password });
+  login(credentials: { email: string; password: string }) {
+      return this.http.post<{ token: string; role: 'admin' | 'employee' }>(`${this.apiUrl}/login`, credentials) ;
+    }
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }
 
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  getRole(): 'admin' | 'employee' | null {
+    return localStorage.getItem('role') as any;
+  }
+  
   register(data: any) {
     return this.http.post(`${this.apiUrl}/register`, data);
   }

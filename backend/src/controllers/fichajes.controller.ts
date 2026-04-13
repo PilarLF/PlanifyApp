@@ -99,3 +99,94 @@ export async function clockOut(req: AuthRequest, res: Response) {
     return res.status(500).json({ message: "Error en el servidor" });
   }
 }
+
+// =========================
+// 3. Status del fichaje
+// =========================
+
+export async function getStatus(req: AuthRequest, res: Response) {
+  console.log('getStatus llamado, user:', req.user); 
+  const employee_id = req.user!.id;
+
+  try {
+    // Buscar fichaje abierto
+    const abierto = await pool.query(
+      `SELECT * FROM fichajes
+       WHERE employee_id = $1 AND clock_out IS NULL
+       ORDER BY clock_in DESC
+       LIMIT 1`,
+      [employee_id]
+    );
+
+    // Buscar último fichaje cerrado
+    const ultimo = await pool.query(
+      `SELECT * FROM fichajes
+       WHERE employee_id = $1 AND clock_out IS NOT NULL
+       ORDER BY clock_out DESC
+       LIMIT 1`,
+      [employee_id]
+    );
+
+    return res.json({
+      isClockedIn: abierto.rows.length > 0,
+      lastClockIn: abierto.rows[0]?.clock_in || null,
+      lastClockOut: ultimo.rows[0]?.clock_out || null
+    });
+
+  } catch (error) {
+    return res.status(500).json({ message: "Error en el servidor" });
+  }
+}
+
+// =========================
+// 4. Turno actual: determinarlo para poder fichar 
+// =========================
+export async function getTurnoActual(req: AuthRequest, res: Response) {
+  const employee_id = req.user!.id;
+  const now = new Date();
+
+  try {
+    const result = await pool.query(
+      `SELECT *
+       FROM horarios
+       WHERE employee_id = $1
+       AND start_time <= $2
+       AND end_time >= $2
+       LIMIT 1`,
+      [employee_id, now]
+    );
+
+    if (result.rows.length === 0) {
+      return res.json(null);
+    }
+
+    return res.json(result.rows[0]);
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Error obteniendo turno actual" });
+  }
+}
+
+// =========================
+// 5. Listado de los turnos de un empleado
+// =========================
+export async function getMisTurnos(req: AuthRequest, res: Response) {
+  const employee_id = req.user!.id;
+
+  try {
+    const result = await pool.query(
+      `SELECT *
+       FROM horarios
+       WHERE employee_id = $1
+       ORDER BY start_time ASC`,
+      [employee_id]
+    );
+
+    return res.json(result.rows);
+
+  } catch (error) {
+    console.error("ERROR GET MIS TURNOS:", error);
+    return res.status(500).json({ message: "Error obteniendo turnos" });
+  }
+}

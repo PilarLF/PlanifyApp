@@ -122,3 +122,61 @@ export async function getHorariosByEmpleado(req: Request, res: Response) {
     return res.status(500).json({ message: "Error en el servidor" });
   }
 }
+
+// =========================
+// 3. Obtener todos los horarios
+// =========================
+export async function getAllHorarios(req: AuthRequest, res: Response) {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM horarios ORDER BY start_time ASC"
+    );
+    return res.json(result.rows);
+  } catch (error) {
+    return res.status(500).json({ message: "Error en el servidor" });
+  }
+}
+
+export async function updateHorario(req: AuthRequest, res: Response) {
+  const { id } = req.params;
+  const { start_time, end_time } = req.body;
+
+  try {
+    const result = await pool.query(
+      `UPDATE horarios
+       SET start_time = $1, end_time = $2
+       WHERE id = $3
+       RETURNING *`,
+      [start_time, end_time, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "Horario no encontrado" });
+    }
+
+    return res.json(result.rows[0]);
+
+  } catch (error) {
+    return res.status(500).json({ message: "Error en el servidor" });
+  }
+}
+
+export async function deleteHorario(req: AuthRequest, res: Response) {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query(
+      `DELETE FROM horarios WHERE id = $1 RETURNING *`,
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "Horario no encontrado" });
+    }
+
+    return res.json({ message: "Horario eliminado" });
+
+  } catch (error) {
+    return res.status(500).json({ message: "Error en el servidor" });
+  }
+}
