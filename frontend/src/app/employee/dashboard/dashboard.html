@@ -1,41 +1,116 @@
-<h2>Panel del empleado</h2>
+<div class="employee-dashboard">
 
-<!-- Estado -->
-<div *ngIf="status">
-  <p><strong>Estado:</strong>
-    <span *ngIf="status.isClockedIn">Fichado</span>
-    <span *ngIf="!status.isClockedIn">No fichado</span>
-  </p>
+  <!-- Header de bienvenida -->
+  <div class="welcome-header animate-in" style="--delay: 0s">
+    <div class="welcome-text">
+      <span class="greeting-label">Bienvenida de nuevo</span>
+      <h2 class="section-title">{{ status?.employeeName }}</h2>
+    </div>
+    <div class="current-time" id="clockDisplay"></div>
+  </div>
 
-  <p><strong>Último fichaje:</strong>
-    {{ status.lastClockIn || status.lastClockOut || '—' }}
-  </p>
+  <!-- Tarjeta de estado principal -->
+  <div class="card status-card animate-in" style="--delay: 0.1s" *ngIf="status">
+    <div class="status-card-inner">
 
-  <button *ngIf="!status.isClockedIn" (click)="clockIn()">Fichar entrada</button>
-  <button *ngIf="status.isClockedIn" (click)="clockOut()">Fichar salida</button>
+      <div class="status-left">
+        <div class="status-indicator-wrap">
+          <div class="status-dot" [class.active]="status?.isClockedIn"></div>
+          <span class="status-label" [class.inside]="status?.isClockedIn" [class.outside]="!status?.isClockedIn">
+            {{ status?.isClockedIn ? 'Fichado' : 'No fichado' }}
+          </span>
+        </div>
+
+        <div class="last-clock">
+          <span class="meta-label">Último fichaje</span>
+          <span class="meta-value">{{ (status.lastClockIn || status.lastClockOut) | date:'d MMM, HH:mm' : '' : 'es' }}</span>
+          <span class="meta-value" *ngIf="!status.lastClockIn && !status.lastClockOut">—</span>
+        </div>
+      </div>
+
+      <div class="status-right">
+        <button *ngIf="!status?.isClockedIn"
+                class="btn btn-primary"
+                (click)="clockIn()">
+          <span class="btn-icon">→</span> Fichar entrada
+        </button>
+        <button *ngIf="status?.isClockedIn"
+                class="btn btn-danger"
+                (click)="clockOut()">
+          <span class="btn-icon">■</span> Fichar salida
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Turno actual -->
+  <div class="card turno-card animate-in" style="--delay: 0.2s" *ngIf="turnoActual">
+    <div class="card-header">
+      <h3 class="card-title">Turno actual</h3>
+      <span class="badge" [class.badge-active]="estaDentroDelTurno()" [class.badge-inactive]="!estaDentroDelTurno()">
+        {{ estaDentroDelTurno() ? 'En turno' : 'Fuera de turno' }}
+      </span>
+    </div>
+
+    <div class="turno-times">
+      <div class="turno-time-block">
+        <span class="time-label">Inicio</span>
+        <span class="time-value">{{ turnoActual.start_time | date:'HH:mm' }}</span>
+        <span class="time-date">{{ turnoActual.start_time | date:'d MMM' : '' : 'es' }}</span>
+      </div>
+      <div class="turno-divider">
+        <div class="turno-line"></div>
+        <span class="turno-arrow">→</span>
+        <div class="turno-line"></div>
+      </div>
+      <div class="turno-time-block">
+        <span class="time-label">Fin</span>
+        <span class="time-value">{{ turnoActual.end_time | date:'HH:mm' }}</span>
+        <span class="time-date">{{ turnoActual.end_time | date:'d MMM' : '' : 'es' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de turnos -->
+  <div class="card animate-in" style="--delay: 0.3s">
+    <div class="card-header">
+      <h3 class="card-title">Mis turnos</h3>
+      <span class="turnos-count">{{ misTurnos.length }} turno{{ misTurnos.length !== 1 ? 's' : '' }}</span>
+    </div>
+
+    <div class="turnos-empty" *ngIf="misTurnos.length === 0">
+      <span>No hay turnos registrados</span>
+    </div>
+
+    <ul class="turnos-list" *ngIf="misTurnos.length > 0">
+      <li *ngFor="let t of misTurnos; let i = index"
+          class="turno-item"
+          [style.animation-delay]="(0.35 + i * 0.05) + 's'">
+        <div class="turno-item-date">
+          <span class="turno-day">{{ t.start_time | date:'d' }}</span>
+          <span class="turno-month">{{ t.start_time | date:'MMM' : '' : 'es' }}</span>
+        </div>
+        <div class="turno-item-info">
+          <span class="turno-item-hours">
+            {{ t.start_time | date:'HH:mm' }} → {{ t.end_time | date:'HH:mm' }}
+          </span>
+          <span class="turno-item-day-name">{{ t.start_time | date:'EEEE' : '' : 'es' }}</span>
+        </div>
+        <div class="turno-item-pill"></div>
+      </li>
+    </ul>
+  </div>
+
+<!-- prueba -->
+<div class="card">
+  <h2 class="section-title">
+    <span class="material-icons-round"></span>
+    Calendario de turnos
+  </h2>
+
+  <full-calendar [options]="calendarOptions"></full-calendar>
 </div>
 
-<hr>
 
-<!-- Turno actual -->
-<div *ngIf="turnoActual">
-  <h3>Turno actual</h3>
-  <p><strong>Inicio:</strong> {{ turnoActual.start_time | date:'short' }}</p>
-  <p><strong>Fin:</strong> {{ turnoActual.end_time | date:'short' }}</p>
-
-  <p>
-    <strong>Situación:</strong>
-    <span *ngIf="estaDentroDelTurno()">Dentro del turno</span>
-    <span *ngIf="!estaDentroDelTurno()">Fuera del turno</span>
-  </p>
 </div>
-
-<hr>
-
-<!-- Lista de turnos -->
-<h3>Mis turnos</h3>
-<ul>
-  <li *ngFor="let t of misTurnos">
-    {{ t.start_time | date:'short' }} → {{ t.end_time | date:'short' }}
-  </li>
-</ul>

@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Horarios } from '../horarios';
 import { UserService } from '../../user/user';
+import  dayGridPlugin  from '@fullcalendar/daygrid';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FullCalendarModule],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
 })
@@ -94,4 +96,6 @@ export class AdminDashboard {
       }
     });
   }
+
+
 }

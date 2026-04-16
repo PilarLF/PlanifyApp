@@ -1,19 +1,30 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FichajesService } from '../fichajes/fichajes';
+import dayGridPlugin  from '@fullcalendar/daygrid';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import esLocale from '@fullcalendar/core/locales/es';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FullCalendarModule],
   templateUrl: 'dashboard.html',
+  styleUrls: ['dashboard.scss']
 })
 export class Dashboard implements OnInit {
 
   turnoActual: any = null;
   status: any = null;
   misTurnos: any[] = [];
+
+  calendarOptions: any = {
+  initialView: 'dayGridMonth',
+  plugins: [dayGridPlugin],
+  locale: esLocale, //que muestre el calendario en español
+  events: []
+  };
 
   constructor(
     private fichajesService: FichajesService,
@@ -51,6 +62,18 @@ export class Dashboard implements OnInit {
       next: (res: any[]) => {
         console.log('MIS TURNOS OK:', res);
         this.misTurnos = res;
+        //agrego los turnos del empleado al calendario de la libreria fullCalendar de Angular
+            this.calendarOptions = {
+              ...this.calendarOptions,
+                events: this.misTurnos.map(t => ({
+                  title: `${new Date(t.start_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                          - 
+                          ${new Date(t.end_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`,
+                  start: t.start_time,
+                  end: t.end_time,
+                  color: '#1A2060'
+                }))
+              };
         this.cdr.detectChanges();
       },
       error: (err) => {
@@ -58,8 +81,10 @@ export class Dashboard implements OnInit {
         console.error('MIS TURNOS ERROR - mensaje:', err.error);
       }
     });   
+    
   }
-  
+
+
 
   clockIn() {
     if (!this.turnoActual) {
@@ -83,5 +108,6 @@ export class Dashboard implements OnInit {
   return now >= new Date(this.turnoActual.start_time) &&
          now <= new Date(this.turnoActual.end_time);
 }
+
 
 }

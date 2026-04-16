@@ -1,0 +1,486 @@
+@import '../../../styles/variables';
+
+// ─── Tokens ───────────────────────────────────────────────
+$navy:        #1a1c37;
+$navy-light:  #252d7e;
+$coral:       #D9866A;
+$green:       #4caf7d;
+$bg:          #f0f2f9;
+$surface:     #ffffff;
+$border:      #e4e8f5;
+$text-muted:  #8892b0;
+$text-dark:   #1A2060;
+
+// ─── Animación de entrada ─────────────────────────────────
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  70%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+// ─── Layout ───────────────────────────────────────────────
+.employee-dashboard {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  background: $bg;
+  min-height: 100vh;
+}
+
+// ─── Clase de entrada animada ─────────────────────────────
+.animate-in {
+  opacity: 0;
+  animation: fadeSlideUp 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+// ─── Welcome header ───────────────────────────────────────
+.welcome-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 28px;
+}
+
+.greeting-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: $text-muted;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.section-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: $text-dark;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.current-time {
+  font-size: 22px;
+  font-weight: 700;
+  color: $navy;
+  opacity: 0.35;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+// ─── Cards ────────────────────────────────────────────────
+.card {
+  background: $surface;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 2px 12px rgba(26, 32, 96, 0.07), 0 1px 3px rgba(0,0,0,0.04);
+  margin-bottom: 20px;
+  border: 1px solid $border;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 6px 24px rgba(26, 32, 96, 0.11);
+    transform: translateY(-1px);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: $text-dark;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin: 0;
+}
+
+// ─── Status card ─────────────────────────────────────────
+.status-card {
+  background: linear-gradient(135deg, $navy 0%, $navy-light 100%);
+  border: none;
+  color: white;
+
+  &:hover {
+    box-shadow: 0 8px 32px rgba(26, 32, 96, 0.28);
+  }
+}
+
+.status-card-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.status-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+// ─── Dot indicador ───────────────────────────────────────
+.status-indicator-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-dot {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  flex-shrink: 0;
+
+  &.active {
+    background: $green;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: $green;
+      animation: pulse-ring 1.8s ease-out infinite;
+    }
+  }
+}
+
+.status-label {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: rgba(255,255,255,0.45);
+
+  &.inside  { color: $green; }
+  &.outside { color: rgba(255,255,255,0.55); }
+}
+
+// ─── Último fichaje ───────────────────────────────────────
+.last-clock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.meta-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+
+.meta-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+}
+
+// ─── Botones ─────────────────────────────────────────────
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  white-space: nowrap;
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.btn-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.btn-primary {
+  background: white;
+  color: $navy;
+
+  &:hover {
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+  }
+}
+
+.btn-danger {
+  background: $coral;
+  color: white;
+
+  &:hover {
+    background: darken($coral, 8%);
+    box-shadow: 0 4px 16px rgba(217, 134, 106, 0.4);
+    transform: translateY(-1px);
+  }
+}
+
+// ─── Turno actual ─────────────────────────────────────────
+.turno-card {
+  .card-header { margin-bottom: 24px; }
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+
+  &.badge-active {
+    background: rgba(76, 175, 125, 0.12);
+    color: darken($green, 8%);
+  }
+
+  &.badge-inactive {
+    background: rgba(217, 134, 106, 0.1);
+    color: $coral;
+  }
+}
+
+.turno-times {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.turno-time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  background: #f4f6fb;
+  border-radius: 12px;
+  padding: 18px 12px;
+}
+
+.time-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $text-muted;
+}
+
+.time-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: $navy;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.time-date {
+  font-size: 12px;
+  color: $text-muted;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.turno-divider {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: $text-muted;
+  flex-shrink: 0;
+}
+
+.turno-line {
+  width: 20px;
+  height: 1px;
+  background: $border;
+}
+
+.turno-arrow {
+  font-size: 14px;
+}
+
+// ─── Lista de turnos ─────────────────────────────────────
+.turnos-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: $text-muted;
+  background: $bg;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.turnos-empty {
+  text-align: center;
+  padding: 32px;
+  color: $text-muted;
+  font-size: 14px;
+}
+
+.turnos-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.turno-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: $bg;
+  border: 1px solid transparent;
+  cursor: default;
+  opacity: 0;
+  animation: fadeSlideUp 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  transition: background 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    background: white;
+    border-color: $border;
+  }
+}
+
+.turno-item-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: $navy;
+  color: white;
+  flex-shrink: 0;
+}
+
+.turno-day {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.turno-month {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+.turno-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.turno-item-hours {
+  font-size: 14px;
+  font-weight: 700;
+  color: $text-dark;
+  font-variant-numeric: tabular-nums;
+}
+
+.turno-item-day-name {
+  font-size: 12px;
+  color: $text-muted;
+  text-transform: capitalize;
+}
+
+.turno-item-pill {
+  width: 4px;
+  height: 24px;
+  border-radius: 2px;
+  background: $border;
+  flex-shrink: 0;
+}
+
+// ─── Responsive ──────────────────────────────────────────
+@media (max-width: 560px) {
+  .employee-dashboard { padding: 20px 16px; }
+  .welcome-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .status-card-inner { flex-direction: column; align-items: flex-start; }
+  .turno-times { flex-direction: column; }
+  .turno-time-block { width: 100%; }
+}
+
+
+// calendaarrrrrr responsive
+/* Tamaño del texto dentro de los días */
+:host ::ng-deep {
+.fc-daygrid-day-number {
+  font-size: 12px;
+}
+.fc-event-time {
+  display: none !important;
+}
+/* Eventos más compactos */
+.fc-daygrid-event {
+  font-size: 10px;
+  padding: 2px 4px;
+  border-radius: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Ajustar altura de las celdas en móvil */
+@media (max-width: 600px) {
+  .fc-daygrid-day-frame {
+    min-height: 60px !important;
+  }
+
+  .fc-daygrid-event {
+    font-size: 9px;
+    padding: 1px 3px;
+  }
+
+  .fc-toolbar-title {
+    font-size: 16px;
+  }
+
+  .fc-button {
+    padding: 2px 6px;
+    font-size: 10px;
+  }
+  .fc-event-time {
+  display: none !important;
+}
+}
+}

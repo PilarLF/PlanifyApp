@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap');
+
+// Paleta corporativa
+$color-primary: #1a1c37;
+$color-green: #67A776;
+$color-pink: #D9866A;
+
+// Tonos derivados
+$color-primary-light: lighten($color-primary, 10%);
+$color-primary-dark: darken($color-primary, 10%);
+
+// Tipografía
+$font-main: 'Nunito sans', sans-serif;
