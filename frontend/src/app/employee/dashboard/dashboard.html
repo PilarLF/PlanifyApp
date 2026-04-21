@@ -1,5 +1,7 @@
 <div class="employee-dashboard">
-
+<div *ngIf="mensajeError" class="error-box">
+  {{ mensajeError }}
+</div>
   <!-- Header de bienvenida -->
   <div class="welcome-header animate-in" style="--delay: 0s">
     <div class="welcome-text">

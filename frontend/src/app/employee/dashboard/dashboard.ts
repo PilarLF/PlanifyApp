@@ -18,6 +18,7 @@ export class Dashboard implements OnInit, OnDestroy {
   turnoActual: any = null;
   status: any = null;
   misTurnos: any[] = [];
+  mensajeError: string | null = null;
 
   calendarOptions: any = {
     initialView: 'dayGridMonth',
@@ -119,7 +120,8 @@ export class Dashboard implements OnInit, OnDestroy {
   /* ---------- Fichajes ---------- */
   clockIn() {
     if (!this.turnoActual) {
-      alert("No tienes turno activo ahora mismo");
+      this.mensajeError = "No tienes turno activo ahora mismo";
+      setTimeout(() => this.mensajeError = null, 3000);
       return;
     }
 

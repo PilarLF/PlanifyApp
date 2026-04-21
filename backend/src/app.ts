@@ -17,13 +17,13 @@ const loginLimiter = rateLimit({
 
 const app = express();
 
-app.use(loginLimiter);
+
 app.use(cors({
   origin: process.env.FRONTEND_URL,
   credentials: true
 }));
 app.use(express.json());
-
+app.use('/api/auth/login',loginLimiter);
 app.use('/api/auth', authRoutes);
 app.use('/api/horarios', horariosRoutes);
 app.use('/api/fichajes', fichajesRoutes);

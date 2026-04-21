@@ -8,7 +8,7 @@ import { AuthRequest } from '../middleware/auth.middleware';
 
 
 export async function clockIn(req: AuthRequest, res: Response) {
-  const employee_id = req.user!.id;
+  const employee_id = req.user!.sub;
   const { schedule_id } = req.body;
   const now = new Date();
 
@@ -74,7 +74,7 @@ export async function clockIn(req: AuthRequest, res: Response) {
 // 2. Clock-out
 // =========================
 export async function clockOut(req: AuthRequest, res: Response) {
-  const employee_id = req.user!.id;
+  const employee_id = req.user!.sub;
   const now = new Date();
 
   const client = await pool.connect();
@@ -126,10 +126,9 @@ export async function clockOut(req: AuthRequest, res: Response) {
 // =========================
 // 3. Status del fichaje
 // =========================
-
 export async function getStatus(req: AuthRequest, res: Response) {
   console.log('getStatus llamado, user:', req.user); 
-  const employee_id = req.user!.id;
+  const employee_id = req.user!.sub;
 
   try {
     // Buscar fichaje abierto
@@ -150,22 +149,35 @@ export async function getStatus(req: AuthRequest, res: Response) {
       [employee_id]
     );
 
+    // Obtener nombre del empleado
+    const userRes = await pool.query(
+      `SELECT nombre
+       FROM usuarios
+       WHERE id = $1`,
+      [employee_id]
+    );
+
+    const employeeName = userRes.rows[0]?.nombre || null;
+
     return res.json({
       isClockedIn: abierto.rows.length > 0,
       lastClockIn: abierto.rows[0]?.clock_in || null,
-      lastClockOut: ultimo.rows[0]?.clock_out || null
+      lastClockOut: ultimo.rows[0]?.clock_out || null,
+      employeeName
     });
 
   } catch (error) {
+    console.error("ERROR getStatus:", error);
     return res.status(500).json({ message: "Error en el servidor" });
   }
 }
+
 
 // =========================
 // 4. Turno actual: determinarlo para poder fichar 
 // =========================
 export async function getTurnoActual(req: AuthRequest, res: Response) {
-  const employee_id = req.user!.id;
+  const employee_id = req.user!.sub;
   const now = new Date();
 
   try {
@@ -195,7 +207,7 @@ export async function getTurnoActual(req: AuthRequest, res: Response) {
 // 5. Listado de los turnos de un empleado
 // =========================
 export async function getMisTurnos(req: AuthRequest, res: Response) {
-  const employee_id = req.user!.id;
+  const employee_id = req.user!.sub;
 
   try {
     const result = await pool.query(

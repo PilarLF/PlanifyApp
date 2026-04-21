@@ -484,3 +484,12 @@ $text-dark:   #1A2060;
 }
 }
 }
+.error-box {
+  background: #ffdddd;
+  color: #a30000;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  border: 1px solid #ffb3b3;
+  font-weight: 500;
+}
