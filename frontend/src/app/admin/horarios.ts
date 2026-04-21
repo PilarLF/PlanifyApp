@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/enivonment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Horarios {
-  private api = 'http://localhost:3000/api/horarios';
+  // private api = 'http://localhost:3000/api/horarios';
+  private api = `${environment.apiUrl}/api/horarios`;
 
   constructor(private http: HttpClient) {}
 

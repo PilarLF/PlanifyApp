@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/enivonment';
 
 @Injectable({ providedIn: 'root' })
 export class FichajesService {
 
-  private api = 'http://localhost:3000/api/fichajes';
+  // private api = 'http://localhost:3000/api/fichajes';
+  private api = `${environment.apiUrl}/api/fichajes`;
 
   constructor(private http: HttpClient) {}
 
