@@ -1,4 +1,8 @@
 <h2>Panel de administración</h2>
+<div class="admin-header">
+  <h1>Panel de administración</h1>
+  <p class="subtitle">Gestiona turnos, empleados y horarios</p>
+</div>
 
 <!-- FORMULARIO -->
 <h3>Crear turno</h3>
@@ -8,7 +12,7 @@
   <select [(ngModel)]="form.employee_id" name="employee_id" required>
     <option value="">Selecciona un empleado</option>
     <option *ngFor="let emp of empleados" [value]="emp.id">
-      {{ emp.name }} ({{ emp.email }})
+      {{ emp.nombre }} ({{ emp.email }})
     </option>
   </select>
 
@@ -18,7 +22,7 @@
   <label>Fin</label>
   <input type="datetime-local" [(ngModel)]="form.end_time" name="end_time" required />
 
-  <button type="submit">Crear turno</button>
+  <button class="btn-primary" type="submit">Crear turno</button>
 </form>
 
 <p *ngIf="mensaje" style="color: green">{{ mensaje }}</p>
@@ -29,7 +33,7 @@
 <!-- LISTADO -->
 <h3>Turnos existentes</h3>
 
-<table>
+<table class="turnos-table">
   <tr>
     <th>ID</th>
     <th>Empleado</th>
@@ -44,8 +48,8 @@
     <td>{{ h.start_time }}</td>
     <td>{{ h.end_time }}</td>
     <td>
-      <button (click)="editar(h)">Editar</button>
-      <button (click)="borrar(h.id)">Eliminar</button>
+      <button class="btn-primary" (click)="editar(h)">Editar</button>
+      <button class="btn-delete" (click)="borrar(h.id)">Eliminar</button>
     </td>
   </tr>
 </table>
@@ -60,6 +64,6 @@
   <label>Fin</label>
   <input type="datetime-local" [(ngModel)]="editando.end_time" />
 
-  <button (click)="guardarEdicion()">Guardar</button>
-  <button (click)="editando = null">Cancelar</button>
+  <button class="btn-primary" (click)="guardarEdicion()">Guardar</button>
+  <button class="btn-small" (click)="editando = null">Cancelar</button>
 </div>

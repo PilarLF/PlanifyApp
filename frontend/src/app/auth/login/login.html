@@ -1,16 +1,30 @@
 <div class="login-container">
-  <h2>Iniciar sesión</h2>
+  <div class="login-header">
+    <img src="assets/img/logo2.png" alt="Planify Logo" class="login-logo">
+    <h1>Bienvenido a PlanifyApp</h1>
+    <p>Inicia sesión para gestionar tus turnos y horarios</p>
+  </div>
+  <div class="auth-card">
+    <h2>Iniciar sesión</h2>
 
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-    <label>Email</label>
-    <input type="email" formControlName="email">
+      <label>Email</label>
+      <input type="email" formControlName="email">
 
-    <label>Contraseña</label>
-    <input type="password" formControlName="password">
+      <label>Contraseña</label>
+      <input type="password" formControlName="password">
 
-    <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+      <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
 
-    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
-  </form>
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+
+        <p class="register-link">
+      ¿No tienes cuenta?
+      <!-- <a routerLink="/auth/register">Regístrate aquí</a> -->
+       
+    </p><a routerLink="/auth/register">Regístrate aquí</a>
+
+  </div>
 </div>

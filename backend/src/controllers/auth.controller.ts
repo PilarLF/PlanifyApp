@@ -55,9 +55,9 @@ export async function register(req: Request, res: Response) {
 
     // 3. Insertar usuario
     const result = await pool.query(
-      `INSERT INTO usuarios (nombre, email, password_hash, role)
+      `INSERT INTO usuarios ( nombre as name, email, password, role)
        VALUES ($1, $2, $3, $4)
-       RETURNING id, nombre, email, role`,
+       RETURNING id, nombre as name, email, role`,
       [name, email, passwordHash, role]
     );
 
@@ -72,7 +72,7 @@ export async function register(req: Request, res: Response) {
 export async function getEmployees(req: Request, res: Response) {
   try {
     const result = await pool.query(
-      "SELECT id, nombre, email FROM usuarios WHERE role = 'EMPLOYEE'"
+      "SELECT id, nombre as name, email FROM usuarios WHERE role = 'EMPLOYEE'"
     );
     return res.json(result.rows);
   } catch (error) {

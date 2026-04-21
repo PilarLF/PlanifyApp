@@ -62,25 +62,54 @@ export async function createHorario(req: AuthRequest, res: Response) {
     // ==========================================
     // VALIDACIÓN 3: Máximo 11 días consecutivos
     // ==========================================
+    // Objetivo: contar la racha de días consecutivos que terminaría en 'start' si añadimos este turno.
+    // Tomamos las fechas distintas anteriores (hasta 11) y comprobamos día a día.
 
-    const consecutivos = await pool.query(
-      `SELECT DATE(start_time) AS dia
+    // Fecha sin hora (solo día) para comparar
+    const startDateOnly = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+
+    const consecutivosRes = await pool.query(
+      `SELECT DISTINCT DATE(start_time) AS dia
        FROM horarios
        WHERE employee_id = $1
+         AND DATE(start_time) <= $2
        ORDER BY dia DESC
        LIMIT 11`,
-      [employee_id]
+      [employee_id, startDateOnly]
     );
 
-    if (consecutivos.rows.length === 11) {
-      const dias = consecutivos.rows.map(r => new Date(r.dia).toDateString());
-      const nuevoDia = start.toDateString();
+    // Construir un Set de strings 'YYYY-MM-DD' con las fechas existentes
+    const existingDays = new Set<string>(
+      consecutivosRes.rows
+        .map((r: any) => {
+          const d = new Date(r.dia);
+          // normalizar a YYYY-MM-DD
+          return d.toISOString().slice(0, 10);
+        })
+    );
 
-      if (!dias.includes(nuevoDia)) {
-        return res.status(400).json({
-          message: "No puede trabajar más de 11 días consecutivos"
-        });
+    // Simulamos que el nuevo día está presente (porque vamos a insertarlo)
+    const newDayKey = startDateOnly.toISOString().slice(0, 10);
+    // No hace falta añadir si ya existe, pero lo añadimos para la lógica
+    existingDays.add(newDayKey);
+
+    // Contar racha consecutiva hacia atrás desde newDayKey
+    let consecutiveCount = 0;
+    for (let i = 0; i < 12; i++) { // comprobamos hasta 12 para detectar >11
+      const checkDate = new Date(startDateOnly);
+      checkDate.setDate(startDateOnly.getDate() - i);
+      const key = checkDate.toISOString().slice(0, 10);
+      if (existingDays.has(key)) {
+        consecutiveCount++;
+      } else {
+        break; // racha interrumpida
       }
+    }
+
+    if (consecutiveCount > 11) {
+      return res.status(400).json({
+        message: "No puede trabajar más de 11 días consecutivos"
+      });
     }
 
     // ============================
@@ -101,6 +130,7 @@ export async function createHorario(req: AuthRequest, res: Response) {
     return res.status(500).json({ message: "Error en el servidor" });
   }
 }
+
 
 
 // =========================

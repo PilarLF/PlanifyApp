@@ -1,0 +1,39 @@
+<p>register works!</p>
+<div class="login-container">
+  <div class="login-header">
+    <img src="assets/img/logo2.png" alt="Planify Logo" class="login-logo">
+    <h1>Crear cuenta</h1>
+    <p>Regístrate para acceder a PlanifyApp</p>
+  </div>
+
+  <div class="auth-card">
+    <h2>Registro</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+      <label>Nombre</label>
+      <input type="text" formControlName="name">
+
+      <label>Email</label>
+      <input type="email" formControlName="email">
+
+      <label>Contraseña</label>
+      <input type="password" formControlName="password">
+
+      <label>Rol</label>
+      <select formControlName="role">
+        <option value="EMPLOYEE">Empleado</option>
+        <option value="ADMIN">Administrador</option>
+      </select>
+
+      <button type="submit" [disabled]="registerForm.invalid">Crear cuenta</button>
+
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+
+    <p class="register-link">
+      ¿Ya tienes cuenta?
+      <a routerLink="/auth/login">Iniciar sesión</a>
+    </p>
+  </div>
+</div>

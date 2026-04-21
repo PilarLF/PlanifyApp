@@ -1,17 +1,17 @@
 <h2>Gestión de turnos</h2>
 
-<!-- FORMULARIO -->
-<form (ngSubmit)="crearHorario()">
-  <label>Empleado (ID)</label>
-  <input type="number" [(ngModel)]="form.employee_id" name="employee_id" required />
+<!-- FORMULARIO CREAR -->
+<form (ngSubmit)="crearHorario()" #crearForm="ngForm">
+  <label for="employee_id">Empleado (ID)</label>
+  <input id="employee_id" type="number" [(ngModel)]="form.employee_id" name="employee_id" required />
 
-  <label>Inicio</label>
-  <input type="datetime-local" [(ngModel)]="form.start_time" name="start_time" required />
+  <label for="start_time">Inicio</label>
+  <input id="start_time" type="datetime-local" [(ngModel)]="form.start_time" name="start_time" required />
 
-  <label>Fin</label>
-  <input type="datetime-local" [(ngModel)]="form.end_time" name="end_time" required />
+  <label for="end_time">Fin</label>
+  <input id="end_time" type="datetime-local" [(ngModel)]="form.end_time" name="end_time" required />
 
-  <button type="submit">Crear turno</button>
+  <button type="submit" [disabled]="crearForm.invalid">Crear turno</button>
 </form>
 
 <p *ngIf="mensaje" style="color: green">{{ mensaje }}</p>
@@ -19,41 +19,50 @@
 
 <hr />
 
-<!-- LISTADO -->
+<!-- LISTADO (tabla) -->
 <h3>Turnos existentes</h3>
 
 <table>
-  <tr>
-    <th>ID</th>
-    <th>Empleado</th>
-    <th>Inicio</th>
-    <th>Fin</th>
-    <th>Acciones</th>
-  </tr>
-
-  <tr *ngFor="let h of horarios">
-    <td>{{ h.id }}</td>
-    <td>{{ h.employee_id }}</td>
-    <td>{{ h.start_time }}</td>
-    <td>{{ h.end_time }}</td>
-    <td>
-      <button (click)="editar(h)">Editar</button>
-      <button (click)="borrar(h.id)">Eliminar</button>
-    </td>
-  </tr>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Empleado</th>
+      <th>Inicio</th>
+      <th>Fin</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let h of horarios">
+      <td>{{ h.id }}</td>
+      <td>{{ h.employee_id }}</td>
+      <td>{{ h.start_time | date:'short' }}</td>
+      <td>{{ h.end_time | date:'short' }}</td>
+      <td>
+        <button type="button" (click)="editar(h)">Editar</button>
+        <button type="button" (click)="borrar(h.id)">Eliminar</button>
+      </td>
+    </tr>
+    <tr *ngIf="horarios.length === 0">
+      <td colspan="5">No hay turnos</td>
+    </tr>
+  </tbody>
 </table>
 
-///formulario de edicion: se muestra al seleccionar un turno para editar.
-<div *ngIf="editando" class="modal-edicion">
+<!-- FORMULARIO DE EDICIÓN -->
+<div *ngIf="showEditForm && editando" class="modal-edicion">
   <h3>Editar turno</h3>
+  <form (ngSubmit)="guardarEdicion()" #editForm="ngForm">
+    <label for="edit_employee_id">Empleado (ID)</label>
+    <input id="edit_employee_id" type="number" [(ngModel)]="editando.employee_id" name="employee_id" required />
 
-  <label>Inicio</label>
-  <input type="datetime-local" [(ngModel)]="editando.start_time" />
+    <label for="edit_start_time">Inicio</label>
+    <input id="edit_start_time" type="datetime-local" [(ngModel)]="editando.start_time" name="start_time" required />
 
-  <label>Fin</label>
-  <input type="datetime-local" [(ngModel)]="editando.end_time" />
+    <label for="edit_end_time">Fin</label>
+    <input id="edit_end_time" type="datetime-local" [(ngModel)]="editando.end_time" name="end_time" required />
 
-  <button (click)="guardarEdicion()">Guardar</button>
-  <button (click)="editando = null">Cancelar</button>
+    <button type="submit" [disabled]="editForm.invalid">Guardar</button>
+    <button type="button" (click)="cancelEdit()">Cancelar</button>
+  </form>
 </div>
-
