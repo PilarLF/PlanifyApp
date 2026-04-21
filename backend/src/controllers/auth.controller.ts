@@ -2,11 +2,16 @@ import { Request, Response } from 'express';
 import { pool } from '../config/db';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { validationResult } from 'express-validator';
 
 // ============================
 // LOGIN
 // ============================
 export async function login(req: Request, res: Response) {
+  const errors = validationResult(req); // Validación de entrada
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const { email, password } = req.body;
 
   try {
@@ -56,6 +61,11 @@ export async function login(req: Request, res: Response) {
 // REGISTRO (solo EMPLOYEE)
 // ============================
 export async function register(req: Request, res: Response) {
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const { name, email, password } = req.body;
 
   try {
