@@ -1,16 +1,14 @@
 import { Router } from 'express';
-import { getEmployees, login, register } from '../controllers/auth.controller';
-import { authMiddleware, requireRole } from '../middleware/auth.middleware';
+import { login, register, getEmployees } from '../controllers/auth.controller';
+import { authMiddleware } from '../middleware/auth.middleware';
+import { requireAdmin } from '../middleware/requireAdmin';
+
 const router = Router();
 
 router.post('/login', login);
 router.post('/register', register);
 
-//listar empleados
-router.get(
-  '/employees',
-  authMiddleware,
-  requireRole('ADMIN'),
-  getEmployees
-);
+// Solo admin puede ver empleados
+router.get('/employees', authMiddleware, requireAdmin, getEmployees);
+
 export default router;

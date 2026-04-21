@@ -1,7 +1,14 @@
 import { Router } from 'express';
-import { authMiddleware, requireRole } from '../middleware/auth.middleware';
-import { createHorario, getHorariosByEmpleado, getAllHorarios, updateHorario, deleteHorario } from '../controllers/horarios.controller';
-import { getEmployees } from '../controllers/auth.controller';
+import { authMiddleware } from '../middleware/auth.middleware';
+import { requireAdmin } from '../middleware/requireAdmin';
+
+import {
+  createHorario,
+  getHorariosByEmpleado,
+  getAllHorarios,
+  updateHorario,
+  deleteHorario
+} from '../controllers/horarios.controller';
 
 const router = Router();
 
@@ -9,7 +16,7 @@ const router = Router();
 router.post(
   '/',
   authMiddleware,
-  requireRole('ADMIN'),
+  requireAdmin,
   createHorario
 );
 
@@ -20,27 +27,28 @@ router.get(
   getHorariosByEmpleado
 );
 
-// obtener todos los horarios, borrarlos y editarlos (solo ADMIN)
+// Obtener todos los horarios (solo ADMIN)
 router.get(
-  '/',  
+  '/',
   authMiddleware,
-  requireRole('ADMIN'),
-  getAllHorarios);
+  requireAdmin,
+  getAllHorarios
+);
 
+// Editar un horario (solo ADMIN)
 router.put(
   '/:id',
   authMiddleware,
-  requireRole('ADMIN'),
+  requireAdmin,
   updateHorario
 );
 
+// Eliminar un horario (solo ADMIN)
 router.delete(
   '/:id',
   authMiddleware,
-  requireRole('ADMIN'),
+  requireAdmin,
   deleteHorario
 );
-
-
 
 export default router;

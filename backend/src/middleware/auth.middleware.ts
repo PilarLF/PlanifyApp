@@ -1,30 +1,37 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { pool } from '../config/db';
 
 export interface AuthRequest extends Request {
-  user?: { id: number; role: string };
+  user?: any;
 }
 
-export function authMiddleware(req: AuthRequest, res: Response, next: NextFunction) {
+export async function authMiddleware(req: AuthRequest, res: Response, next: NextFunction) {
   const header = req.headers['authorization'];
   if (!header) return res.status(401).json({ message: "Token requerido" });
 
   const token = header.split(" ")[1];
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
-    req.user = decoded;
+    const payload: any = jwt.verify(token, process.env.JWT_SECRET!);
+
+    const result = await pool.query(
+      "SELECT token_version FROM usuarios WHERE id = $1",
+      [payload.sub]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(401).json({ message: "Usuario no encontrado" });
+    }
+
+    if (result.rows[0].token_version !== payload.tokenVersion) {
+      return res.status(401).json({ message: "Token revocado" });
+    }
+
+    req.user = payload;
     next();
-  } catch {
+
+  } catch (err) {
     return res.status(403).json({ message: "Token inválido" });
   }
-}
-
-export function requireRole(role: string) {
-  return (req: AuthRequest, res: Response, next: NextFunction) => {
-    if (req.user?.role !== role) {
-      return res.status(403).json({ message: "Acceso denegado" });
-    }
-    next();
-  };
 }

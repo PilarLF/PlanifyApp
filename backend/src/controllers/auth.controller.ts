@@ -2,80 +2,100 @@ import { Request, Response } from 'express';
 import { pool } from '../config/db';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { AuthRequest } from '../middleware/auth.middleware';
 
+// ============================
+// LOGIN
+// ============================
 export async function login(req: Request, res: Response) {
   const { email, password } = req.body;
 
   try {
-    //buscamos al usuario por email y comprobamos que exista
-    const result = await pool.query("SELECT * FROM usuarios WHERE email = $1", [email]);
+    const result = await pool.query(
+      "SELECT * FROM usuarios WHERE email = $1",
+      [email]
+    );
 
-    if (result.rows.length === 0)
+    if (result.rows.length === 0) {
       return res.status(404).json({ message: "Usuario no encontrado" });
+    }
 
     const user = result.rows[0];
 
-    //se comprueba que la contraseña sea correcta
     const valid = await bcrypt.compare(password, user.password_hash);
-    if (!valid) return res.status(401).json({ message: "Contraseña incorrecta" });
+    if (!valid) {
+      return res.status(401).json({ message: "Contraseña incorrecta" });
+    }
 
-    //si todo es correcto, se genera un token JWT con el id y rol del usuario
-    const token = jwt.sign(
-      { id: user.id, role: user.role },
-      process.env.JWT_SECRET!,
-      { expiresIn: "8h" }
-    );
+    const payload = {
+      sub: user.id,
+      role: user.role,
+      tokenVersion: user.token_version
+    };
 
-    //se devuelve el token y el rol del usuario
-    res.json({ token, role: user.role });
+    const token = jwt.sign(payload, process.env.JWT_SECRET!, {
+      expiresIn: "8h"
+    });
+
+    return res.json({
+      token,
+      user: {
+        id: user.id,
+        name: user.nombre,
+        email: user.email,
+        role: user.role
+      }
+    });
 
   } catch (err) {
-    res.status(500).json({ message: "Error en el servidor" });
+    console.error(err);
+    return res.status(500).json({ message: "Error en el servidor" });
   }
 }
 
-
+// ============================
+// REGISTRO (solo EMPLOYEE)
+// ============================
 export async function register(req: Request, res: Response) {
-  const { name, email, password, role } = req.body;
+  const { name, email, password } = req.body;
 
   try {
-    // 1. Comprobar si el email ya existe
     const existing = await pool.query(
-      'SELECT id FROM usuarios WHERE email = $1',
+      "SELECT id FROM usuarios WHERE email = $1",
       [email]
     );
 
     if (existing.rows.length > 0) {
-      return res.status(400).json({ message: 'El email ya está registrado' });
+      return res.status(400).json({ message: "El email ya está registrado" });
     }
 
-    // 2. Hashear la contraseña
     const passwordHash = await bcrypt.hash(password, 10);
 
-    // 3. Insertar usuario
     const result = await pool.query(
-      `INSERT INTO usuarios ( nombre as name, email, password, role)
-       VALUES ($1, $2, $3, $4)
-       RETURNING id, nombre as name, email, role`,
-      [name, email, passwordHash, role]
+      `INSERT INTO usuarios (nombre, email, password_hash, role, token_version)
+       VALUES ($1, $2, $3, 'EMPLOYEE', 0)
+       RETURNING id, nombre AS name, email, role`,
+      [name, email, passwordHash]
     );
 
     return res.status(201).json(result.rows[0]);
 
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Error en el servidor' });
+    return res.status(500).json({ message: "Error en el servidor" });
   }
 }
 
+// ============================
+// LISTAR EMPLEADOS
+// ============================
 export async function getEmployees(req: Request, res: Response) {
   try {
     const result = await pool.query(
-      "SELECT id, nombre as name, email FROM usuarios WHERE role = 'EMPLOYEE'"
+      "SELECT id, nombre AS name, email FROM usuarios WHERE role = 'EMPLOYEE'"
     );
     return res.json(result.rows);
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ message: "Error en el servidor" });
   }
 }
