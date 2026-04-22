@@ -26,7 +26,7 @@ export async function login(req: Request, res: Response) {
 
     const user = result.rows[0];
 
-    const valid = await bcrypt.compare(password, user.password_hash);
+    const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
       return res.status(401).json({ message: "Contraseña incorrecta" });
     }
@@ -45,7 +45,7 @@ export async function login(req: Request, res: Response) {
       token,
       user: {
         id: user.id,
-        name: user.nombre,
+        name: user.name,
         email: user.email,
         role: user.role
       }
@@ -81,7 +81,7 @@ export async function register(req: Request, res: Response) {
     const passwordHash = await bcrypt.hash(password, 10);
 
     const result = await pool.query(
-      `INSERT INTO usuarios (nombre, email, password_hash, role, token_version)
+      `INSERT INTO usuarios (name, email, password, role)
        VALUES ($1, $2, $3, 'EMPLOYEE', 0)
        RETURNING id, nombre AS name, email, role`,
       [name, email, passwordHash]

@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "@types/morgan": "^1.9.10",
     "express-rate-limit": "^8.3.2",
-    "express-validator": "^7.3.2"
+    "express-validator": "^7.3.2",
+    "morgan": "^1.10.1"
   }
 }
