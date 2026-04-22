@@ -27,8 +27,6 @@ app.use(cors({
   credentials: true
 }));
 
-// IMPORTANTE: Manejar el preflight de forma manual si lo anterior falla
-app.options('/*', cors());
 app.use(express.json());
 
 // 2. BORRA la línea de /api/auth/login que tenías aquí arriba.
