@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://planifyapp.onrender.com/'
+  apiUrl: 'https://planifyapp.onrender.com'
 };
