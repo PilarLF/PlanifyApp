@@ -12,7 +12,7 @@
   <select [(ngModel)]="form.employee_id" name="employee_id" required>
     <option value="">Selecciona un empleado</option>
     <option *ngFor="let emp of empleados" [value]="emp.id">
-      {{ emp.nombre }} ({{ emp.email }})
+      {{ emp.name }} ({{ emp.email }})
     </option>
   </select>
 
