@@ -7,26 +7,26 @@ import { environment } from '../../environments/environment';
 })
 export class Horarios {
   // private api = 'http://localhost:3000/api/horarios';
-  private api = `${environment.apiUrl}/horarios`;
+  private apiUrl = `${environment.apiUrl}/horarios`;
 
   constructor(private http: HttpClient) {}
 
   getHorarios() {
-    return this.http.get(`${this.api}`);
+    return this.http.get(`${this.apiUrl}`);
   }
   getHorariosEmpleado(id:number) {
-    return this.http.get(`${this.api}/empleado/${id}`);
+    return this.http.get(`${this.apiUrl}/empleado/${id}`);
   }
 
   createHorario(data: any) {
-    return this.http.post(`${this.api}`, data);
+    return this.http.post(`${this.apiUrl}`, data);
   }
 
   updateHorario(id: string, data: any) {
-    return this.http.put(`${this.api}/${id}`, data);
+    return this.http.put(`${this.apiUrl}/${id}`, data);
   }
 
   deleteHorario(id: string) {
-    return this.http.delete(`${this.api}/${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`);
   } 
 }
