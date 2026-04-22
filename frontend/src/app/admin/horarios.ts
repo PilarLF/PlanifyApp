@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 })
 export class Horarios {
   // private api = 'http://localhost:3000/api/horarios';
-  private api = `${environment.apiUrl}/api/horarios`;
+  private api = `${environment.apiUrl}/horarios`;
 
   constructor(private http: HttpClient) {}
 

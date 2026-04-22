@@ -15,7 +15,7 @@ export interface User {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   // private apiUrl = 'http://localhost:3000/api/auth';
-  private apiUrl = `${environment.apiUrl}/api/auth`;
+  private apiUrl = `${environment.apiUrl}/auth`;
   private userSub = new BehaviorSubject<User | null>(null);
   user$ = this.userSub.asObservable();
 

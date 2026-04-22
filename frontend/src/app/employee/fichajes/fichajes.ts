@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 export class FichajesService {
 
   // private api = 'http://localhost:3000/api/fichajes';
-  private api = `${environment.apiUrl}/api/fichajes`;
+  private api = `${environment.apiUrl}/fichajes`;
 
   constructor(private http: HttpClient) {}
 
