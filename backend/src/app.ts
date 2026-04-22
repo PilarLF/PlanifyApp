@@ -19,13 +19,16 @@ const app = express();
 app.set('trust proxy', 1);
 
 // 1. Configuración de CORS mejorada
+// En app.ts (Backend)
 app.use(cors({
-  origin: [process.env.FRONTEND_URL as string, 'http://localhost:4200'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // ¡IMPORTANTE incluir OPTIONS!
+  origin: 'https://planifyapphrr.netlify.app', // Pon la URL de Netlify directa para probar
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 
+// IMPORTANTE: Manejar el preflight de forma manual si lo anterior falla
+app.options('*', cors());
 app.use(express.json());
 
 // 2. BORRA la línea de /api/auth/login que tenías aquí arriba.
