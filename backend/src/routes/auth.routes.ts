@@ -13,14 +13,14 @@ const loginLimiter = rateLimit({
 });
 // router.post('/login', login);
 // añado validacion:
-router.post(
-  '/login',
-  [
-    body('email').isEmail().withMessage('Email inválido'),
-    body('password').notEmpty().withMessage('La contraseña es obligatoria')
-  ],
-  login
-);
+// router.post(
+//   '/login',
+//   [
+//     body('email').isEmail().withMessage('Email inválido'),
+//     body('password').notEmpty().withMessage('La contraseña es obligatoria')
+//   ],
+//   login
+// );
 // router.post('/register', register);
 router.post(
   '/register',
