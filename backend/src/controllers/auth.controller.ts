@@ -83,7 +83,7 @@ export async function register(req: Request, res: Response) {
     const result = await pool.query(
       `INSERT INTO usuarios (name, email, password, role, token_version)
        VALUES ($1, $2, $3, 'EMPLOYEE', 0)
-       RETURNING id, nombre AS name, email, role`,
+       RETURNING id, name, email, role`,
       [name, email, passwordHash]
     );
 
@@ -101,7 +101,7 @@ export async function register(req: Request, res: Response) {
 export async function getEmployees(req: Request, res: Response) {
   try {
     const result = await pool.query(
-      "SELECT id, nombre AS name, email FROM usuarios WHERE role = 'EMPLOYEE'"
+      "SELECT id, name, email FROM usuarios WHERE role = 'EMPLOYEE'"
     );
     return res.json(result.rows);
   } catch (error) {

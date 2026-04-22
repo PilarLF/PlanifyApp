@@ -151,7 +151,7 @@ export async function getStatus(req: AuthRequest, res: Response) {
 
     // Obtener nombre del empleado
     const userRes = await pool.query(
-      `SELECT nombre
+      `SELECT name
        FROM usuarios
        WHERE id = $1`,
       [employee_id]
