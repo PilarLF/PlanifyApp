@@ -18,15 +18,19 @@ const loginLimiter = rateLimit({
 const app = express();
 app.set('trust proxy', 1);
 
+// 1. Configuración de CORS mejorada
 app.use(cors({
-  origin: 'https://planifyapphrr.netlify.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: [process.env.FRONTEND_URL as string, 'http://localhost:4200'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // ¡IMPORTANTE incluir OPTIONS!
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
+
 app.use(express.json());
-// app.use('/api/auth/login',loginLimiter);
+
+// 2. BORRA la línea de /api/auth/login que tenías aquí arriba.
+// Solo deja las rutas generales:
 app.use('/api/auth', authRoutes);
 app.use('/api/horarios', horariosRoutes);
 app.use('/api/fichajes', fichajesRoutes);
-
 export default app;

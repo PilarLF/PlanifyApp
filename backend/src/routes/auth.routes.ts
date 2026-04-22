@@ -36,7 +36,7 @@ router.post(
 router.get('/employees', authMiddleware, requireAdmin, getEmployees);
 router.post(
   '/login',
-  loginLimiter, // Añádelo aquí como middleware
+  loginLimiter, 
   [
     body('email').isEmail().withMessage('Email inválido'),
     body('password').notEmpty().withMessage('La contraseña es obligatoria')
