@@ -21,7 +21,7 @@ app.set('trust proxy', 1);
 // 1. Configuración de CORS mejorada
 // En app.ts (Backend)
 app.use(cors({
-  origin: 'https://planifyapphrr.netlify.app', // Pon la URL de Netlify directa para probar
+  origin: ['https://planifyapphrr.netlify.app', 'http://localhost:4200'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
