@@ -17,8 +17,11 @@ export async function clockIn(req: AuthRequest, res: Response) {
     await client.query('BEGIN');
 
     // Establecer variable de sesión para el trigger (solo válida en esta tx)
-    await client.query(`SET LOCAL "app.current_user" = $1`, [employee_id]);
-
+    // await client.query(`SET LOCAL "app.current_user" = $1`, [employee_id]);
+await client.query(
+  `SELECT set_config('app.current_user', $1::text, true)`,
+  [String(employee_id)]
+);
     // Validar que el turno existe y pertenece al empleado (usar la misma conexión)
     const turnoRes = await client.query(
       `SELECT * FROM horarios WHERE id = $1 AND employee_id = $2`,
@@ -82,7 +85,11 @@ export async function clockOut(req: AuthRequest, res: Response) {
     await client.query('BEGIN');
 
     // Establecer variable de sesión para el trigger
-    await client.query(`SET LOCAL "app.current_user" = $1`, [employee_id]);
+    // await client.query(`SET LOCAL "app.current_user" = $1`, [employee_id]);
+    await client.query(
+      `SELECT set_config('app.current_user', $1::text, true)`,
+      [String(employee_id)]
+    );
 
     // Buscar fichaje abierto en la misma conexión
     const abiertoRes = await client.query(

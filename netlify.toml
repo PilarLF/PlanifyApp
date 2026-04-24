@@ -1,4 +1,3 @@
-# /netlify.toml (en la RAÍZ del repo, no en frontend/)
 [build]
   base = "frontend"
   command = "npm run build -- --configuration production"
