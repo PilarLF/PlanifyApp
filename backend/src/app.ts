@@ -34,4 +34,5 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/horarios', horariosRoutes);
 app.use('/api/fichajes', fichajesRoutes);
+
 export default app;

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { authMiddleware } from '../middleware/auth.middleware';
-import { clockIn, clockOut, getStatus, getTurnoActual, getMisTurnos } from '../controllers/fichajes.controller';
+import { clockIn, clockOut, getStatus, getTurnoActual, getMisTurnos, getAllTurnos } from '../controllers/fichajes.controller';
 
 const router = Router();
 
@@ -38,4 +38,10 @@ router.get(
   getMisTurnos
 )
 
+//lista de todos los turnos para la pagina de admin
+router.get(
+  '/turnos',
+  authMiddleware,
+  getAllTurnos
+);
 export default router;

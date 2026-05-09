@@ -16,8 +16,6 @@ export async function clockIn(req: AuthRequest, res: Response) {
   try {
     await client.query('BEGIN');
 
-    // Establecer variable de sesión para el trigger (solo válida en esta tx)
-    // await client.query(`SET LOCAL "app.current_user" = $1`, [employee_id]);
 await client.query(
   `SELECT set_config('app.current_user', $1::text, true)`,
   [String(employee_id)]
@@ -83,9 +81,6 @@ export async function clockOut(req: AuthRequest, res: Response) {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
-
-    // Establecer variable de sesión para el trigger
-    // await client.query(`SET LOCAL "app.current_user" = $1`, [employee_id]);
     await client.query(
       `SELECT set_config('app.current_user', $1::text, true)`,
       [String(employee_id)]
@@ -232,3 +227,20 @@ export async function getMisTurnos(req: AuthRequest, res: Response) {
     return res.status(500).json({ message: "Error obteniendo turnos" });
   }
 }
+
+// =========================
+// 6. Listado de todos los turnos (para admin)
+// =========================    
+export async function getAllTurnos(req: AuthRequest, res: Response) {
+  try {
+    const result = await pool.query(
+      `SELECT h.*, u.name AS employee_name
+       FROM horarios h
+       JOIN usuarios u ON h.employee_id = u.id
+       ORDER BY h.start_time ASC`
+    );    
+    res.json(result.rows);
+  } catch (error) {
+    console.error("ERROR GET ALL TURNOS:", error);
+    res.status(500).json({ message: "Error obteniendo turnos" });
+  };}

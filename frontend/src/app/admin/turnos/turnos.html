@@ -1,0 +1,37 @@
+<h2>Turnos de todos los empleados</h2>
+
+<div class="filtros">
+  <select [(ngModel)]="filtroEmpleado" (change)="aplicarFiltros()">
+    <option value="">Todos los empleados</option>
+    <option *ngFor="let e of empleados" [value]="e">{{ e }}</option>
+  </select>
+
+  <input type="date" [(ngModel)]="filtroFecha" (change)="aplicarFiltros()">
+
+  <select [(ngModel)]="filtroEstado" (change)="aplicarFiltros()">
+    <option value="">Todos los estados</option>
+    <option value="activo">Activos</option>
+    <option value="finalizado">Finalizados</option>
+    <option value="futuro">Futuros</option>
+  </select>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Empleado</th>
+      <th>Inicio</th>
+      <th>Fin</th>
+      <th>Duración (h)</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let t of filtered">
+      <td>{{ t.employee_name }}</td>
+      <td>{{ t.start_time | date:'dd/MM/yyyy HH:mm' }}</td>
+      <td>{{ t.end_time | date:'dd/MM/yyyy HH:mm' }}</td>
+      <td>{{ t.duration_hours | number:'1.1-1' }}</td>
+    </tr>
+  </tbody>
+</table>

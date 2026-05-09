@@ -48,4 +48,9 @@ export class FichajesService {
     });
   }
 
+  //para obtener el listado de todos los turnos para la pagina de admin
+  getAllTurnos() {
+    return this.http.get<any[]>('/api/turnos');
+  }
+
 }
