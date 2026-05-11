@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { FichajesService } from '../../employee/fichajes/fichajes';
 
 @Component({
   selector: 'app-turnos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './turnos.html',
   styleUrls: ['./turnos.scss']
 })
