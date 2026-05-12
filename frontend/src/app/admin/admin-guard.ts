@@ -12,6 +12,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
   if (role === 'admin') return true;
 
   // Si no es admin, redirige al panel de empleado o a forbidden
+  console.log('Acceso denegado: se requiere rol de admin');
   router.navigateByUrl('/employee/dashboard');
   return false;
 };
