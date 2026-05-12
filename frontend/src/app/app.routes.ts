@@ -52,7 +52,7 @@ export const routes: Routes = [
     canActivate: [authGuard, adminGuard],
     children: [
       { path: 'dashboard', loadComponent: () => import('./admin/dashboard/dashboard').then(m => m.AdminDashboard) },
-    //   { path: 'turnos', loadComponent: () => import('./admin/horarios/admin-horarios').then(m => m.AdminHorarios) },
+      { path: 'turnos', loadComponent: () => import('./admin/turnos/turnos').then(m => m.Turnos) },
     //   { path: 'empleados', loadComponent: () => import('./admin/empleados/empleados.component').then(m => m.EmpleadosComponent) },
      ]
   },
