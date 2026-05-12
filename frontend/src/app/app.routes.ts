@@ -3,7 +3,6 @@ import { EmployeeLayoutComponent } from './employee/layout/employee-layout';
 import { AdminLayoutComponent } from './admin/layout/admin-layout';
 import { authGuard } from './auth/auth-guard';
 import { adminGuard } from './admin/admin-guard';
-
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
 
