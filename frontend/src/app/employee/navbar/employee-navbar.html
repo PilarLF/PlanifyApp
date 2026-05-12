@@ -1,4 +1,4 @@
-<nav class="navbar">
+<!-- <nav class="navbar">
   <div class="logo">
     <img src="assets/img/logo2.png" alt="Planify Logo">
   </div>
@@ -6,5 +6,53 @@
   <ul>
     <li><a routerLink="/employee/dashboard">Dashboard</a></li>
     <li><a (click)="logout()">Cerrar sesión</a></li>
+  </ul>
+</nav> -->
+<!--
+  employee/navbar/employee-navbar.html
+  WCAG 2.1: skip link, aria-label, aria-expanded hamburger,
+  aria-current gestionado por routerLinkActive
+-->
+
+<a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+
+<nav class="navbar" role="navigation" aria-label="Navegación principal del panel de empleado">
+  <div class="navbar__brand">
+    <a routerLink="/employee/dashboard" aria-label="Ir al panel de empleado — PlanifyApp">
+      <img src="assets/img/logo2.png" alt="PlanifyApp" class="navbar__logo" />
+    </a>
+  </div>
+
+  <button
+    type="button"
+    class="navbar__toggle"
+    [class.is-open]="menuAbierto"
+    (click)="toggleMenu()"
+    [attr.aria-expanded]="menuAbierto"
+    aria-controls="employee-nav-menu"
+    aria-label="{{ menuAbierto ? 'Cerrar menú' : 'Abrir menú de navegación' }}"
+  >
+    <span class="hamburger-bar" aria-hidden="true"></span>
+    <span class="hamburger-bar" aria-hidden="true"></span>
+    <span class="hamburger-bar" aria-hidden="true"></span>
+  </button>
+
+  <ul id="employee-nav-menu" class="navbar__menu" [class.is-open]="menuAbierto" role="list">
+    <li role="listitem">
+      <a
+        routerLink="/employee/dashboard"
+        routerLinkActive="active"
+        aria-label="Ver mi panel de empleado"
+        (click)="cerrarMenu()"
+      >Mi panel</a>
+    </li>
+    <li role="listitem">
+      <button
+        type="button"
+        class="navbar__logout"
+        (click)="logout()"
+        aria-label="Cerrar sesión"
+      >Cerrar sesión</button>
+    </li>
   </ul>
 </nav>

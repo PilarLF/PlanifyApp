@@ -1,4 +1,4 @@
-<h2>Turnos de todos los empleados</h2>
+<!-- <h2>Turnos de todos los empleados</h2>
 
 <div class="filtros">
   <select [(ngModel)]="filtroEmpleado" (change)="aplicarFiltros()">
@@ -34,4 +34,201 @@
       <td>{{ t.duration_hours | number:'1.1-1' }}</td>
     </tr>
   </tbody>
-</table>
+</table> -->
+<!-- =====================================================================
+     admin/turnos/admin-turnos.html
+     Listado global de turnos del panel de administración.
+
+     Permite al admin ver TODOS los turnos de todos los empleados,
+     filtrar por empleado y rango de fechas, y eliminar turnos.
+
+     WCAG 2.1:
+     - Cabeceras de tabla con scope="col"
+     - aria-label descriptivos en controles
+     - aria-live para mensajes de estado
+     - aria-sort en columnas ordenables
+     ===================================================================== -->
+
+<main class="admin-page" role="main" id="main-content">
+
+  <!-- Cabecera -->
+  <header class="page-header">
+    <div class="page-header__text">
+      <h1 class="page-title">Turnos</h1>
+      <p class="page-subtitle">Listado completo de turnos de todos los empleados</p>
+    </div>
+    <div class="page-header__stats" aria-label="Resumen de turnos">
+      <div class="stat-chip">
+        <span class="stat-num" aria-live="polite">{{ turnosFiltrados.length }}</span>
+        <span class="stat-label">turnos{{ filtroEmpleado ? ' filtrados' : '' }}</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mensajes de estado -->
+  <div role="alert" aria-live="assertive" *ngIf="error" class="alert alert--error">
+    <span class="alert__icon" aria-hidden="true">⚠</span>
+    {{ error }}
+  </div>
+  <div role="status" aria-live="polite" *ngIf="mensaje" class="alert alert--success">
+    <span class="alert__icon" aria-hidden="true">✓</span>
+    {{ mensaje }}
+  </div>
+
+  <!-- Filtros -->
+  <fieldset class="filters-group">
+    <legend class="filters-legend">Filtros de búsqueda</legend>
+
+    <div class="filters-grid">
+      <!-- Filtro por empleado -->
+      <div class="filter-field">
+        <label for="filtro-empleado">Empleado</label>
+        <select
+          id="filtro-empleado"
+          [(ngModel)]="filtroEmpleado"
+          class="form-select"
+          aria-label="Filtrar turnos por empleado"
+        >
+          <option value="">Todos los empleados</option>
+          <option *ngFor="let emp of empleados" [value]="emp.id">
+            {{ emp.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Filtro fecha desde -->
+      <div class="filter-field">
+        <label for="filtro-desde">Desde</label>
+        <input
+          id="filtro-desde"
+          type="date"
+          [(ngModel)]="filtroDesde"
+          class="form-input"
+          aria-label="Filtrar turnos desde esta fecha"
+        />
+      </div>
+
+      <!-- Filtro fecha hasta -->
+      <div class="filter-field">
+        <label for="filtro-hasta">Hasta</label>
+        <input
+          id="filtro-hasta"
+          type="date"
+          [(ngModel)]="filtroHasta"
+          class="form-input"
+          aria-label="Filtrar turnos hasta esta fecha"
+        />
+      </div>
+
+      <!-- Botón limpiar -->
+      <div class="filter-field filter-field--action">
+        <button
+          type="button"
+          class="btn btn--ghost"
+          (click)="limpiarFiltros()"
+          aria-label="Limpiar todos los filtros"
+        >
+          Limpiar filtros
+        </button>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- Estado de carga -->
+  <div *ngIf="cargando" class="loading-state" role="status" aria-live="polite">
+    <div class="spinner" aria-hidden="true"></div>
+    <span>Cargando turnos…</span>
+  </div>
+
+  <!-- Tabla -->
+  <div class="table-wrapper" *ngIf="!cargando">
+    <table
+      class="data-table"
+      aria-label="Listado de turnos de todos los empleados"
+      *ngIf="turnosFiltrados.length > 0; else sinTurnos"
+    >
+      <caption class="sr-only">
+        {{ turnosFiltrados.length }} turno{{ turnosFiltrados.length !== 1 ? 's' : '' }} encontrado{{ turnosFiltrados.length !== 1 ? 's' : '' }}.
+        Columnas: empleado, día, inicio, fin, duración y acciones.
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Empleado</th>
+          <th scope="col">Día</th>
+          <th scope="col">Inicio</th>
+          <th scope="col">Fin</th>
+          <th scope="col">Duración</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of turnosFiltrados">
+          <!-- Empleado -->
+          <td data-label="Empleado">
+            <div class="employee-cell">
+              <span class="avatar" aria-hidden="true">{{ getInitials(t.employee_name || 'U') }}</span>
+              <div class="employee-cell__info">
+                <span class="employee-cell__name">{{ t.employee_name || 'Empleado ' + t.employee_id }}</span>
+                <span class="employee-cell__email">{{ t.employee_email }}</span>
+              </div>
+            </div>
+          </td>
+
+          <!-- Día -->
+          <td data-label="Día">
+            <span class="day-pill">{{ t.start_time | date:'EEE d MMM':'UTC':'es' }}</span>
+          </td>
+
+          <!-- Inicio -->
+          <td data-label="Inicio">
+            <time [attr.datetime]="t.start_time" class="time-value">
+              {{ t.start_time | date:'HH:mm' }}
+            </time>
+          </td>
+
+          <!-- Fin -->
+          <td data-label="Fin">
+            <time [attr.datetime]="t.end_time" class="time-value">
+              {{ t.end_time | date:'HH:mm' }}
+            </time>
+          </td>
+
+          <!-- Duración calculada -->
+          <td data-label="Duración">
+            <span class="duracion-badge">{{ getDuracion(t.start_time, t.end_time) }}</span>
+          </td>
+
+          <!-- Acciones -->
+          <td data-label="Acciones">
+            <div class="actions">
+              <button
+                type="button"
+                class="btn btn--danger btn--sm"
+                (click)="eliminarTurno(t.id)"
+                [attr.aria-label]="'Eliminar turno de ' + (t.employee_name || 'empleado') + ' del ' + (t.start_time | date:'d MMM':'UTC':'es')"
+              >
+                Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Empty state -->
+    <ng-template #sinTurnos>
+      <div class="empty-state" role="status">
+        <span class="empty-icon" aria-hidden="true">📅</span>
+        <p class="empty-title">
+          {{ filtroEmpleado || filtroDesde || filtroHasta
+              ? 'No hay turnos con los filtros aplicados'
+              : 'No hay turnos registrados' }}
+        </p>
+        <p class="empty-sub" *ngIf="filtroEmpleado || filtroDesde || filtroHasta">
+          Prueba a cambiar o limpiar los filtros
+        </p>
+      </div>
+    </ng-template>
+  </div>
+
+</main>

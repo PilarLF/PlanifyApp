@@ -1,37 +1,225 @@
+// @import '../../../styles/variables';
+// .navbar {
+//   background: $color-primary;
+//   color: white;
+//   padding: 12px 20px;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+
+// .logo img {
+//   height: 72px;
+//   width: auto;
+//   display: block;
+// }
+//   ul {
+//     list-style: none;
+//     display: flex;
+//     gap: 20px;
+
+//     a {
+//       color: white;
+//       text-decoration: none;
+//       font-weight: 500;
+//       padding: 6px 10px;
+//       border-radius: 4px;
+//       transition: 0.2s ease;
+
+//       &:hover {
+//         background: $color-primary-light;
+//       }
+
+//       &.active {
+//         background: $color-green;
+//         color: white;
+//       }
+//     }
+//   }
+// }
+/**
+ * admin/navbar/admin-navbar.scss
+ *
+ * WCAG 2.1:
+ *  - .skip-link: visible al recibir foco (WCAG 2.4.1)
+ *  - :focus-visible con outline explícito en todos los interactivos
+ *  - Contraste ≥ 4.5:1 en texto normal (blanco sobre $color-primary)
+ *  - Hamburger con área táctil mínima 44×44 px (WCAG 2.5.5)
+ */
+
 @import '../../../styles/variables';
+
+// ── Skip link ──────────────────────────────────────────────────────────
+// Oculto fuera de pantalla; aparece cuando recibe foco por teclado
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  z-index: 9999;
+  background: #fff;
+  color: $color-primary;
+  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: 2px solid $color-primary;
+  text-decoration: none;
+  font-size: 14px;
+
+  &:focus {
+    left: 12px;
+    outline: 3px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+// ── Barra de navegación ────────────────────────────────────────────────
 .navbar {
   background: $color-primary;
-  color: white;
-  padding: 12px 20px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  padding: 0 24px;
+  height: 64px;
+  position: relative;
+  z-index: 100;
+}
+
+// ── Logo ───────────────────────────────────────────────────────────────
+.navbar__brand a {
+  display: flex;
   align-items: center;
 
-.logo img {
-  height: 72px;
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+.navbar__logo {
+  height: 44px;
   width: auto;
   display: block;
 }
-  ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
 
-    a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      padding: 6px 10px;
-      border-radius: 4px;
-      transition: 0.2s ease;
+// ── Botón hamburger (solo móvil) ───────────────────────────────────────
+.navbar__toggle {
+  display: none;                    // oculto en escritorio
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.2s;
 
-      &:hover {
-        background: $color-primary-light;
-      }
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  &:hover { border-color: rgba(255, 255, 255, 0.4); }
+
+  // Animación a ×
+  &.is-open {
+    .hamburger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+}
+
+.hamburger-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s;
+}
+
+// ── Menú de navegación ─────────────────────────────────────────────────
+.navbar__menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+
+  a, .navbar__logout {
+    display: block;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    // El outline es suficientemente visible sobre fondo oscuro
+    &:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+
+    &.active {
+      background: $color-green;
+      color: #fff;
+      font-weight: 600;
+    }
+  }
+
+  .navbar__logout {
+    color: rgba(255, 255, 255, 0.75);
+
+    &:hover {
+      background: rgba(217, 134, 106, 0.25);
+      color: #fff;
+    }
+  }
+}
+
+// ── RESPONSIVE ────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .navbar__toggle {
+    display: flex;          // visible en móvil
+  }
+
+  .navbar__menu {
+    display: none;           // oculto por defecto en móvil
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: $color-primary;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 0 20px;
+    gap: 2px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+    &.is-open { display: flex; }
+
+    a, .navbar__logout {
+      padding: 14px 24px;
+      border-radius: 0;
+      font-size: 15px;
 
       &.active {
-        background: $color-green;
-        color: white;
+        border-left: 4px solid $color-green;
+        border-radius: 0;
       }
     }
   }
