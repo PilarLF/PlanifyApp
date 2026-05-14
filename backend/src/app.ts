@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 import rateLimit from "express-rate-limit";
 
 dotenv.config();
@@ -18,8 +19,6 @@ const loginLimiter = rateLimit({
 const app = express();
 app.set('trust proxy', 1);
 
-// 1. Configuración de CORS mejorada
-// En app.ts (Backend)
 app.use(cors({
   origin: ['https://planifyapphrr.netlify.app', 'http://localhost:4200'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -28,9 +27,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
-
-// 2. BORRA la línea de /api/auth/login que tenías aquí arriba.
-// Solo deja las rutas generales:
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/api/auth', authRoutes);
 app.use('/api/horarios', horariosRoutes);
 app.use('/api/fichajes', fichajesRoutes);
