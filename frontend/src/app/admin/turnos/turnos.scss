@@ -251,7 +251,14 @@
     &:hover { background: #991b1b; color: #fff; border-color: #991b1b; }
   }
 }
-
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.8rem;
+  background-color: #f0f0f0;
+}
 .actions { display: flex; gap: 8px; }
 
 // ── Empty state ────────────────────────────────────────────────────────
