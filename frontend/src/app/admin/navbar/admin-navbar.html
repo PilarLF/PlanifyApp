@@ -1,12 +1,81 @@
-<nav class="navbar">
-  <div class="logo">
-    <img src="assets/img/logo2.png" alt="Planify Logo">
+<!--
+  admin/navbar/admin-navbar.html
+
+  WCAG 2.1:
+  - role="navigation" + aria-label para identificar la región
+  - aria-expanded en el botón hamburger
+  - aria-controls apunta al id del menú
+  - aria-current="page" en el enlace activo (via routerLinkActive)
+  - Skip link visible al recibir foco (#main-content definido en cada página)
+  - El botón hamburger tiene texto accesible oculto (.sr-only)
+-->
+
+<!-- Skip navigation: primer elemento focusable de la página -->
+<a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+
+<nav class="navbar" role="navigation" aria-label="Navegación principal del panel de administración">
+  <div class="navbar__brand">
+    <a routerLink="/admin/dashboard" aria-label="Ir al panel de administración — PlanifyApp">
+      <img src="assets/img/logo2.png" alt="PlanifyApp" class="navbar__logo" />
+    </a>
   </div>
 
-  <ul>
-    <li><a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a></li>
-    <li><a routerLink="/admin/turnos" routerLinkActive="active">Turnos</a></li>
-    <li><a routerLink="/admin/empleados" routerLinkActive="active">Empleados</a></li>
-    <li><a (click)="logout()">Cerrar sesión</a></li>
+  <!-- Botón hamburger solo visible en móvil -->
+  <button
+    type="button"
+    class="navbar__toggle"
+    [class.is-open]="menuAbierto"
+    (click)="toggleMenu()"
+    [attr.aria-expanded]="menuAbierto"
+    aria-controls="admin-nav-menu"
+    aria-label="{{ menuAbierto ? 'Cerrar menú' : 'Abrir menú de navegación' }}"
+  >
+    <span class="hamburger-bar" aria-hidden="true"></span>
+    <span class="hamburger-bar" aria-hidden="true"></span>
+    <span class="hamburger-bar" aria-hidden="true"></span>
+  </button>
+
+  <!-- Menú de navegación -->
+  <ul
+    id="admin-nav-menu"
+    class="navbar__menu"
+    [class.is-open]="menuAbierto"
+    role="list"
+  >
+    <li role="listitem">
+      <a
+        routerLink="/admin/dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        aria-label="Dashboard de administración"
+        (click)="cerrarMenu()"
+      >Dashboard</a>
+    </li>
+    <li role="listitem">
+      <a
+        routerLink="/admin/turnos"
+        routerLinkActive="active"
+        aria-label="Ver listado de todos los turnos"
+        (click)="cerrarMenu()"
+      >Turnos</a>
+    </li>
+    <li role="listitem">
+      <a
+        routerLink="/admin/empleados"
+        routerLinkActive="active"
+        aria-label="Ver listado de empleados"
+        (click)="cerrarMenu()"
+      >Empleados</a>
+    </li>
+    <li role="listitem">
+      <button
+        type="button"
+        class="navbar__logout"
+        (click)="logout()"
+        aria-label="Cerrar sesión de administración"
+      >
+        Cerrar sesión
+      </button>
+    </li>
   </ul>
 </nav>
