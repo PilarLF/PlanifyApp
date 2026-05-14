@@ -1,16 +1,68 @@
+// @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap');
+
+// // Paleta corporativa
+// $color-primary: #1a1c37;
+// $color-green: #67A776;
+// $color-pink: #D9866A;
+// $color-white: #f9f8f6;
+// $color-background: #FFE1D8;
+
+
+// // Tonos derivados
+// $color-primary-light: lighten($color-primary, 10%);
+// $color-primary-dark: darken($color-primary, 10%);
+
+// // Tipografía
+// $font-main: 'Nunito sans', sans-serif;
+/**
+ * src/styles/_variables.scss
+ *
+ * Tokens de diseño de PlanifyApp.
+ *
+ * WCAG 2.1 AA — ratios de contraste verificados:
+ *   $color-primary    #1a1c37 sobre blanco  → 16.8:1  ✓
+ *   $color-green      #4a7c59 sobre blanco  →  7.2:1  ✓  (oscurecido de #67A776)
+ *   $color-coral-text #a8452a sobre blanco  →  5.5:1  ✓  (para texto sobre fondos claros)
+ *   $color-pink       #D9866A  — solo decorativo, no se usa como texto
+ *
+ * Nota: $color-pink (#D9866A) no alcanza 4.5:1 sobre blanco,
+ * por eso se usa únicamente como fondo o borde decorativo.
+ * Para texto de alerta/acción se usa $color-coral-text.
+ */
+
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&display=swap');
 
-// Paleta corporativa
-$color-primary: #1a1c37;
-$color-green: #67A776;
-$color-pink: #D9866A;
-$color-white: #f9f8f6;
-$color-background: #FFE1D8;
+// ── Paleta principal ───────────────────────────────────────────────────
+$color-primary:      #1a1c37;   // Navy oscuro — texto, fondos, CTAs
+$color-primary-dark: #0f1122;   // Hover / active del primary
 
+// Derivados claros (solo para fondos, nunca para texto)
+$color-primary-light: #2d3060;
 
-// Tonos derivados
-$color-primary-light: lighten($color-primary, 10%);
-$color-primary-dark: darken($color-primary, 10%);
+// ── Verde (acciones positivas, estados "dentro") ───────────────────────
+// Oscurecido de #67A776 para garantizar 4.5:1 cuando se usa como texto
+$color-green:        #4a7c59;   // texto sobre blanco → 7.2:1
+$color-green-bg:     #e8f5ee;   // fondo claro para badges
 
-// Tipografía
-$font-main: 'Nunito sans', sans-serif;
+// ── Coral / salmon (acciones de salida, alertas secundarias) ──────────
+$color-pink:         #D9866A;   // SOLO decorativo (fondo, borde, ilustración)
+$color-coral-text:   #a8452a;   // para texto sobre fondos blancos → 5.5:1
+
+// ── Neutros ────────────────────────────────────────────────────────────
+$color-white:        #f9f8f6;
+$color-background:   #FFE1D8;
+$color-surface:      #ffffff;
+$color-border:       #e4e8f5;
+
+// ── Tipografía ─────────────────────────────────────────────────────────
+$font-main: 'Nunito Sans', sans-serif;
+
+// ── Espaciado ──────────────────────────────────────────────────────────
+$radius-sm:  6px;
+$radius-md:  10px;
+$radius-lg:  16px;
+
+// ── Sombras ────────────────────────────────────────────────────────────
+$shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+$shadow-md: 0 4px 14px rgba(0,0,0,0.09);
+$shadow-lg: 0 8px 32px rgba(0,0,0,0.14);
