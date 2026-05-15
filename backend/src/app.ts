@@ -27,7 +27,8 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/assets', express.static(path.join(process.cwd(), 'backend/assets')));
+
 app.use('/api/auth', authRoutes);
 app.use('/api/horarios', horariosRoutes);
 app.use('/api/fichajes', fichajesRoutes);
