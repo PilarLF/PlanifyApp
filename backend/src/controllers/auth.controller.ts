@@ -67,7 +67,9 @@ export async function register(req: Request, res: Response) {
     return res.status(400).json({ errors: errors.array() });
   }
   const { name, email, password } = req.body;
-
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: 'Faltan campos requeridos' });
+  }
   try {
     const existing = await pool.query(
       "SELECT id FROM usuarios WHERE email = $1",
@@ -79,13 +81,17 @@ export async function register(req: Request, res: Response) {
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
+    let photoUrl = 'https://planifyapphrr.netlify.app/assets/default-img.jpg';
+      if (req.file) {
+        photoUrl = `https://planifyapp.onrender.com/uploads/${req.file.filename}`;
+      }
     const defaultPhotoUrl = 'https://planifyapphrr.netlify.app/assets/default-img.jpg';
     
     const result = await pool.query(
       `INSERT INTO usuarios (name, email, password, role, token_version, photo_url)
        VALUES ($1, $2, $3, 'EMPLOYEE', 0, $4)
        RETURNING id, name, email, role, photo_url`,
-      [name, email, passwordHash, defaultPhotoUrl]
+      [name, email, passwordHash, photoUrl]
     );
 
     return res.status(201).json(result.rows[0]);

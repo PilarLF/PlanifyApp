@@ -4,6 +4,9 @@ import { authMiddleware } from '../middleware/auth.middleware';
 import { requireAdmin } from '../middleware/requireAdmin';
 import { body } from 'express-validator';
 import rateLimit from "express-rate-limit";
+import multer from 'multer';
+import path from 'path';
+
 
 const router = Router();
 const loginLimiter = rateLimit({

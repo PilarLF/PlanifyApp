@@ -27,6 +27,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads'))); 
 app.use('/assets', express.static(path.join(process.cwd(), 'backend/assets')));
 
 app.use('/api/auth', authRoutes);

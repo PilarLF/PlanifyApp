@@ -64,7 +64,7 @@ setToken(token: string) {
 
 
   register(data: any) {
-    return this.http.post(`${this.apiUrl}/register`, data);
+    return this.http.post(`${environment.apiUrl}/auth/register`, data);
   }
 
 private loadFromStorage() {
