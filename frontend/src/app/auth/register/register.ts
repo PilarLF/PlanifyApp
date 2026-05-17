@@ -15,6 +15,7 @@ export class Register {
 
   registerForm: FormGroup;
   errorMessage = '';
+  selectedFile: File | null = null; //para la imagen de perfil
 
   constructor(
     private fb: FormBuilder,
@@ -29,10 +30,21 @@ export class Register {
     });
   }
 
-  onSubmit() {
-    if (this.registerForm.invalid) return;
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
 
-    this.authService.register(this.registerForm.value).subscribe({
+  onSubmit() {  //enviar el formulario
+    if (this.registerForm.invalid) return;
+      const formData = new FormData();
+      formData.append('name', this.registerForm.value.name);
+      formData.append('email', this.registerForm.value.email);
+      formData.append('password', this.registerForm.value.password);
+      formData.append('role', this.registerForm.value.role);   
+    if (this.selectedFile) {
+      formData.append('photo', this.selectedFile);
+    }
+    this.authService.register(formData).subscribe({
       next: () => this.router.navigate(['/auth/login']),
       error: (err) => {
         this.errorMessage = err.error?.message || 'Error al registrar';

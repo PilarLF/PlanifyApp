@@ -79,12 +79,13 @@ export async function register(req: Request, res: Response) {
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
-
+    const defaultPhotoUrl = 'https://planifyapphrr.netlify.app/assets/default-img.jpg';
+    
     const result = await pool.query(
-      `INSERT INTO usuarios (name, email, password, role, token_version)
-       VALUES ($1, $2, $3, 'EMPLOYEE', 0)
-       RETURNING id, name, email, role`,
-      [name, email, passwordHash]
+      `INSERT INTO usuarios (name, email, password, role, token_version, photo_url)
+       VALUES ($1, $2, $3, 'EMPLOYEE', 0, $4)
+       RETURNING id, name, email, role, photo_url`,
+      [name, email, passwordHash, defaultPhotoUrl]
     );
 
     return res.status(201).json(result.rows[0]);

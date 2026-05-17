@@ -40,10 +40,10 @@ export class Login {
           return;
         }
 
-        // Centraliza el guardado y parseo del token
+        // centraliza el guardado y parseo del token
         this.authService.setToken(response.token);
 
-        // Obtén el rol ya normalizado desde el AuthService
+        // rol ya normalizado desde el AuthService
         const role = this.authService.getRole();
 
         if (role === 'admin') {
