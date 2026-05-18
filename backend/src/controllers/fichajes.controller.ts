@@ -234,7 +234,7 @@ export async function getMisTurnos(req: AuthRequest, res: Response) {
 export async function getAllTurnos(req: AuthRequest, res: Response) {
   try {
     const result = await pool.query(
-      `SELECT h.*, u.name AS employee_name, u.email AS employee_email, u.photo_url
+      `SELECT h.*, u.name AS employee_name, u.email AS employee_email, u.photo_url as employee_photo_url
        FROM horarios h
        JOIN usuarios u ON h.employee_id = u.id
        ORDER BY h.start_time ASC`
