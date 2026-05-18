@@ -49,7 +49,8 @@ export async function login(req: Request, res: Response) {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role
+        role: user.role,
+        photo_url: user.photo_url || 'https://planifyapphrr.netlify.app/assets/default-img.jpg'
       }
     });
 
@@ -110,7 +111,7 @@ export async function register(req: MulterRequest, res: Response) {
 export async function getEmployees(req: Request, res: Response) {
   try {
     const result = await pool.query(
-      "SELECT id, name, email FROM usuarios WHERE role = 'EMPLOYEE'"
+      "SELECT id, name, email, photo_url FROM usuarios WHERE role = 'EMPLOYEE'"
     );
     return res.json(result.rows);
   } catch (error) {
