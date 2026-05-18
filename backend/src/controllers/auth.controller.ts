@@ -3,7 +3,9 @@ import { pool } from '../config/db';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
-
+export interface MulterRequest extends Request {
+  file?: Express.Multer.File;
+}
 // ============================
 // LOGIN
 // ============================
@@ -60,7 +62,7 @@ export async function login(req: Request, res: Response) {
 // ============================
 // REGISTRO (solo EMPLOYEE)
 // ============================
-export async function register(req: Request, res: Response) {
+export async function register(req: MulterRequest, res: Response) {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
