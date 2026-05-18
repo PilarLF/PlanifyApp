@@ -67,6 +67,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Horarios } from '../horarios';
 import { UserService } from '../../user/user';
+import { FichajesService } from '../../employee/fichajes/fichajes';
 
 @Component({
   selector: 'app-admin-turnos',
@@ -90,6 +91,7 @@ export class Turnos implements OnInit {
 
   constructor(
     private horariosService: Horarios,
+    private fichajesService: FichajesService,
     private userService: UserService
   ) {}
 
@@ -107,7 +109,7 @@ export class Turnos implements OnInit {
 
   cargarTurnos(): void {
     this.cargando = true;
-    this.horariosService.getHorarios().subscribe({
+    this.fichajesService.getAllTurnos().subscribe({
       next: (res: any) => {
         this.todosLosTurnos = res;
         this.cargando = false;
