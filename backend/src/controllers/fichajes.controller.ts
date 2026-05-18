@@ -159,7 +159,7 @@ export async function getStatus(req: AuthRequest, res: Response) {
       [employee_id]
     );
 
-    const employeeName = userRes.rows[0]?.nombre || null;
+    const employeeName = userRes.rows[0]?.name || null;
 
     return res.json({
       isClockedIn: abierto.rows.length > 0,
@@ -234,7 +234,7 @@ export async function getMisTurnos(req: AuthRequest, res: Response) {
 export async function getAllTurnos(req: AuthRequest, res: Response) {
   try {
     const result = await pool.query(
-      `SELECT h.*, u.name AS employee_name, u.email AS employee_email, u.avatar_url AS employee_avatar
+      `SELECT h.*, u.name AS employee_name, u.email AS employee_email, u.photo_url
        FROM horarios h
        JOIN usuarios u ON h.employee_id = u.id
        ORDER BY h.start_time ASC`
