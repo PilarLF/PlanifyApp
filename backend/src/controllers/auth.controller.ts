@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
 export interface MulterRequest extends Request {
-  file?: Express.Multer.File;
+  file?: any;
 }
 // ============================
 // LOGIN
