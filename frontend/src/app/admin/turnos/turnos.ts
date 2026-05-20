@@ -173,6 +173,7 @@ export class Turnos implements OnInit {
     this.horariosService.deleteHorario(id).subscribe({
       next: () => {
         this.mensaje = 'Turno eliminado correctamente';
+        this.fichajesService.limpiarCacheTurnos(); //limpiamos el cache
         this.cargarTurnos();
         setTimeout(() => (this.mensaje = ''), 4000);
       },

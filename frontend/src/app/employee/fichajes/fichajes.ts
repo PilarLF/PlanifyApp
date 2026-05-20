@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class FichajesService {
 
   // private api = 'http://localhost:3000/api/fichajes';
   private apiUrl = `${environment.apiUrl}/fichajes`;
+
+  // Cache de turnos para evitar recargas innecesarias
+  private turnosCache = new BehaviorSubject<any[]>([]);
+  private cacheCargada = false;
 
   constructor(private http: HttpClient) {}
 
@@ -49,11 +55,33 @@ export class FichajesService {
   }
 
   //para obtener el listado de todos los turnos para la pagina de admin
+  // getAllTurnos() {
+  //   const token = localStorage.getItem('token');
+  //   return this.http.get<any[]>(`${this.apiUrl}/turnos`, {
+  //     headers: { Authorization: `Bearer ${token}` }
+  //   });
+  // }
   getAllTurnos() {
     const token = localStorage.getItem('token');
+
+    // Si ya tenemos datos en caché, los devolvemos directamente
+    if (this.cacheCargada) {
+      return this.turnosCache.asObservable();
+    }
+
+    // Si no, hacemos la petición HTTP
     return this.http.get<any[]>(`${this.apiUrl}/turnos`, {
       headers: { Authorization: `Bearer ${token}` }
-    });
+    }).pipe(
+      tap(data => {
+        this.turnosCache.next(data);   // Guardamos en caché
+        this.cacheCargada = true;
+      })
+    );
   }
+limpiarCacheTurnos() {
+  this.cacheCargada = false;
+  this.turnosCache.next([]);
+}
 
 }
