@@ -260,6 +260,27 @@
   background-color: #f0f0f0;
 }
 .actions { display: flex; gap: 8px; }
+.pagination {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+}
+.pagination button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  background: #f3f4f6;
+  color: #374151;
+  transition: background 0.15s;
+
+  &:hover { background: #e5e7eb; }
+  &:disabled { background: #e5e7eb; color: #9ca3af; cursor: not-allowed; }
+}
 
 // ── Empty state ────────────────────────────────────────────────────────
 .empty-state {
