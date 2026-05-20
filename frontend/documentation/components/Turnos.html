@@ -1,0 +1,1858 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  Turnos</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/admin/turnos/turnos.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-admin-turnos</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./turnos.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./turnos.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cargando" >cargando</a>
+                            </li>
+                            <li>
+                                <a href="#empleados" >empleados</a>
+                            </li>
+                            <li>
+                                <a href="#error" >error</a>
+                            </li>
+                            <li>
+                                <a href="#filtroDesde" >filtroDesde</a>
+                            </li>
+                            <li>
+                                <a href="#filtroEmpleado" >filtroEmpleado</a>
+                            </li>
+                            <li>
+                                <a href="#filtroHasta" >filtroHasta</a>
+                            </li>
+                            <li>
+                                <a href="#mensaje" >mensaje</a>
+                            </li>
+                            <li>
+                                <a href="#todosLosTurnos" >todosLosTurnos</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cargarEmpleados" >cargarEmpleados</a>
+                            </li>
+                            <li>
+                                <a href="#cargarTurnos" >cargarTurnos</a>
+                            </li>
+                            <li>
+                                <a href="#eliminarTurno" >eliminarTurno</a>
+                            </li>
+                            <li>
+                                <a href="#getDuracion" >getDuracion</a>
+                            </li>
+                            <li>
+                                <a href="#getInitials" >getInitials</a>
+                            </li>
+                            <li>
+                                <a href="#limpiarFiltros" >limpiarFiltros</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#turnosFiltrados" >turnosFiltrados</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(horariosService: <a href="../injectables/Horarios.html" target="_self">Horarios</a>, fichajesService: <a href="../injectables/FichajesService.html" target="_self">FichajesService</a>, userService: <a href="../injectables/UserService.html" target="_self">UserService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/admin/turnos/turnos.ts:90</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>horariosService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/Horarios.html" target="_self" >Horarios</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>fichajesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FichajesService.html" target="_self" >FichajesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarEmpleados"></a>
+                    <span class="name">
+                        <span ><b>cargarEmpleados</b></span>
+                        <a href="#cargarEmpleados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarEmpleados()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="103"
+                                    class="link-to-prism">src/app/admin/turnos/turnos.ts:103</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarTurnos"></a>
+                    <span class="name">
+                        <span ><b>cargarTurnos</b></span>
+                        <a href="#cargarTurnos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarTurnos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="110"
+                                    class="link-to-prism">src/app/admin/turnos/turnos.ts:110</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eliminarTurno"></a>
+                    <span class="name">
+                        <span ><b>eliminarTurno</b></span>
+                        <a href="#eliminarTurno"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>eliminarTurno(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">src/app/admin/turnos/turnos.ts:163</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Elimina un turno con confirmación</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getDuracion"></a>
+                    <span class="name">
+                        <span ><b>getDuracion</b></span>
+                        <a href="#getDuracion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getDuracion(start: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, end: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="142"
+                                    class="link-to-prism">src/app/admin/turnos/turnos.ts:142</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Calcula la duración en formato &quot;Xh Ym&quot;</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>start</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>end</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInitials"></a>
+                    <span class="name">
+                        <span ><b>getInitials</b></span>
+                        <a href="#getInitials"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getInitials(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/app/admin/turnos/turnos.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Iniciales para el avatar</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="limpiarFiltros"></a>
+                    <span class="name">
+                        <span ><b>limpiarFiltros</b></span>
+                        <a href="#limpiarFiltros"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>limpiarFiltros()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="156"
+                                    class="link-to-prism">src/app/admin/turnos/turnos.ts:156</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Resetea los tres filtros</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">src/app/admin/turnos/turnos.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargando"></a>
+                    <span class="name">
+                        <span ><b>cargando</b></span>
+                        <a href="#cargando"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/app/admin/turnos/turnos.ts:88</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="empleados"></a>
+                    <span class="name">
+                        <span ><b>empleados</b></span>
+                        <a href="#empleados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/admin/turnos/turnos.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="error"></a>
+                    <span class="name">
+                        <span ><b>error</b></span>
+                        <a href="#error"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/admin/turnos/turnos.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filtroDesde"></a>
+                    <span class="name">
+                        <span ><b>filtroDesde</b></span>
+                        <a href="#filtroDesde"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/app/admin/turnos/turnos.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filtroEmpleado"></a>
+                    <span class="name">
+                        <span ><b>filtroEmpleado</b></span>
+                        <a href="#filtroEmpleado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/admin/turnos/turnos.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filtroHasta"></a>
+                    <span class="name">
+                        <span ><b>filtroHasta</b></span>
+                        <a href="#filtroHasta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/admin/turnos/turnos.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mensaje"></a>
+                    <span class="name">
+                        <span ><b>mensaje</b></span>
+                        <a href="#mensaje"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/admin/turnos/turnos.ts:89</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="todosLosTurnos"></a>
+                    <span class="name">
+                        <span ><b>todosLosTurnos</b></span>
+                        <a href="#todosLosTurnos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/admin/turnos/turnos.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="turnosFiltrados"></a>
+                        <span class="name"><b>turnosFiltrados</b><a href="#turnosFiltrados"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>turnosFiltrados()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="126" class="link-to-prism">src/app/admin/turnos/turnos.ts:126</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Lista filtrada según los controles de filtro</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>    <code>any[]</code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { Horarios } from &#x27;../horarios&#x27;;
+import { UserService } from &#x27;../../user/user&#x27;;
+import { FichajesService } from &#x27;../../employee/fichajes/fichajes&#x27;;
+
+@Component({
+  selector: &#x27;app-admin-turnos&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: &#x27;./turnos.html&#x27;,
+  styleUrls: [&#x27;./turnos.scss&#x27;]
+})
+export class Turnos implements OnInit {
+
+  todosLosTurnos: any[] &#x3D; [];
+  empleados: any[] &#x3D; [];
+
+  filtroEmpleado &#x3D; &#x27;&#x27;;
+  filtroDesde    &#x3D; &#x27;&#x27;;
+  filtroHasta    &#x3D; &#x27;&#x27;;
+
+  cargando &#x3D; true;
+  mensaje  &#x3D; &#x27;&#x27;;
+  error    &#x3D; &#x27;&#x27;;
+
+  constructor(
+    private horariosService: Horarios,
+    private fichajesService: FichajesService,
+    private userService: UserService
+  ) {}
+
+  ngOnInit(): void {
+    this.cargarEmpleados();
+    this.cargarTurnos();
+  }
+
+  cargarEmpleados(): void {
+    this.userService.getEmployees().subscribe({
+      next: (res: any) &#x3D;&gt; { this.empleados &#x3D; res; },
+      error: (err) &#x3D;&gt; console.error(&#x27;Error empleados:&#x27;, err)
+    });
+  }
+
+  cargarTurnos(): void {
+    this.cargando &#x3D; true;
+    this.fichajesService.getAllTurnos().subscribe({
+      next: (res: any) &#x3D;&gt; {
+        this.todosLosTurnos &#x3D; res;
+        this.cargando &#x3D; false;
+      },
+      error: (err) &#x3D;&gt; {
+        this.error &#x3D; &#x27;Error al cargar los turnos. Inténtalo de nuevo.&#x27;;
+        this.cargando &#x3D; false;
+        console.error(err);
+      }
+    });
+  }
+
+  /** Lista filtrada según los controles de filtro */
+  get turnosFiltrados(): any[] {
+    return this.todosLosTurnos.filter(t &#x3D;&gt; {
+      const porEmpleado &#x3D; !this.filtroEmpleado ||
+        String(t.employee_id) &#x3D;&#x3D;&#x3D; String(this.filtroEmpleado);
+
+      const porDesde &#x3D; !this.filtroDesde ||
+        new Date(t.start_time) &gt;&#x3D; new Date(this.filtroDesde);
+
+      const porHasta &#x3D; !this.filtroHasta ||
+        new Date(t.end_time) &lt;&#x3D; new Date(this.filtroHasta + &#x27;T23:59:59&#x27;);
+
+      return porEmpleado &amp;&amp; porDesde &amp;&amp; porHasta;
+    });
+  }
+
+  /** Calcula la duración en formato &quot;Xh Ym&quot; */
+  getDuracion(start: string, end: string): string {
+    const diffMs &#x3D; new Date(end).getTime() - new Date(start).getTime();
+    if (diffMs &lt;&#x3D; 0) return &#x27;—&#x27;;
+    const h &#x3D; Math.floor(diffMs / 3_600_000);
+    const m &#x3D; Math.floor((diffMs % 3_600_000) / 60_000);
+    return m &gt; 0 ? &#x60;${h}h ${m}m&#x60; : &#x60;${h}h&#x60;;
+  }
+
+  /** Iniciales para el avatar */
+  getInitials(name: string): string {
+    return name.split(&#x27; &#x27;).slice(0, 2).map(n &#x3D;&gt; n[0]?.toUpperCase() ?? &#x27;&#x27;).join(&#x27;&#x27;);
+  }
+
+  /** Resetea los tres filtros */
+  limpiarFiltros(): void {
+    this.filtroEmpleado &#x3D; &#x27;&#x27;;
+    this.filtroDesde    &#x3D; &#x27;&#x27;;
+    this.filtroHasta    &#x3D; &#x27;&#x27;;
+  }
+
+  /** Elimina un turno con confirmación */
+  eliminarTurno(id: string): void {
+    if (!confirm(&#x27;¿Eliminar este turno? Esta acción no se puede deshacer.&#x27;)) return;
+
+    this.horariosService.deleteHorario(id).subscribe({
+      next: () &#x3D;&gt; {
+        this.mensaje &#x3D; &#x27;Turno eliminado correctamente&#x27;;
+        this.cargarTurnos();
+        setTimeout(() &#x3D;&gt; (this.mensaje &#x3D; &#x27;&#x27;), 4000);
+      },
+      error: (err) &#x3D;&gt; {
+        this.error &#x3D; err?.error?.message || &#x27;Error al eliminar el turno&#x27;;
+        setTimeout(() &#x3D;&gt; (this.error &#x3D; &#x27;&#x27;), 4000);
+      }
+    });
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &lt;h2&gt;Turnos de todos los empleados&lt;/h2&gt;
+
+&lt;div class&#x3D;&quot;filtros&quot;&gt;
+  &lt;select [(ngModel)]&#x3D;&quot;filtroEmpleado&quot; (change)&#x3D;&quot;aplicarFiltros()&quot;&gt;
+    &lt;option value&#x3D;&quot;&quot;&gt;Todos los empleados&lt;/option&gt;
+    &lt;option *ngFor&#x3D;&quot;let e of empleados&quot; [value]&#x3D;&quot;e&quot;&gt;{{ e }}&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;input type&#x3D;&quot;date&quot; [(ngModel)]&#x3D;&quot;filtroFecha&quot; (change)&#x3D;&quot;aplicarFiltros()&quot;&gt;
+
+  &lt;select [(ngModel)]&#x3D;&quot;filtroEstado&quot; (change)&#x3D;&quot;aplicarFiltros()&quot;&gt;
+    &lt;option value&#x3D;&quot;&quot;&gt;Todos los estados&lt;/option&gt;
+    &lt;option value&#x3D;&quot;activo&quot;&gt;Activos&lt;/option&gt;
+    &lt;option value&#x3D;&quot;finalizado&quot;&gt;Finalizados&lt;/option&gt;
+    &lt;option value&#x3D;&quot;futuro&quot;&gt;Futuros&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Empleado&lt;/th&gt;
+      &lt;th&gt;Inicio&lt;/th&gt;
+      &lt;th&gt;Fin&lt;/th&gt;
+      &lt;th&gt;Duración (h)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;tr *ngFor&#x3D;&quot;let t of filtered&quot;&gt;
+      &lt;td&gt;{{ t.employee_name }}&lt;/td&gt;
+      &lt;td&gt;{{ t.start_time | date:&#x27;dd/MM/yyyy HH:mm&#x27; }}&lt;/td&gt;
+      &lt;td&gt;{{ t.end_time | date:&#x27;dd/MM/yyyy HH:mm&#x27; }}&lt;/td&gt;
+      &lt;td&gt;{{ t.duration_hours | number:&#x27;1.1-1&#x27; }}&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt; --&gt;
+&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+     admin/turnos/admin-turnos.html
+     Listado global de turnos del panel de administración.
+
+     Permite al admin ver TODOS los turnos de todos los empleados,
+     filtrar por empleado y rango de fechas, y eliminar turnos.
+
+     WCAG 2.1:
+     - Cabeceras de tabla con scope&#x3D;&quot;col&quot;
+     - aria-label descriptivos en controles
+     - aria-live para mensajes de estado
+     - aria-sort en columnas ordenables
+     &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+
+&lt;main class&#x3D;&quot;admin-page&quot; role&#x3D;&quot;main&quot; id&#x3D;&quot;main-content&quot;&gt;
+
+  &lt;!-- Cabecera --&gt;
+  &lt;header class&#x3D;&quot;page-header&quot;&gt;
+    &lt;div class&#x3D;&quot;page-header__text&quot;&gt;
+      &lt;h1 class&#x3D;&quot;page-title&quot;&gt;Turnos&lt;/h1&gt;
+      &lt;p class&#x3D;&quot;page-subtitle&quot;&gt;Listado completo de turnos de todos los empleados&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;page-header__stats&quot; aria-label&#x3D;&quot;Resumen de turnos&quot;&gt;
+      &lt;div class&#x3D;&quot;stat-chip&quot;&gt;
+        &lt;span class&#x3D;&quot;stat-num&quot; aria-live&#x3D;&quot;polite&quot;&gt;{{ turnosFiltrados.length }}&lt;/span&gt;
+        &lt;span class&#x3D;&quot;stat-label&quot;&gt;turnos{{ filtroEmpleado ? &#x27; filtrados&#x27; : &#x27;&#x27; }}&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;!-- Mensajes de estado --&gt;
+  &lt;div role&#x3D;&quot;alert&quot; aria-live&#x3D;&quot;assertive&quot; *ngIf&#x3D;&quot;error&quot; class&#x3D;&quot;alert alert--error&quot;&gt;
+    &lt;span class&#x3D;&quot;alert__icon&quot; aria-hidden&#x3D;&quot;true&quot;&gt;⚠&lt;/span&gt;
+    {{ error }}
+  &lt;/div&gt;
+  &lt;div role&#x3D;&quot;status&quot; aria-live&#x3D;&quot;polite&quot; *ngIf&#x3D;&quot;mensaje&quot; class&#x3D;&quot;alert alert--success&quot;&gt;
+    &lt;span class&#x3D;&quot;alert__icon&quot; aria-hidden&#x3D;&quot;true&quot;&gt;✓&lt;/span&gt;
+    {{ mensaje }}
+  &lt;/div&gt;
+
+  &lt;!-- Filtros --&gt;
+  &lt;fieldset class&#x3D;&quot;filters-group&quot;&gt;
+    &lt;legend class&#x3D;&quot;filters-legend&quot;&gt;Filtros de búsqueda&lt;/legend&gt;
+
+    &lt;div class&#x3D;&quot;filters-grid&quot;&gt;
+      &lt;!-- Filtro por empleado --&gt;
+      &lt;div class&#x3D;&quot;filter-field&quot;&gt;
+        &lt;label for&#x3D;&quot;filtro-empleado&quot;&gt;Empleado&lt;/label&gt;
+        &lt;select
+          id&#x3D;&quot;filtro-empleado&quot;
+          [(ngModel)]&#x3D;&quot;filtroEmpleado&quot;
+          class&#x3D;&quot;form-select&quot;
+          aria-label&#x3D;&quot;Filtrar turnos por empleado&quot;
+        &gt;
+          &lt;option value&#x3D;&quot;&quot;&gt;Todos los empleados&lt;/option&gt;
+          &lt;option *ngFor&#x3D;&quot;let emp of empleados&quot; [value]&#x3D;&quot;emp.id&quot;&gt;
+            {{ emp.name }}
+          &lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Filtro fecha desde --&gt;
+      &lt;div class&#x3D;&quot;filter-field&quot;&gt;
+        &lt;label for&#x3D;&quot;filtro-desde&quot;&gt;Desde&lt;/label&gt;
+        &lt;input
+          id&#x3D;&quot;filtro-desde&quot;
+          type&#x3D;&quot;date&quot;
+          [(ngModel)]&#x3D;&quot;filtroDesde&quot;
+          class&#x3D;&quot;form-input&quot;
+          aria-label&#x3D;&quot;Filtrar turnos desde esta fecha&quot;
+        /&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Filtro fecha hasta --&gt;
+      &lt;div class&#x3D;&quot;filter-field&quot;&gt;
+        &lt;label for&#x3D;&quot;filtro-hasta&quot;&gt;Hasta&lt;/label&gt;
+        &lt;input
+          id&#x3D;&quot;filtro-hasta&quot;
+          type&#x3D;&quot;date&quot;
+          [(ngModel)]&#x3D;&quot;filtroHasta&quot;
+          class&#x3D;&quot;form-input&quot;
+          aria-label&#x3D;&quot;Filtrar turnos hasta esta fecha&quot;
+        /&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Botón limpiar --&gt;
+      &lt;div class&#x3D;&quot;filter-field filter-field--action&quot;&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn btn--ghost&quot;
+          (click)&#x3D;&quot;limpiarFiltros()&quot;
+          aria-label&#x3D;&quot;Limpiar todos los filtros&quot;
+        &gt;
+          Limpiar filtros
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/fieldset&gt;
+
+  &lt;!-- Estado de carga --&gt;
+  &lt;div *ngIf&#x3D;&quot;cargando&quot; class&#x3D;&quot;loading-state&quot; role&#x3D;&quot;status&quot; aria-live&#x3D;&quot;polite&quot;&gt;
+    &lt;div class&#x3D;&quot;spinner&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;/div&gt;
+    &lt;span&gt;Cargando turnos…&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Tabla --&gt;
+  &lt;div class&#x3D;&quot;table-wrapper&quot; *ngIf&#x3D;&quot;!cargando&quot;&gt;
+    &lt;table
+      class&#x3D;&quot;data-table&quot;
+      aria-label&#x3D;&quot;Listado de turnos de todos los empleados&quot;
+      *ngIf&#x3D;&quot;turnosFiltrados.length &gt; 0; else sinTurnos&quot;
+    &gt;
+      &lt;caption class&#x3D;&quot;sr-only&quot;&gt;
+        {{ turnosFiltrados.length }} turno{{ turnosFiltrados.length !&#x3D;&#x3D; 1 ? &#x27;s&#x27; : &#x27;&#x27; }} encontrado{{ turnosFiltrados.length !&#x3D;&#x3D; 1 ? &#x27;s&#x27; : &#x27;&#x27; }}.
+        Columnas: empleado, día, inicio, fin, duración y acciones.
+      &lt;/caption&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Empleado&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Día&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Inicio&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Fin&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Duración&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Acciones&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr *ngFor&#x3D;&quot;let t of turnosFiltrados&quot;&gt;
+          &lt;!-- Empleado --&gt;
+          &lt;td data-label&#x3D;&quot;Empleado&quot;&gt;
+            &lt;div class&#x3D;&quot;employee-cell&quot;&gt;
+              &lt;img class&#x3D;&quot;avatar&quot; aria-hidden&#x3D;&quot;true&quot; [src]&#x3D;&quot;t.employee_photo_url || &#x27;assets/default-img.jpg&#x27;&quot; [alt]&#x3D;&quot;&#x27;Foto de &#x27; + (t.employee_name || &#x27;Empleado&#x27;)&quot; /&gt;
+              &lt;!-- &lt;span class&#x3D;&quot;avatar&quot; aria-hidden&#x3D;&quot;true&quot;&gt;{{ getInitials(t.employee_name || &#x27;U&#x27;) }}&lt;/span&gt; --&gt;
+              &lt;div class&#x3D;&quot;employee-cell__info&quot;&gt;
+                &lt;span class&#x3D;&quot;employee-cell__name&quot;&gt;{{ t.employee_name || &#x27;Empleado &#x27; + t.employee_id }}&lt;/span&gt;
+                &lt;span class&#x3D;&quot;employee-cell__email&quot;&gt;{{ t.employee_email }}&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/td&gt;
+
+          &lt;!-- Día --&gt;
+          &lt;td data-label&#x3D;&quot;Día&quot;&gt;
+            &lt;span class&#x3D;&quot;day-pill&quot;&gt;{{ t.start_time | date:&#x27;EEE d MMM&#x27;:&#x27;UTC&#x27;:&#x27;es&#x27; }}&lt;/span&gt;
+          &lt;/td&gt;
+
+          &lt;!-- Inicio --&gt;
+          &lt;td data-label&#x3D;&quot;Inicio&quot;&gt;
+            &lt;time [attr.datetime]&#x3D;&quot;t.start_time&quot; class&#x3D;&quot;time-value&quot;&gt;
+              {{ t.start_time | date:&#x27;HH:mm&#x27; }}
+            &lt;/time&gt;
+          &lt;/td&gt;
+
+          &lt;!-- Fin --&gt;
+          &lt;td data-label&#x3D;&quot;Fin&quot;&gt;
+            &lt;time [attr.datetime]&#x3D;&quot;t.end_time&quot; class&#x3D;&quot;time-value&quot;&gt;
+              {{ t.end_time | date:&#x27;HH:mm&#x27; }}
+            &lt;/time&gt;
+          &lt;/td&gt;
+
+          &lt;!-- Duración calculada --&gt;
+          &lt;td data-label&#x3D;&quot;Duración&quot;&gt;
+            &lt;span class&#x3D;&quot;duracion-badge&quot;&gt;{{ getDuracion(t.start_time, t.end_time) }}&lt;/span&gt;
+          &lt;/td&gt;
+
+          &lt;!-- Acciones --&gt;
+          &lt;td data-label&#x3D;&quot;Acciones&quot;&gt;
+            &lt;div class&#x3D;&quot;actions&quot;&gt;
+              &lt;button
+                type&#x3D;&quot;button&quot;
+                class&#x3D;&quot;btn btn--danger btn--sm&quot;
+                (click)&#x3D;&quot;eliminarTurno(t.id)&quot;
+                [attr.aria-label]&#x3D;&quot;&#x27;Eliminar turno de &#x27; + (t.employee_name || &#x27;empleado&#x27;) + &#x27; del &#x27; + (t.start_time | date:&#x27;d MMM&#x27;:&#x27;UTC&#x27;:&#x27;es&#x27;)&quot;
+              &gt;
+                Eliminar
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;!-- Empty state --&gt;
+    &lt;ng-template #sinTurnos&gt;
+      &lt;div class&#x3D;&quot;empty-state&quot; role&#x3D;&quot;status&quot;&gt;
+        &lt;span class&#x3D;&quot;empty-icon&quot; aria-hidden&#x3D;&quot;true&quot;&gt;📅&lt;/span&gt;
+        &lt;p class&#x3D;&quot;empty-title&quot;&gt;
+          {{ filtroEmpleado || filtroDesde || filtroHasta
+              ? &#x27;No hay turnos con los filtros aplicados&#x27;
+              : &#x27;No hay turnos registrados&#x27; }}
+        &lt;/p&gt;
+        &lt;p class&#x3D;&quot;empty-sub&quot; *ngIf&#x3D;&quot;filtroEmpleado || filtroDesde || filtroHasta&quot;&gt;
+          Prueba a cambiar o limpiar los filtros
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/ng-template&gt;
+  &lt;/div&gt;
+
+&lt;/main&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./turnos.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/**
+ * admin/turnos/admin-turnos.scss
+ * Estilos del listado global de turnos (admin).
+ * Comparte tokens de diseño con empleados.scss.
+ */
+
+@import &#x27;../../../styles/variables&#x27;;
+
+// ── Accesibilidad ──────────────────────────────────────────────────────
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+// ── Layout ─────────────────────────────────────────────────────────────
+.admin-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+// ── Cabecera ───────────────────────────────────────────────────────────
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.page-title {
+  font-size: 26px; font-weight: 800;
+  color: $color-primary; margin: 0 0 4px; line-height: 1.1;
+}
+
+.page-subtitle { font-size: 14px; color: #6b7280; margin: 0; }
+
+.stat-chip {
+  display: flex; flex-direction: column; align-items: center;
+  background: $color-primary; color: #fff;
+  padding: 10px 20px; border-radius: 12px; min-width: 80px;
+
+  .stat-num   { font-size: 24px; font-weight: 800; line-height: 1; }
+  .stat-label { font-size: 11px; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.05em; }
+}
+
+// ── Alertas ────────────────────────────────────────────────────────────
+.alert {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; border-radius: 8px;
+  font-size: 14px; font-weight: 600; margin-bottom: 20px;
+  border-width: 1px; border-style: solid;
+
+  &amp;--error   { background: #fef2f2; color: #991b1b; border-color: #fca5a5; }
+  &amp;--success { background: #f0fdf4; color: #166534; border-color: #86efac; }
+  &amp;__icon    { font-size: 16px; }
+}
+
+// ── Filtros ────────────────────────────────────────────────────────────
+.filters-group {
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.filters-legend {
+  font-size: 13px;
+  font-weight: 700;
+  color: $color-primary;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 6px;
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+  align-items: end;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &amp;--action { justify-content: flex-end; }
+}
+
+.form-select,
+.form-input {
+  padding: 9px 12px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 14px;
+  background: #fafafa;
+  color: #111827;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &amp;:focus {
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba(26, 28, 55, 0.15);
+  }
+}
+
+// ── Spinner ────────────────────────────────────────────────────────────
+.loading-state {
+  display: flex; align-items: center; gap: 12px;
+  padding: 48px; justify-content: center;
+  color: #6b7280; font-size: 14px;
+}
+
+.spinner {
+  width: 24px; height: 24px;
+  border: 3px solid #e5e7eb;
+  border-top-color: $color-primary;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+// ── Tabla ──────────────────────────────────────────────────────────────
+.table-wrapper {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+
+  thead {
+    background: #f9fafb;
+    border-bottom: 2px solid #e5e7eb;
+
+    th {
+      text-align: left;
+      padding: 13px 16px;
+      font-weight: 700;
+      color: $color-primary;
+      white-space: nowrap;
+    }
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #f3f4f6;
+    transition: background 0.15s;
+
+    &amp;:last-child { border-bottom: none; }
+    &amp;:hover { background: #f9fafb; }
+  }
+
+  td {
+    padding: 13px 16px;
+    color: #374151;
+    vertical-align: middle;
+  }
+}
+
+// ── Celda de empleado ──────────────────────────────────────────────────
+.employee-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &amp;__info { display: flex; flex-direction: column; gap: 1px; }
+  &amp;__name { font-weight: 600; color: #111827; }
+  &amp;__email { font-size: 12px; color: #9ca3af; }
+}
+
+.avatar {
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: $color-primary; color: #fff;
+  font-size: 12px; font-weight: 700; flex-shrink: 0;
+}
+
+// ── Píldoras visuales ──────────────────────────────────────────────────
+.day-pill {
+  display: inline-block;
+  background: #f3f4f6;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  text-transform: capitalize;
+}
+
+.time-value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: $color-primary;
+}
+
+.duracion-badge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1d4ed8;         // contraste ~6:1
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+// ── Botones ────────────────────────────────────────────────────────────
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: none; border-radius: 7px; font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+
+  &amp;:focus-visible { outline: 2px solid $color-primary; outline-offset: 2px; }
+  &amp;:active { transform: scale(0.97); }
+
+  &amp;--sm { padding: 7px 14px; font-size: 13px; }
+
+  &amp;--ghost {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1.5px solid #e5e7eb;
+    &amp;:hover { background: #e5e7eb; }
+  }
+
+  &amp;--danger {
+    background: #fef2f2;
+    color: #991b1b;       // contraste ~7:1
+    border: 1.5px solid #fca5a5;
+    &amp;:hover { background: #991b1b; color: #fff; border-color: #991b1b; }
+  }
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.8rem;
+  background-color: #f0f0f0;
+}
+.actions { display: flex; gap: 8px; }
+
+// ── Empty state ────────────────────────────────────────────────────────
+.empty-state {
+  padding: 56px 24px;
+  text-align: center;
+
+  .empty-icon  { font-size: 40px; display: block; margin-bottom: 12px; }
+  .empty-title { font-size: 15px; font-weight: 600; color: #374151; margin: 0 0 6px; }
+  .empty-sub   { font-size: 13px; color: #9ca3af; margin: 0; }
+}
+
+// ── Responsive: tabla → tarjetas ──────────────────────────────────────
+@media (max-width: 768px) {
+  .admin-page { padding: 20px 16px 48px; }
+  .filters-grid { grid-template-columns: 1fr; }
+  .page-header { flex-direction: column; }
+
+  .data-table {
+    display: block;
+
+    thead { display: none; }
+
+    tbody, tr, td { display: block; width: 100%; }
+
+    tr {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      padding: 8px 0;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 13px;
+
+      &amp;:last-child { border-bottom: none; }
+
+      &amp;::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: $color-primary;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-right: 10px;
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  .table-wrapper {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    overflow: visible;
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- <h2>Turnos de todos los empleados</h2><div class="filtros">  <select [(ngModel)]="filtroEmpleado" (change)="aplicarFiltros()">    <option value="">Todos los empleados</option>    <option *ngFor="let e of empleados" [value]="e">{{ e }}</option>  </select>  <input type="date" [(ngModel)]="filtroFecha" (change)="aplicarFiltros()">  <select [(ngModel)]="filtroEstado" (change)="aplicarFiltros()">    <option value="">Todos los estados</option>    <option value="activo">Activos</option>    <option value="finalizado">Finalizados</option>    <option value="futuro">Futuros</option>  </select></div><table>  <thead>    <tr>      <th>Empleado</th>      <th>Inicio</th>      <th>Fin</th>      <th>Duración (h)</th>    </tr>  </thead>  <tbody>    <tr *ngFor="let t of filtered">      <td>{{ t.employee_name }}</td>      <td>{{ t.start_time | date:\'dd/MM/yyyy HH:mm\' }}</td>      <td>{{ t.end_time | date:\'dd/MM/yyyy HH:mm\' }}</td>      <td>{{ t.duration_hours | number:\'1.1-1\' }}</td>    </tr>  </tbody></table> --><!-- =====================================================================     admin/turnos/admin-turnos.html     Listado global de turnos del panel de administración.     Permite al admin ver TODOS los turnos de todos los empleados,     filtrar por empleado y rango de fechas, y eliminar turnos.     WCAG 2.1:     - Cabeceras de tabla con scope="col"     - aria-label descriptivos en controles     - aria-live para mensajes de estado     - aria-sort en columnas ordenables     ===================================================================== --><main class="admin-page" role="main" id="main-content">  <!-- Cabecera -->  <header class="page-header">    <div class="page-header__text">      <h1 class="page-title">Turnos</h1>      <p class="page-subtitle">Listado completo de turnos de todos los empleados</p>    </div>    <div class="page-header__stats" aria-label="Resumen de turnos">      <div class="stat-chip">        <span class="stat-num" aria-live="polite">{{ turnosFiltrados.length }}</span>        <span class="stat-label">turnos{{ filtroEmpleado ? \' filtrados\' : \'\' }}</span>      </div>    </div>  </header>  <!-- Mensajes de estado -->  <div role="alert" aria-live="assertive" *ngIf="error" class="alert alert--error">    <span class="alert__icon" aria-hidden="true">⚠</span>    {{ error }}  </div>  <div role="status" aria-live="polite" *ngIf="mensaje" class="alert alert--success">    <span class="alert__icon" aria-hidden="true">✓</span>    {{ mensaje }}  </div>  <!-- Filtros -->  <fieldset class="filters-group">    <legend class="filters-legend">Filtros de búsqueda</legend>    <div class="filters-grid">      <!-- Filtro por empleado -->      <div class="filter-field">        <label for="filtro-empleado">Empleado</label>        <select          id="filtro-empleado"          [(ngModel)]="filtroEmpleado"          class="form-select"          aria-label="Filtrar turnos por empleado"        >          <option value="">Todos los empleados</option>          <option *ngFor="let emp of empleados" [value]="emp.id">            {{ emp.name }}          </option>        </select>      </div>      <!-- Filtro fecha desde -->      <div class="filter-field">        <label for="filtro-desde">Desde</label>        <input          id="filtro-desde"          type="date"          [(ngModel)]="filtroDesde"          class="form-input"          aria-label="Filtrar turnos desde esta fecha"        />      </div>      <!-- Filtro fecha hasta -->      <div class="filter-field">        <label for="filtro-hasta">Hasta</label>        <input          id="filtro-hasta"          type="date"          [(ngModel)]="filtroHasta"          class="form-input"          aria-label="Filtrar turnos hasta esta fecha"        />      </div>      <!-- Botón limpiar -->      <div class="filter-field filter-field--action">        <button          type="button"          class="btn btn--ghost"          (click)="limpiarFiltros()"          aria-label="Limpiar todos los filtros"        >          Limpiar filtros        </button>      </div>    </div>  </fieldset>  <!-- Estado de carga -->  <div *ngIf="cargando" class="loading-state" role="status" aria-live="polite">    <div class="spinner" aria-hidden="true"></div>    <span>Cargando turnos…</span>  </div>  <!-- Tabla -->  <div class="table-wrapper" *ngIf="!cargando">    <table      class="data-table"      aria-label="Listado de turnos de todos los empleados"      *ngIf="turnosFiltrados.length > 0; else sinTurnos"    >      <caption class="sr-only">        {{ turnosFiltrados.length }} turno{{ turnosFiltrados.length !== 1 ? \'s\' : \'\' }} encontrado{{ turnosFiltrados.length !== 1 ? \'s\' : \'\' }}.        Columnas: empleado, día, inicio, fin, duración y acciones.      </caption>      <thead>        <tr>          <th scope="col">Empleado</th>          <th scope="col">Día</th>          <th scope="col">Inicio</th>          <th scope="col">Fin</th>          <th scope="col">Duración</th>          <th scope="col">Acciones</th>        </tr>      </thead>      <tbody>        <tr *ngFor="let t of turnosFiltrados">          <!-- Empleado -->          <td data-label="Empleado">            <div class="employee-cell">              <img class="avatar" aria-hidden="true" [src]="t.employee_photo_url || \'assets/default-img.jpg\'" [alt]="\'Foto de \' + (t.employee_name || \'Empleado\')" />              <!-- <span class="avatar" aria-hidden="true">{{ getInitials(t.employee_name || \'U\') }}</span> -->              <div class="employee-cell__info">                <span class="employee-cell__name">{{ t.employee_name || \'Empleado \' + t.employee_id }}</span>                <span class="employee-cell__email">{{ t.employee_email }}</span>              </div>            </div>          </td>          <!-- Día -->          <td data-label="Día">            <span class="day-pill">{{ t.start_time | date:\'EEE d MMM\':\'UTC\':\'es\' }}</span>          </td>          <!-- Inicio -->          <td data-label="Inicio">            <time [attr.datetime]="t.start_time" class="time-value">              {{ t.start_time | date:\'HH:mm\' }}            </time>          </td>          <!-- Fin -->          <td data-label="Fin">            <time [attr.datetime]="t.end_time" class="time-value">              {{ t.end_time | date:\'HH:mm\' }}            </time>          </td>          <!-- Duración calculada -->          <td data-label="Duración">            <span class="duracion-badge">{{ getDuracion(t.start_time, t.end_time) }}</span>          </td>          <!-- Acciones -->          <td data-label="Acciones">            <div class="actions">              <button                type="button"                class="btn btn--danger btn--sm"                (click)="eliminarTurno(t.id)"                [attr.aria-label]="\'Eliminar turno de \' + (t.employee_name || \'empleado\') + \' del \' + (t.start_time | date:\'d MMM\':\'UTC\':\'es\')"              >                Eliminar              </button>            </div>          </td>        </tr>      </tbody>    </table>    <!-- Empty state -->    <ng-template #sinTurnos>      <div class="empty-state" role="status">        <span class="empty-icon" aria-hidden="true">📅</span>        <p class="empty-title">          {{ filtroEmpleado || filtroDesde || filtroHasta              ? \'No hay turnos con los filtros aplicados\'              : \'No hay turnos registrados\' }}        </p>        <p class="empty-sub" *ngIf="filtroEmpleado || filtroDesde || filtroHasta">          Prueba a cambiar o limpiar los filtros        </p>      </div>    </ng-template>  </div></main></div>'
+    var COMPONENTS = [{'name': 'AdminDashboard', 'selector': 'app-admin-dashboard'},{'name': 'AdminEmpleados', 'selector': 'app-admin-empleados'},{'name': 'AdminHorarios', 'selector': 'app-admin-horarios'},{'name': 'AdminLayoutComponent', 'selector': 'app-admin-layout'},{'name': 'AdminNavbarComponent', 'selector': 'app-admin-navbar'},{'name': 'App', 'selector': 'app-root'},{'name': 'Dashboard', 'selector': 'app-dashboard'},{'name': 'EmployeeLayoutComponent', 'selector': 'app-employee-layout'},{'name': 'EmployeeNavbar', 'selector': 'app-employee-navbar'},{'name': 'Login', 'selector': 'app-login'},{'name': 'Register', 'selector': 'app-register'},{'name': 'Turnos', 'selector': 'app-admin-turnos'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'Turnos'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'Turnos.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

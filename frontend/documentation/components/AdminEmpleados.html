@@ -1,0 +1,1913 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AdminEmpleados</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/admin/empleados/empleados.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-admin-empleados</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                                <code><a href="https://angular.io/api/router/RouterModule" target="_blank" >RouterModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./empleados.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./empleados.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cargando" >cargando</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#closeBtn" >closeBtn</a>
+                            </li>
+                            <li>
+                                <a href="#empleados" >empleados</a>
+                            </li>
+                            <li>
+                                <a href="#empleadoSeleccionado" >empleadoSeleccionado</a>
+                            </li>
+                            <li>
+                                <a href="#error" >error</a>
+                            </li>
+                            <li>
+                                <a href="#filtro" >filtro</a>
+                            </li>
+                            <li>
+                                <a href="#mensaje" >mensaje</a>
+                            </li>
+                            <li>
+                                <a href="#todosLosHorarios" >todosLosHorarios</a>
+                            </li>
+                            <li>
+                                <a href="#turnosEmpleado" >turnosEmpleado</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cargarDatos" >cargarDatos</a>
+                            </li>
+                            <li>
+                                <a href="#cerrarPanel" >cerrarPanel</a>
+                            </li>
+                            <li>
+                                <a href="#getInitials" >getInitials</a>
+                            </li>
+                            <li>
+                                <a href="#getTurnosCount" >getTurnosCount</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#verTurnos" >verTurnos</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#empleadosFiltrados" >empleadosFiltrados</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, horariosService: <a href="../injectables/Horarios.html" target="_self">Horarios</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/admin/empleados/empleados.ts:42</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>horariosService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/Horarios.html" target="_self" >Horarios</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarDatos"></a>
+                    <span class="name">
+                        <span ><b>cargarDatos</b></span>
+                        <a href="#cargarDatos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarDatos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="54"
+                                    class="link-to-prism">src/app/admin/empleados/empleados.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga empleados y horarios en paralelo</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarPanel"></a>
+                    <span class="name">
+                        <span ><b>cerrarPanel</b></span>
+                        <a href="#cerrarPanel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cerrarPanel()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="116"
+                                    class="link-to-prism">src/app/admin/empleados/empleados.ts:116</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cierra el panel lateral</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInitials"></a>
+                    <span class="name">
+                        <span ><b>getInitials</b></span>
+                        <a href="#getInitials"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getInitials(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">src/app/admin/empleados/empleados.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Genera las iniciales del nombre para el avatar accesible.
+Ej: &quot;María García&quot; → &quot;MG&quot;</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTurnosCount"></a>
+                    <span class="name">
+                        <span ><b>getTurnosCount</b></span>
+                        <a href="#getTurnosCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTurnosCount(employeeId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="88"
+                                    class="link-to-prism">src/app/admin/empleados/empleados.ts:88</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Devuelve el número de turnos asignados a un empleado</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>employeeId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">src/app/admin/empleados/empleados.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="verTurnos"></a>
+                    <span class="name">
+                        <span ><b>verTurnos</b></span>
+                        <a href="#verTurnos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>verTurnos(emp: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="105"
+                                    class="link-to-prism">src/app/admin/empleados/empleados.ts:105</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Abre el panel lateral con los turnos del empleado</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>emp</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargando"></a>
+                    <span class="name">
+                        <span ><b>cargando</b></span>
+                        <a href="#cargando"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/admin/empleados/empleados.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeBtn"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>closeBtn</b></span>
+                        <a href="#closeBtn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef&lt;HTMLButtonElement&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;closeBtn&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/admin/empleados/empleados.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="empleados"></a>
+                    <span class="name">
+                        <span ><b>empleados</b></span>
+                        <a href="#empleados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/admin/empleados/empleados.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="empleadoSeleccionado"></a>
+                    <span class="name">
+                        <span ><b>empleadoSeleccionado</b></span>
+                        <a href="#empleadoSeleccionado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/admin/empleados/empleados.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="error"></a>
+                    <span class="name">
+                        <span ><b>error</b></span>
+                        <a href="#error"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/admin/empleados/empleados.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filtro"></a>
+                    <span class="name">
+                        <span ><b>filtro</b></span>
+                        <a href="#filtro"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/admin/empleados/empleados.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mensaje"></a>
+                    <span class="name">
+                        <span ><b>mensaje</b></span>
+                        <a href="#mensaje"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/admin/empleados/empleados.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="todosLosHorarios"></a>
+                    <span class="name">
+                        <span ><b>todosLosHorarios</b></span>
+                        <a href="#todosLosHorarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/admin/empleados/empleados.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="turnosEmpleado"></a>
+                    <span class="name">
+                        <span ><b>turnosEmpleado</b></span>
+                        <a href="#turnosEmpleado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/admin/empleados/empleados.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="empleadosFiltrados"></a>
+                        <span class="name"><b>empleadosFiltrados</b><a href="#empleadosFiltrados"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>empleadosFiltrados()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/admin/empleados/empleados.ts:78</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Lista filtrada reactiva basada en el campo de búsqueda</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>    <code>any[]</code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ElementRef, ViewChild } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+import { UserService } from &#x27;../../user/user&#x27;;
+import { Horarios } from &#x27;../horarios&#x27;;
+
+@Component({
+  selector: &#x27;app-admin-empleados&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule, FormsModule],
+  templateUrl: &#x27;./empleados.html&#x27;,
+  styleUrls: [&#x27;./empleados.scss&#x27;]
+})
+export class AdminEmpleados implements OnInit {
+
+  empleados: any[] &#x3D; [];
+  todosLosHorarios: any[] &#x3D; [];
+  turnosEmpleado: any[] &#x3D; [];
+  empleadoSeleccionado: any &#x3D; null;
+
+  filtro &#x3D; &#x27;&#x27;;
+  cargando &#x3D; true;
+  mensaje &#x3D; &#x27;&#x27;;
+  error &#x3D; &#x27;&#x27;;
+
+  // Referencia para gestión de foco (WCAG 2.4.3)
+  @ViewChild(&#x27;closeBtn&#x27;) closeBtn!: ElementRef&lt;HTMLButtonElement&gt;;
+
+  constructor(
+    private userService: UserService,
+    private horariosService: Horarios
+  ) {}
+
+  ngOnInit(): void {
+    this.cargarDatos();
+  }
+
+  /** Carga empleados y horarios en paralelo */
+  cargarDatos(): void {
+    this.cargando &#x3D; true;
+
+    // Empleados
+    this.userService.getEmployees().subscribe({
+      next: (res: any) &#x3D;&gt; {
+        this.empleados &#x3D; res;
+        this.cargando &#x3D; false;
+      },
+      error: (err) &#x3D;&gt; {
+        this.error &#x3D; &#x27;Error al cargar los empleados. Inténtalo de nuevo.&#x27;;
+        this.cargando &#x3D; false;
+        console.error(err);
+      }
+    });
+
+    // Todos los horarios (para el contador de turnos)
+    this.horariosService.getHorarios().subscribe({
+      next: (res: any) &#x3D;&gt; { this.todosLosHorarios &#x3D; res; },
+      error: (err) &#x3D;&gt; console.error(&#x27;Error cargando horarios:&#x27;, err)
+    });
+  }
+
+  /** Lista filtrada reactiva basada en el campo de búsqueda */
+  get empleadosFiltrados(): any[] {
+    if (!this.filtro.trim()) return this.empleados;
+    const q &#x3D; this.filtro.toLowerCase();
+    return this.empleados.filter(e &#x3D;&gt;
+      e.name.toLowerCase().includes(q) ||
+      e.email.toLowerCase().includes(q)
+    );
+  }
+
+  /** Devuelve el número de turnos asignados a un empleado */
+  getTurnosCount(employeeId: number): number {
+    return this.todosLosHorarios.filter(h &#x3D;&gt; h.employee_id &#x3D;&#x3D;&#x3D; employeeId).length;
+  }
+
+  /**
+   * Genera las iniciales del nombre para el avatar accesible.
+   * Ej: &quot;María García&quot; → &quot;MG&quot;
+   */
+  getInitials(name: string): string {
+    return name
+      .split(&#x27; &#x27;)
+      .slice(0, 2)
+      .map(n &#x3D;&gt; n[0]?.toUpperCase() ?? &#x27;&#x27;)
+      .join(&#x27;&#x27;);
+  }
+
+  /** Abre el panel lateral con los turnos del empleado */
+  verTurnos(emp: any): void {
+    this.empleadoSeleccionado &#x3D; emp;
+    this.turnosEmpleado &#x3D; this.todosLosHorarios
+      .filter(h &#x3D;&gt; h.employee_id &#x3D;&#x3D;&#x3D; emp.id)
+      .sort((a, b) &#x3D;&gt; new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
+
+    // Mueve el foco al botón de cierre del panel (WCAG 2.4.3)
+    setTimeout(() &#x3D;&gt; this.closeBtn?.nativeElement?.focus(), 50);
+  }
+
+  /** Cierra el panel lateral */
+  cerrarPanel(): void {
+    this.empleadoSeleccionado &#x3D; null;
+    this.turnosEmpleado &#x3D; [];
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+     admin/empleados/empleados.html
+     Página de listado de empleados para el panel de administración.
+
+     WCAG 2.1:
+     - role&#x3D;&quot;main&quot; en el contenido principal
+     - aria-label en la tabla y botones
+     - aria-live&#x3D;&quot;polite&quot; para mensajes dinámicos
+     - scope&#x3D;&quot;col&quot; en &lt;th&gt; para leer cabeceras de columna
+     - Focus visible por defecto (no se suprime con outline:0)
+     &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; --&gt;
+
+&lt;main class&#x3D;&quot;admin-page&quot; role&#x3D;&quot;main&quot; id&#x3D;&quot;main-content&quot;&gt;
+
+  &lt;!-- Cabecera de sección --&gt;
+  &lt;header class&#x3D;&quot;page-header&quot;&gt;
+    &lt;div class&#x3D;&quot;page-header__text&quot;&gt;
+      &lt;h1 class&#x3D;&quot;page-title&quot;&gt;Empleados&lt;/h1&gt;
+      &lt;p class&#x3D;&quot;page-subtitle&quot;&gt;Gestiona el listado de trabajadores registrados en el sistema&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;page-header__stats&quot; aria-label&#x3D;&quot;Estadísticas rápidas&quot;&gt;
+      &lt;div class&#x3D;&quot;stat-chip&quot;&gt;
+        &lt;span class&#x3D;&quot;stat-num&quot; aria-live&#x3D;&quot;polite&quot;&gt;{{ empleados.length }}&lt;/span&gt;
+        &lt;span class&#x3D;&quot;stat-label&quot;&gt;empleados&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;!-- Mensaje de error / éxito accesible --&gt;
+  &lt;div role&#x3D;&quot;alert&quot; aria-live&#x3D;&quot;assertive&quot; *ngIf&#x3D;&quot;error&quot; class&#x3D;&quot;alert alert--error&quot;&gt;
+    &lt;span class&#x3D;&quot;alert__icon&quot; aria-hidden&#x3D;&quot;true&quot;&gt;⚠&lt;/span&gt;
+    {{ error }}
+  &lt;/div&gt;
+
+  &lt;div role&#x3D;&quot;status&quot; aria-live&#x3D;&quot;polite&quot; *ngIf&#x3D;&quot;mensaje&quot; class&#x3D;&quot;alert alert--success&quot;&gt;
+    &lt;span class&#x3D;&quot;alert__icon&quot; aria-hidden&#x3D;&quot;true&quot;&gt;✓&lt;/span&gt;
+    {{ mensaje }}
+  &lt;/div&gt;
+
+  &lt;!-- Buscador --&gt;
+  &lt;div class&#x3D;&quot;search-bar&quot;&gt;
+    &lt;label for&#x3D;&quot;buscar-empleado&quot; class&#x3D;&quot;sr-only&quot;&gt;Buscar empleado por nombre o email&lt;/label&gt;
+    &lt;input
+      id&#x3D;&quot;buscar-empleado&quot;
+      type&#x3D;&quot;search&quot;
+      class&#x3D;&quot;search-input&quot;
+      placeholder&#x3D;&quot;Buscar por nombre o email…&quot;
+      [(ngModel)]&#x3D;&quot;filtro&quot;
+      aria-label&#x3D;&quot;Buscar empleado por nombre o email&quot;
+    /&gt;
+    &lt;span class&#x3D;&quot;search-icon&quot; aria-hidden&#x3D;&quot;true&quot;&gt;🔍&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Estado de carga --&gt;
+  &lt;div *ngIf&#x3D;&quot;cargando&quot; class&#x3D;&quot;loading-state&quot; role&#x3D;&quot;status&quot; aria-live&#x3D;&quot;polite&quot;&gt;
+    &lt;div class&#x3D;&quot;spinner&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;/div&gt;
+    &lt;span&gt;Cargando empleados…&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Tabla de empleados --&gt;
+  &lt;div class&#x3D;&quot;table-wrapper&quot; *ngIf&#x3D;&quot;!cargando&quot;&gt;
+    &lt;table
+      class&#x3D;&quot;data-table&quot;
+      aria-label&#x3D;&quot;Listado de empleados&quot;
+      *ngIf&#x3D;&quot;empleadosFiltrados.length &gt; 0; else sinEmpleados&quot;
+    &gt;
+      &lt;caption class&#x3D;&quot;sr-only&quot;&gt;
+        Tabla con {{ empleadosFiltrados.length }} empleados. Columnas: nombre, email, turnos asignados y acciones.
+      &lt;/caption&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;#&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Nombre&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Email&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Turnos asignados&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Acciones&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr *ngFor&#x3D;&quot;let emp of empleadosFiltrados; let i &#x3D; index&quot;&gt;
+          &lt;!-- Número de orden --&gt;
+          &lt;td data-label&#x3D;&quot;#&quot;&gt;{{ i + 1 }}&lt;/td&gt;
+
+          &lt;!-- Nombre --&gt;
+          &lt;td data-label&#x3D;&quot;Nombre&quot;&gt;
+            &lt;div class&#x3D;&quot;employee-name&quot;&gt;
+              &lt;!-- Avatar generado por iniciales --&gt;
+              &lt;span class&#x3D;&quot;avatar&quot; aria-hidden&#x3D;&quot;true&quot;&gt;{{ getInitials(emp.name) }}&lt;/span&gt;
+              &lt;span&gt;{{ emp.name }}&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/td&gt;
+
+          &lt;!-- Email --&gt;
+          &lt;td data-label&#x3D;&quot;Email&quot;&gt;
+            &lt;a [href]&#x3D;&quot;&#x27;mailto:&#x27; + emp.email&quot; class&#x3D;&quot;email-link&quot;&gt;{{ emp.email }}&lt;/a&gt;
+          &lt;/td&gt;
+
+          &lt;!-- Turnos asignados --&gt;
+          &lt;td data-label&#x3D;&quot;Turnos asignados&quot;&gt;
+            &lt;span class&#x3D;&quot;badge&quot; [class.badge--active]&#x3D;&quot;getTurnosCount(emp.id) &gt; 0&quot;&gt;
+              {{ getTurnosCount(emp.id) }} turno{{ getTurnosCount(emp.id) !&#x3D;&#x3D; 1 ? &#x27;s&#x27; : &#x27;&#x27; }}
+            &lt;/span&gt;
+          &lt;/td&gt;
+
+          &lt;!-- Acciones --&gt;
+          &lt;td data-label&#x3D;&quot;Acciones&quot;&gt;
+            &lt;div class&#x3D;&quot;actions&quot;&gt;
+              &lt;button
+                type&#x3D;&quot;button&quot;
+                class&#x3D;&quot;btn btn--secondary btn--sm&quot;
+                (click)&#x3D;&quot;verTurnos(emp)&quot;
+                [attr.aria-label]&#x3D;&quot;&#x27;Ver turnos de &#x27; + emp.name&quot;
+              &gt;
+                Ver turnos
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;!-- Empty state --&gt;
+    &lt;ng-template #sinEmpleados&gt;
+      &lt;div class&#x3D;&quot;empty-state&quot; role&#x3D;&quot;status&quot;&gt;
+        &lt;span class&#x3D;&quot;empty-icon&quot; aria-hidden&#x3D;&quot;true&quot;&gt;👥&lt;/span&gt;
+        &lt;p class&#x3D;&quot;empty-title&quot;&gt;
+          {{ filtro ? &#x27;No se encontraron empleados con &quot;&#x27; + filtro + &#x27;&quot;&#x27; : &#x27;No hay empleados registrados&#x27; }}
+        &lt;/p&gt;
+        &lt;p class&#x3D;&quot;empty-sub&quot; *ngIf&#x3D;&quot;filtro&quot;&gt;
+          Prueba con un nombre o email diferente
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/ng-template&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Panel lateral: turnos del empleado seleccionado --&gt;
+  &lt;aside
+    class&#x3D;&quot;turnos-panel&quot;
+    *ngIf&#x3D;&quot;empleadoSeleccionado&quot;
+    role&#x3D;&quot;complementary&quot;
+    [attr.aria-label]&#x3D;&quot;&#x27;Turnos de &#x27; + empleadoSeleccionado.name&quot;
+  &gt;
+    &lt;div class&#x3D;&quot;turnos-panel__header&quot;&gt;
+      &lt;h2 class&#x3D;&quot;turnos-panel__title&quot;&gt;
+        Turnos de &lt;strong&gt;{{ empleadoSeleccionado.name }}&lt;/strong&gt;
+      &lt;/h2&gt;
+      &lt;button
+        type&#x3D;&quot;button&quot;
+        class&#x3D;&quot;btn--close&quot;
+        (click)&#x3D;&quot;cerrarPanel()&quot;
+        aria-label&#x3D;&quot;Cerrar panel de turnos&quot;
+      &gt;✕&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div *ngIf&#x3D;&quot;turnosEmpleado.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;empty-state--sm&quot;&gt;
+      Este empleado no tiene turnos asignados
+    &lt;/div&gt;
+
+    &lt;ul class&#x3D;&quot;turnos-mini-list&quot; *ngIf&#x3D;&quot;turnosEmpleado.length &gt; 0&quot;&gt;
+      &lt;li *ngFor&#x3D;&quot;let t of turnosEmpleado&quot; class&#x3D;&quot;turno-mini-item&quot;&gt;
+        &lt;span class&#x3D;&quot;turno-mini-date&quot;&gt;{{ t.start_time | date:&#x27;d MMM&#x27;:&#x27;UTC&#x27;:&#x27;es&#x27; }}&lt;/span&gt;
+        &lt;span class&#x3D;&quot;turno-mini-hours&quot;&gt;
+          {{ t.start_time | date:&#x27;HH:mm&#x27; }} → {{ t.end_time | date:&#x27;HH:mm&#x27; }}
+        &lt;/span&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/aside&gt;
+
+&lt;/main&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./empleados.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/**
+ * admin/empleados/empleados.scss
+ *
+ * Estilos del listado de empleados del panel de administración.
+ *
+ * Responsive breakpoints:
+ *   ≥ 768px  → tabla clásica con columnas
+ *   &lt; 768px  → tabla tipo &quot;tarjeta&quot; (data-label)
+ *
+ * WCAG 2.1:
+ *   - .sr-only: oculta texto visualmente pero accesible a lectores
+ *   - Contraste mínimo 4.5:1 en textos normales
+ *   - Focus visible con outline explícito
+ *   - No se usa solo el color para transmitir información
+ */
+
+@import &#x27;../../../styles/variables&#x27;;
+
+// ── Utilidad de accesibilidad ──────────────────────────────────────────
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ── Layout de la página ────────────────────────────────────────────────
+.admin-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+// ── Cabecera ───────────────────────────────────────────────────────────
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: $color-primary;
+  margin: 0 0 4px;
+  line-height: 1.1;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.stat-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $color-primary;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 12px;
+  min-width: 80px;
+
+  .stat-num {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    opacity: 0.75;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+// ── Alertas ────────────────────────────────────────────────────────────
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border-width: 1px;
+  border-style: solid;
+
+  &amp;--error {
+    background: #fef2f2;
+    color: #991b1b;   // contraste 7:1 sobre fondo claro
+    border-color: #fca5a5;
+  }
+
+  &amp;--success {
+    background: #f0fdf4;
+    color: #166534;   // contraste 7:1
+    border-color: #86efac;
+  }
+
+  &amp;__icon { font-size: 16px; }
+}
+
+// ── Buscador ───────────────────────────────────────────────────────────
+.search-bar {
+  position: relative;
+  max-width: 400px;
+  margin-bottom: 24px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 40px 10px 16px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fff;
+  color: #111827;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+
+  &amp;:focus {
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba(26, 28, 55, 0.15);
+  }
+
+  &amp;::placeholder { color: #9ca3af; }
+}
+
+.search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+// ── Spinner de carga ───────────────────────────────────────────────────
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 40px;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #e5e7eb;
+  border-top-color: $color-primary;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ── Envoltorio de tabla ────────────────────────────────────────────────
+.table-wrapper {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+// ── Tabla de datos ─────────────────────────────────────────────────────
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+
+  thead {
+    background: #f9fafb;
+    border-bottom: 2px solid #e5e7eb;
+
+    th {
+      text-align: left;
+      padding: 13px 16px;
+      font-weight: 700;
+      color: $color-primary;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #f3f4f6;
+    transition: background 0.15s ease;
+
+    &amp;:last-child { border-bottom: none; }
+    &amp;:hover { background: #f9fafb; }
+  }
+
+  td {
+    padding: 14px 16px;
+    color: #374151;
+    vertical-align: middle;
+  }
+}
+
+// ── Avatar + nombre ────────────────────────────────────────────────────
+.employee-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: $color-primary;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  letter-spacing: 0.05em;
+}
+
+.email-link {
+  color: $color-primary;
+  text-decoration: none;
+  font-weight: 500;
+
+  &amp;:hover { text-decoration: underline; }
+  &amp;:focus {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+// ── Badges de turnos ───────────────────────────────────────────────────
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #f3f4f6;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
+
+  // El color añade refuerzo visual, pero el texto numérico ya transmite la info
+  &amp;--active {
+    background: #eff6ff;
+    color: #1d4ed8;  // contraste ~6:1
+    border-color: #bfdbfe;
+  }
+}
+
+// ── Botones ────────────────────────────────────────────────────────────
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 7px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  text-decoration: none;
+
+  &amp;:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+
+  &amp;:active { transform: scale(0.97); }
+
+  &amp;--sm { padding: 7px 14px; font-size: 13px; }
+
+  &amp;--secondary {
+    background: #f3f4f6;
+    color: $color-primary;
+    border: 1.5px solid #e5e7eb;
+
+    &amp;:hover {
+      background: $color-primary;
+      color: #fff;
+      border-color: $color-primary;
+    }
+  }
+}
+
+// ── Panel lateral de turnos ────────────────────────────────────────────
+.turnos-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(400px, 100vw);
+  height: 100vh;
+  background: #fff;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  animation: slideIn 0.22s ease;
+
+  &amp;__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 24px;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+  }
+
+  &amp;__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: $color-primary;
+    margin: 0;
+    line-height: 1.4;
+  }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.btn--close {
+  background: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 4px 9px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #374151;
+  flex-shrink: 0;
+
+  &amp;:hover { background: #f3f4f6; }
+  &amp;:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+.turnos-mini-list {
+  list-style: none;
+  padding: 16px 24px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.turno-mini-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 13px;
+}
+
+.turno-mini-date {
+  font-weight: 700;
+  color: $color-primary;
+  text-transform: capitalize;
+}
+
+.turno-mini-hours {
+  color: #6b7280;
+  font-variant-numeric: tabular-nums;
+}
+
+// ── Empty states ───────────────────────────────────────────────────────
+.empty-state {
+  padding: 56px 24px;
+  text-align: center;
+
+  .empty-icon { font-size: 40px; display: block; margin-bottom: 12px; }
+  .empty-title { font-size: 15px; font-weight: 600; color: #374151; margin: 0 0 6px; }
+  .empty-sub   { font-size: 13px; color: #9ca3af; margin: 0; }
+}
+
+.empty-state--sm {
+  padding: 32px 24px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+// ── Acciones ───────────────────────────────────────────────────────────
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+// ── RESPONSIVE: tabla → tarjetas en móvil ─────────────────────────────
+@media (max-width: 640px) {
+  .admin-page { padding: 20px 16px 48px; }
+
+  .page-header { flex-direction: column; }
+
+  .data-table {
+    display: block;
+
+    thead { display: none; }  // se reemplaza por data-label
+
+    tbody, tr, td {
+      display: block;
+      width: 100%;
+    }
+
+    tr {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      padding: 8px 0;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 13px;
+
+      &amp;:last-child { border-bottom: none; }
+
+      // Etiqueta generada desde data-label
+      &amp;::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: $color-primary;
+        margin-right: 12px;
+        flex-shrink: 0;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+    }
+  }
+
+  .table-wrapper {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    overflow: visible;
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- =====================================================================     admin/empleados/empleados.html     Página de listado de empleados para el panel de administración.     WCAG 2.1:     - role="main" en el contenido principal     - aria-label en la tabla y botones     - aria-live="polite" para mensajes dinámicos     - scope="col" en <th> para leer cabeceras de columna     - Focus visible por defecto (no se suprime con outline:0)     ===================================================================== --><main class="admin-page" role="main" id="main-content">  <!-- Cabecera de sección -->  <header class="page-header">    <div class="page-header__text">      <h1 class="page-title">Empleados</h1>      <p class="page-subtitle">Gestiona el listado de trabajadores registrados en el sistema</p>    </div>    <div class="page-header__stats" aria-label="Estadísticas rápidas">      <div class="stat-chip">        <span class="stat-num" aria-live="polite">{{ empleados.length }}</span>        <span class="stat-label">empleados</span>      </div>    </div>  </header>  <!-- Mensaje de error / éxito accesible -->  <div role="alert" aria-live="assertive" *ngIf="error" class="alert alert--error">    <span class="alert__icon" aria-hidden="true">⚠</span>    {{ error }}  </div>  <div role="status" aria-live="polite" *ngIf="mensaje" class="alert alert--success">    <span class="alert__icon" aria-hidden="true">✓</span>    {{ mensaje }}  </div>  <!-- Buscador -->  <div class="search-bar">    <label for="buscar-empleado" class="sr-only">Buscar empleado por nombre o email</label>    <input      id="buscar-empleado"      type="search"      class="search-input"      placeholder="Buscar por nombre o email…"      [(ngModel)]="filtro"      aria-label="Buscar empleado por nombre o email"    />    <span class="search-icon" aria-hidden="true">🔍</span>  </div>  <!-- Estado de carga -->  <div *ngIf="cargando" class="loading-state" role="status" aria-live="polite">    <div class="spinner" aria-hidden="true"></div>    <span>Cargando empleados…</span>  </div>  <!-- Tabla de empleados -->  <div class="table-wrapper" *ngIf="!cargando">    <table      class="data-table"      aria-label="Listado de empleados"      *ngIf="empleadosFiltrados.length > 0; else sinEmpleados"    >      <caption class="sr-only">        Tabla con {{ empleadosFiltrados.length }} empleados. Columnas: nombre, email, turnos asignados y acciones.      </caption>      <thead>        <tr>          <th scope="col">#</th>          <th scope="col">Nombre</th>          <th scope="col">Email</th>          <th scope="col">Turnos asignados</th>          <th scope="col">Acciones</th>        </tr>      </thead>      <tbody>        <tr *ngFor="let emp of empleadosFiltrados; let i = index">          <!-- Número de orden -->          <td data-label="#">{{ i + 1 }}</td>          <!-- Nombre -->          <td data-label="Nombre">            <div class="employee-name">              <!-- Avatar generado por iniciales -->              <span class="avatar" aria-hidden="true">{{ getInitials(emp.name) }}</span>              <span>{{ emp.name }}</span>            </div>          </td>          <!-- Email -->          <td data-label="Email">            <a [href]="\'mailto:\' + emp.email" class="email-link">{{ emp.email }}</a>          </td>          <!-- Turnos asignados -->          <td data-label="Turnos asignados">            <span class="badge" [class.badge--active]="getTurnosCount(emp.id) > 0">              {{ getTurnosCount(emp.id) }} turno{{ getTurnosCount(emp.id) !== 1 ? \'s\' : \'\' }}            </span>          </td>          <!-- Acciones -->          <td data-label="Acciones">            <div class="actions">              <button                type="button"                class="btn btn--secondary btn--sm"                (click)="verTurnos(emp)"                [attr.aria-label]="\'Ver turnos de \' + emp.name"              >                Ver turnos              </button>            </div>          </td>        </tr>      </tbody>    </table>    <!-- Empty state -->    <ng-template #sinEmpleados>      <div class="empty-state" role="status">        <span class="empty-icon" aria-hidden="true">👥</span>        <p class="empty-title">          {{ filtro ? \'No se encontraron empleados con "\' + filtro + \'"\' : \'No hay empleados registrados\' }}        </p>        <p class="empty-sub" *ngIf="filtro">          Prueba con un nombre o email diferente        </p>      </div>    </ng-template>  </div>  <!-- Panel lateral: turnos del empleado seleccionado -->  <aside    class="turnos-panel"    *ngIf="empleadoSeleccionado"    role="complementary"    [attr.aria-label]="\'Turnos de \' + empleadoSeleccionado.name"  >    <div class="turnos-panel__header">      <h2 class="turnos-panel__title">        Turnos de <strong>{{ empleadoSeleccionado.name }}</strong>      </h2>      <button        type="button"        class="btn--close"        (click)="cerrarPanel()"        aria-label="Cerrar panel de turnos"      >✕</button>    </div>    <div *ngIf="turnosEmpleado.length === 0" class="empty-state--sm">      Este empleado no tiene turnos asignados    </div>    <ul class="turnos-mini-list" *ngIf="turnosEmpleado.length > 0">      <li *ngFor="let t of turnosEmpleado" class="turno-mini-item">        <span class="turno-mini-date">{{ t.start_time | date:\'d MMM\':\'UTC\':\'es\' }}</span>        <span class="turno-mini-hours">          {{ t.start_time | date:\'HH:mm\' }} → {{ t.end_time | date:\'HH:mm\' }}        </span>      </li>    </ul>  </aside></main></div>'
+    var COMPONENTS = [{'name': 'AdminDashboard', 'selector': 'app-admin-dashboard'},{'name': 'AdminEmpleados', 'selector': 'app-admin-empleados'},{'name': 'AdminHorarios', 'selector': 'app-admin-horarios'},{'name': 'AdminLayoutComponent', 'selector': 'app-admin-layout'},{'name': 'AdminNavbarComponent', 'selector': 'app-admin-navbar'},{'name': 'App', 'selector': 'app-root'},{'name': 'Dashboard', 'selector': 'app-dashboard'},{'name': 'EmployeeLayoutComponent', 'selector': 'app-employee-layout'},{'name': 'EmployeeNavbar', 'selector': 'app-employee-navbar'},{'name': 'Login', 'selector': 'app-login'},{'name': 'Register', 'selector': 'app-register'},{'name': 'Turnos', 'selector': 'app-admin-turnos'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AdminEmpleados'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdminEmpleados.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

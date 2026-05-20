@@ -1,0 +1,1324 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AdminDashboard</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/admin/dashboard/dashboard.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-admin-dashboard</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                            <code>FullCalendarModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./dashboard.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./dashboard.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#editando" >editando</a>
+                            </li>
+                            <li>
+                                <a href="#empleados" >empleados</a>
+                            </li>
+                            <li>
+                                <a href="#error" >error</a>
+                            </li>
+                            <li>
+                                <a href="#form" >form</a>
+                            </li>
+                            <li>
+                                <a href="#horarios" >horarios</a>
+                            </li>
+                            <li>
+                                <a href="#mensaje" >mensaje</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#borrar" >borrar</a>
+                            </li>
+                            <li>
+                                <a href="#crearHorario" >crearHorario</a>
+                            </li>
+                            <li>
+                                <a href="#editar" >editar</a>
+                            </li>
+                            <li>
+                                <a href="#guardarEdicion" >guardarEdicion</a>
+                            </li>
+                            <li>
+                                <a href="#loadEmpleados" >loadEmpleados</a>
+                            </li>
+                            <li>
+                                <a href="#loadHorarios" >loadHorarios</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(horariosService: <a href="../injectables/Horarios.html" target="_self">Horarios</a>, empleadosService: <a href="../injectables/UserService.html" target="_self">UserService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/admin/dashboard/dashboard.ts:28</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>horariosService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/Horarios.html" target="_self" >Horarios</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>empleadosService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="borrar"></a>
+                    <span class="name">
+                        <span ><b>borrar</b></span>
+                        <a href="#borrar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>borrar(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/admin/dashboard/dashboard.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="crearHorario"></a>
+                    <span class="name">
+                        <span ><b>crearHorario</b></span>
+                        <a href="#crearHorario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>crearHorario()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="54"
+                                    class="link-to-prism">src/app/admin/dashboard/dashboard.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editar"></a>
+                    <span class="name">
+                        <span ><b>editar</b></span>
+                        <a href="#editar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editar(h: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="69"
+                                    class="link-to-prism">src/app/admin/dashboard/dashboard.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>h</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="guardarEdicion"></a>
+                    <span class="name">
+                        <span ><b>guardarEdicion</b></span>
+                        <a href="#guardarEdicion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>guardarEdicion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="73"
+                                    class="link-to-prism">src/app/admin/dashboard/dashboard.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadEmpleados"></a>
+                    <span class="name">
+                        <span ><b>loadEmpleados</b></span>
+                        <a href="#loadEmpleados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadEmpleados()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">src/app/admin/dashboard/dashboard.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadHorarios"></a>
+                    <span class="name">
+                        <span ><b>loadHorarios</b></span>
+                        <a href="#loadHorarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadHorarios()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/app/admin/dashboard/dashboard.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">src/app/admin/dashboard/dashboard.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editando"></a>
+                    <span class="name">
+                        <span ><b>editando</b></span>
+                        <a href="#editando"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/admin/dashboard/dashboard.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="empleados"></a>
+                    <span class="name">
+                        <span ><b>empleados</b></span>
+                        <a href="#empleados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/admin/dashboard/dashboard.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="error"></a>
+                    <span class="name">
+                        <span ><b>error</b></span>
+                        <a href="#error"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/admin/dashboard/dashboard.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="form"></a>
+                    <span class="name">
+                        <span ><b>form</b></span>
+                        <a href="#form"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    employee_id: &#x27;&#x27;,
+    start_time: &#x27;&#x27;,
+    end_time: &#x27;&#x27;
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/admin/dashboard/dashboard.ts:20</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="horarios"></a>
+                    <span class="name">
+                        <span ><b>horarios</b></span>
+                        <a href="#horarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/admin/dashboard/dashboard.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mensaje"></a>
+                    <span class="name">
+                        <span ><b>mensaje</b></span>
+                        <a href="#mensaje"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/admin/dashboard/dashboard.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { Horarios } from &#x27;../horarios&#x27;;
+import { UserService } from &#x27;../../user/user&#x27;;
+import  dayGridPlugin  from &#x27;@fullcalendar/daygrid&#x27;;
+import { FullCalendarModule } from &#x27;@fullcalendar/angular&#x27;;
+
+@Component({
+  selector: &#x27;app-admin-dashboard&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, FullCalendarModule],
+  templateUrl: &#x27;./dashboard.html&#x27;,
+  styleUrls: [&#x27;./dashboard.scss&#x27;]
+})
+export class AdminDashboard {
+  empleados: any[] &#x3D; [];
+  horarios: any[] &#x3D; [];
+
+  form &#x3D; {
+    employee_id: &#x27;&#x27;,
+    start_time: &#x27;&#x27;,
+    end_time: &#x27;&#x27;
+  };
+
+  editando: any &#x3D; null;
+  mensaje &#x3D; &#x27;&#x27;;
+  error &#x3D; &#x27;&#x27;;
+
+  constructor(
+    private horariosService: Horarios,
+    private empleadosService: UserService
+  ) {}
+
+  ngOnInit() {
+    this.loadEmpleados();
+    this.loadHorarios();
+  }
+
+  loadEmpleados() {
+    this.empleadosService.getEmployees().subscribe({
+      next: (res: any) &#x3D;&gt; this.empleados &#x3D; res,
+      error: (err) &#x3D;&gt; console.error(err)
+    });
+  }
+
+  loadHorarios() {
+    this.horariosService.getHorarios().subscribe({
+      next: (res: any) &#x3D;&gt; this.horarios &#x3D; res,
+      error: (err) &#x3D;&gt; console.error(err)
+    });
+  }
+
+  crearHorario() {
+    this.mensaje &#x3D; &#x27;&#x27;;
+    this.error &#x3D; &#x27;&#x27;;
+
+    this.horariosService.createHorario(this.form).subscribe({
+      next: () &#x3D;&gt; {
+        this.mensaje &#x3D; &#x27;Turno creado correctamente&#x27;;
+        this.loadHorarios();
+      },
+      error: (err) &#x3D;&gt; {
+        this.error &#x3D; err.error?.message || &#x27;Error al crear turno&#x27;;
+      }
+    });
+  }
+
+  editar(h: any) {
+    this.editando &#x3D; { ...h };
+  }
+
+  guardarEdicion() {
+    this.horariosService.updateHorario(this.editando.id, this.editando).subscribe({
+      next: () &#x3D;&gt; {
+        this.mensaje &#x3D; &#x27;Turno actualizado&#x27;;
+        this.editando &#x3D; null;
+        this.loadHorarios();
+      },
+      error: (err) &#x3D;&gt; {
+        this.error &#x3D; err.error?.message || &#x27;Error al actualizar&#x27;;
+      }
+    });
+  }
+
+  borrar(id: number) {
+    if (!confirm(&#x27;¿Eliminar turno?&#x27;)) return;
+
+    this.horariosService.deleteHorario(id.toString()).subscribe({
+      next: () &#x3D;&gt; {
+        this.mensaje &#x3D; &#x27;Turno eliminado&#x27;;
+        this.loadHorarios();
+      },
+      error: (err) &#x3D;&gt; {
+        this.error &#x3D; err.error?.message || &#x27;Error al eliminar&#x27;;
+      }
+    });
+  }
+
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h2&gt;Panel de administración&lt;/h2&gt;
+&lt;div class&#x3D;&quot;admin-header&quot;&gt;
+  &lt;h1&gt;Panel de administración&lt;/h1&gt;
+  &lt;p class&#x3D;&quot;subtitle&quot;&gt;Gestiona turnos, empleados y horarios&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- FORMULARIO --&gt;
+&lt;h3&gt;Crear turno&lt;/h3&gt;
+
+&lt;form (ngSubmit)&#x3D;&quot;crearHorario()&quot;&gt;
+  &lt;label&gt;Empleado&lt;/label&gt;
+  &lt;select [(ngModel)]&#x3D;&quot;form.employee_id&quot; name&#x3D;&quot;employee_id&quot; required&gt;
+    &lt;option value&#x3D;&quot;&quot;&gt;Selecciona un empleado&lt;/option&gt;
+    &lt;option *ngFor&#x3D;&quot;let emp of empleados&quot; [value]&#x3D;&quot;emp.id&quot;&gt;
+      {{ emp.name }} ({{ emp.email }})
+    &lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;label&gt;Inicio&lt;/label&gt;
+  &lt;input type&#x3D;&quot;datetime-local&quot; [(ngModel)]&#x3D;&quot;form.start_time&quot; name&#x3D;&quot;start_time&quot; required /&gt;
+
+  &lt;label&gt;Fin&lt;/label&gt;
+  &lt;input type&#x3D;&quot;datetime-local&quot; [(ngModel)]&#x3D;&quot;form.end_time&quot; name&#x3D;&quot;end_time&quot; required /&gt;
+
+  &lt;button class&#x3D;&quot;btn-primary&quot; type&#x3D;&quot;submit&quot;&gt;Crear turno&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;p *ngIf&#x3D;&quot;mensaje&quot; style&#x3D;&quot;color: green&quot;&gt;{{ mensaje }}&lt;/p&gt;
+&lt;p *ngIf&#x3D;&quot;error&quot; style&#x3D;&quot;color: red&quot;&gt;{{ error }}&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;!-- LISTADO --&gt;
+&lt;h3&gt;Turnos existentes&lt;/h3&gt;
+
+&lt;table class&#x3D;&quot;turnos-table&quot;&gt;
+  &lt;tr&gt;
+    &lt;th&gt;ID&lt;/th&gt;
+    &lt;th&gt;Empleado&lt;/th&gt;
+    &lt;th&gt;Inicio&lt;/th&gt;
+    &lt;th&gt;Fin&lt;/th&gt;
+    &lt;th&gt;Acciones&lt;/th&gt;
+  &lt;/tr&gt;
+
+  &lt;tr *ngFor&#x3D;&quot;let h of horarios&quot;&gt;
+    &lt;td&gt;{{ h.id }}&lt;/td&gt;
+    &lt;td&gt;{{ h.employee_id }}&lt;/td&gt;
+    &lt;td&gt;{{ h.start_time }}&lt;/td&gt;
+    &lt;td&gt;{{ h.end_time }}&lt;/td&gt;
+    &lt;td&gt;
+      &lt;button class&#x3D;&quot;btn-primary&quot; (click)&#x3D;&quot;editar(h)&quot;&gt;Editar&lt;/button&gt;
+      &lt;button class&#x3D;&quot;btn-delete&quot; (click)&#x3D;&quot;borrar(h.id)&quot;&gt;Eliminar&lt;/button&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;!-- EDICIÓN --&gt;
+&lt;div *ngIf&#x3D;&quot;editando&quot; class&#x3D;&quot;modal-edicion&quot;&gt;
+  &lt;h3&gt;Editar turno&lt;/h3&gt;
+
+  &lt;label&gt;Inicio&lt;/label&gt;
+  &lt;input type&#x3D;&quot;datetime-local&quot; [(ngModel)]&#x3D;&quot;editando.start_time&quot; /&gt;
+
+  &lt;label&gt;Fin&lt;/label&gt;
+  &lt;input type&#x3D;&quot;datetime-local&quot; [(ngModel)]&#x3D;&quot;editando.end_time&quot; /&gt;
+
+  &lt;button class&#x3D;&quot;btn-primary&quot; (click)&#x3D;&quot;guardarEdicion()&quot;&gt;Guardar&lt;/button&gt;
+  &lt;button class&#x3D;&quot;btn-small&quot; (click)&#x3D;&quot;editando &#x3D; null&quot;&gt;Cancelar&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./dashboard.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.admin-dashboard {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: &#x27;Nunito Sans&#x27;, sans-serif;
+}
+
+/* CABECERA */
+.admin-header {
+  margin-bottom: 32px;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1A2060;
+    margin: 0;
+  }
+
+  .subtitle {
+    margin-top: 6px;
+    font-size: 15px;
+    opacity: 0.7;
+  }
+}
+
+/* SECCIONES */
+.admin-section {
+  margin-bottom: 40px;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #1A2060;
+  }
+}
+
+/* TARJETAS */
+.card {
+  background: white;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  border: 1px solid #f0f0f0;
+}
+
+/* FORMULARIO */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #dcdfe6;
+  font-size: 14px;
+  background: #fafafa;
+
+  &amp;:focus {
+    border-color: #1A2060;
+    box-shadow: 0 0 0 3px rgba(26,32,96,0.15);
+    outline: none;
+  }
+}
+
+/* BOTONES */
+.btn-primary {
+  background: #1A2060;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+
+  &amp;:hover {
+    background: lighten(#1A2060, 8%);
+    transform: translateY(-2px);
+  }
+}
+
+.btn-small {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.btn-edit {
+  background: #3498db;
+  color: white;
+
+  &amp;:hover {
+    background: darken(#3498db, 8%);
+  }
+}
+
+.btn-delete {
+  background: #e74c3c;
+  color: white;
+
+  &amp;:hover {
+    background: darken(#e74c3c, 8%);
+  }
+}
+
+/* TABLA */
+.turnos-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+
+  thead {
+    background: #f5f7fa;
+
+    th {
+      text-align: left;
+      padding: 12px;
+      font-weight: 700;
+      color: #1A2060;
+      border-bottom: 2px solid #e0e0e0;
+    }
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #eee;
+
+    &amp;:hover {
+      background: #fafafa;
+    }
+  }
+
+  td {
+    padding: 12px;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h2>Panel de administración</h2><div class="admin-header">  <h1>Panel de administración</h1>  <p class="subtitle">Gestiona turnos, empleados y horarios</p></div><!-- FORMULARIO --><h3>Crear turno</h3><form (ngSubmit)="crearHorario()">  <label>Empleado</label>  <select [(ngModel)]="form.employee_id" name="employee_id" required>    <option value="">Selecciona un empleado</option>    <option *ngFor="let emp of empleados" [value]="emp.id">      {{ emp.name }} ({{ emp.email }})    </option>  </select>  <label>Inicio</label>  <input type="datetime-local" [(ngModel)]="form.start_time" name="start_time" required />  <label>Fin</label>  <input type="datetime-local" [(ngModel)]="form.end_time" name="end_time" required />  <button class="btn-primary" type="submit">Crear turno</button></form><p *ngIf="mensaje" style="color: green">{{ mensaje }}</p><p *ngIf="error" style="color: red">{{ error }}</p><hr /><!-- LISTADO --><h3>Turnos existentes</h3><table class="turnos-table">  <tr>    <th>ID</th>    <th>Empleado</th>    <th>Inicio</th>    <th>Fin</th>    <th>Acciones</th>  </tr>  <tr *ngFor="let h of horarios">    <td>{{ h.id }}</td>    <td>{{ h.employee_id }}</td>    <td>{{ h.start_time }}</td>    <td>{{ h.end_time }}</td>    <td>      <button class="btn-primary" (click)="editar(h)">Editar</button>      <button class="btn-delete" (click)="borrar(h.id)">Eliminar</button>    </td>  </tr></table><!-- EDICIÓN --><div *ngIf="editando" class="modal-edicion">  <h3>Editar turno</h3>  <label>Inicio</label>  <input type="datetime-local" [(ngModel)]="editando.start_time" />  <label>Fin</label>  <input type="datetime-local" [(ngModel)]="editando.end_time" />  <button class="btn-primary" (click)="guardarEdicion()">Guardar</button>  <button class="btn-small" (click)="editando = null">Cancelar</button></div></div>'
+    var COMPONENTS = [{'name': 'AdminDashboard', 'selector': 'app-admin-dashboard'},{'name': 'AdminEmpleados', 'selector': 'app-admin-empleados'},{'name': 'AdminHorarios', 'selector': 'app-admin-horarios'},{'name': 'AdminLayoutComponent', 'selector': 'app-admin-layout'},{'name': 'AdminNavbarComponent', 'selector': 'app-admin-navbar'},{'name': 'App', 'selector': 'app-root'},{'name': 'Dashboard', 'selector': 'app-dashboard'},{'name': 'EmployeeLayoutComponent', 'selector': 'app-employee-layout'},{'name': 'EmployeeNavbar', 'selector': 'app-employee-navbar'},{'name': 'Login', 'selector': 'app-login'},{'name': 'Register', 'selector': 'app-register'},{'name': 'Turnos', 'selector': 'app-admin-turnos'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AdminDashboard'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdminDashboard.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

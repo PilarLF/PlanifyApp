@@ -89,6 +89,9 @@ export class Turnos implements OnInit {
   mensaje  = '';
   error    = '';
 
+  paginaActual = 0;
+  itemsPorPagina = 10;
+
   constructor(
     private horariosService: Horarios,
     private fichajesService: FichajesService,
@@ -124,7 +127,8 @@ export class Turnos implements OnInit {
 
   /** Lista filtrada según los controles de filtro */
   get turnosFiltrados(): any[] {
-    return this.todosLosTurnos.filter(t => {
+    // return this.todosLosTurnos.filter(t => {
+    const filtrados = this.todosLosTurnos.filter(t => {
       const porEmpleado = !this.filtroEmpleado ||
         String(t.employee_id) === String(this.filtroEmpleado);
 
@@ -136,6 +140,9 @@ export class Turnos implements OnInit {
 
       return porEmpleado && porDesde && porHasta;
     });
+    const inicio = this.paginaActual * this.itemsPorPagina;
+    const fin = inicio + this.itemsPorPagina;
+    return filtrados.slice(inicio, fin);
   }
 
   /** Calcula la duración en formato "Xh Ym" */
