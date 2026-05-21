@@ -89,9 +89,10 @@ export class AdminDashboard {
     });
   }
 
-  getColorByEmpleado(nombre: string): string {
+  getColorByEmpleado(name: string): string {
     const colores = ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#E91E63'];
-    const index = Math.abs(nombre.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)) % colores.length;
+     if (!name) return '#607D8B'; // gris azulado
+    const index = Math.abs(name.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)) % colores.length;
     return colores[index];
   }
 
