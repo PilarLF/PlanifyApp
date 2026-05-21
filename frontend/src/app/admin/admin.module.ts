@@ -5,10 +5,12 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminLayoutComponent } from './layout/admin-layout';
 import { AdminNavbarComponent } from './navbar/admin-navbar';
 import { AdminDashboard } from './dashboard/dashboard';
-
+import { FullCalendarModule } from '@fullcalendar/angular';
+import interactionPlugin  from '@fullcalendar/interaction';
+import  dayGridPlugin  from '@fullcalendar/daygrid';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, AdminRoutingModule, AdminDashboard],
+  imports: [CommonModule, AdminRoutingModule, AdminDashboard, FullCalendarModule],
 })
 export class AdminModule {}

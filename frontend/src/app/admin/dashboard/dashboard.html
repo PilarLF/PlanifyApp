@@ -1,69 +1,81 @@
-<h2>Panel de administración</h2>
-<div class="admin-header">
-  <h1>Panel de administración</h1>
-  <p class="subtitle">Gestiona turnos, empleados y horarios</p>
-</div>
+<div class="admin-dashboard">
 
-<!-- FORMULARIO -->
-<h3>Crear turno</h3>
+  <h1>Panel de Administración</h1>
 
-<form (ngSubmit)="crearHorario()">
-  <label>Empleado</label>
-  <select [(ngModel)]="form.employee_id" name="employee_id" required>
-    <option value="">Selecciona un empleado</option>
-    <option *ngFor="let emp of empleados" [value]="emp.id">
-      {{ emp.name }} ({{ emp.email }})
-    </option>
-  </select>
+  <!-- ============================
+       CALENDARIO
+  ============================ -->
+  <div class="calendar-container">
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
 
-  <label>Inicio</label>
-  <input type="datetime-local" [(ngModel)]="form.start_time" name="start_time" required />
+  <hr>
 
-  <label>Fin</label>
-  <input type="datetime-local" [(ngModel)]="form.end_time" name="end_time" required />
+  <!-- ============================
+       FORMULARIO CREAR TURNOS
+  ============================ -->
+  <h2>Crear turno</h2>
 
-  <button class="btn-primary" type="submit">Crear turno</button>
-</form>
+  <form (ngSubmit)="crearHorario()">
+    <label>Empleado</label>
+    <select [(ngModel)]="form.employee_id" name="employee_id" required>
+      <option *ngFor="let e of empleados" [value]="e.id">
+        {{ e.name }}
+      </option>
+    </select>
 
-<p *ngIf="mensaje" style="color: green">{{ mensaje }}</p>
-<p *ngIf="error" style="color: red">{{ error }}</p>
+    <label>Inicio</label>
+    <input type="datetime-local" [(ngModel)]="form.start_time" name="start_time" required>
 
-<hr />
+    <label>Fin</label>
+    <input type="datetime-local" [(ngModel)]="form.end_time" name="end_time" required>
 
-<!-- LISTADO -->
-<h3>Turnos existentes</h3>
+    <button type="submit">Crear turno</button>
+  </form>
 
-<table class="turnos-table">
-  <tr>
-    <th>ID</th>
-    <th>Empleado</th>
-    <th>Inicio</th>
-    <th>Fin</th>
-    <th>Acciones</th>
-  </tr>
+  <p class="success" *ngIf="mensaje">{{ mensaje }}</p>
+  <p class="error" *ngIf="error">{{ error }}</p>
 
-  <tr *ngFor="let h of horarios">
-    <td>{{ h.id }}</td>
-    <td>{{ h.employee_id }}</td>
-    <td>{{ h.start_time }}</td>
-    <td>{{ h.end_time }}</td>
-    <td>
-      <button class="btn-primary" (click)="editar(h)">Editar</button>
-      <button class="btn-delete" (click)="borrar(h.id)">Eliminar</button>
-    </td>
-  </tr>
-</table>
+  <hr>
 
-<!-- EDICIÓN -->
-<div *ngIf="editando" class="modal-edicion">
-  <h3>Editar turno</h3>
+  <!-- ============================
+       LISTA DE TURNOS
+  ============================ -->
+  <h2>Turnos existentes</h2>
 
-  <label>Inicio</label>
-  <input type="datetime-local" [(ngModel)]="editando.start_time" />
+  <table>
+    <tr>
+      <th>Empleado</th>
+      <th>Inicio</th>
+      <th>Fin</th>
+      <th>Acciones</th>
+    </tr>
 
-  <label>Fin</label>
-  <input type="datetime-local" [(ngModel)]="editando.end_time" />
+    <tr *ngFor="let h of horarios">
+      <td>{{ h.employee_name }}</td>
+      <td>{{ h.start_time | date:'short' }}</td>
+      <td>{{ h.end_time | date:'short' }}</td>
+      <td>
+        <button (click)="editar(h)">Editar</button>
+        <button (click)="borrar(h.id)">Eliminar</button>
+      </td>
+    </tr>
+  </table>
 
-  <button class="btn-primary" (click)="guardarEdicion()">Guardar</button>
-  <button class="btn-small" (click)="editando = null">Cancelar</button>
+  <!-- ============================
+       FORMULARIO EDITAR
+  ============================ -->
+  <div *ngIf="editando" class="edit-box">
+    <h3>Editar turno</h3>
+
+    <label>Inicio</label>
+    <input type="datetime-local" [(ngModel)]="editando.start_time">
+
+    <label>Fin</label>
+    <input type="datetime-local" [(ngModel)]="editando.end_time">
+
+    <button (click)="guardarEdicion()">Guardar</button>
+    <button (click)="editando = null">Cancelar</button>
+  </div>
+
 </div>

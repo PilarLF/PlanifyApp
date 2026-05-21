@@ -3,8 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Horarios } from '../horarios';
 import { UserService } from '../../user/user';
-import  dayGridPlugin  from '@fullcalendar/daygrid';
+
+// FullCalendar
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarOptions } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import esLocale from '@fullcalendar/core/locales/es';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -14,9 +19,11 @@ import { FullCalendarModule } from '@fullcalendar/angular';
   styleUrls: ['./dashboard.scss']
 })
 export class AdminDashboard {
+
   empleados: any[] = [];
   horarios: any[] = [];
 
+  // FORMULARIO CREAR/EDITAR
   form = {
     employee_id: '',
     start_time: '',
@@ -26,6 +33,21 @@ export class AdminDashboard {
   editando: any = null;
   mensaje = '';
   error = '';
+
+  // ============================
+  // CALENDARIO
+  // ============================
+  calendarOptions: CalendarOptions = {
+    plugins: [dayGridPlugin, interactionPlugin],
+    initialView: 'dayGridMonth',
+    locale: esLocale,
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: ''
+    },
+    events: []
+  };
 
   constructor(
     private horariosService: Horarios,
@@ -37,6 +59,9 @@ export class AdminDashboard {
     this.loadHorarios();
   }
 
+  // ============================
+  // EMPLEADOS
+  // ============================
   loadEmpleados() {
     this.empleadosService.getEmployees().subscribe({
       next: (res: any) => this.empleados = res,
@@ -44,13 +69,35 @@ export class AdminDashboard {
     });
   }
 
+  // ============================
+  // HORARIOS + CALENDARIO
+  // ============================
   loadHorarios() {
     this.horariosService.getHorarios().subscribe({
-      next: (res: any) => this.horarios = res,
+      next: (res: any) => {
+        this.horarios = res;
+
+        // Cargar eventos en el calendario
+        this.calendarOptions.events = this.horarios.map((h: any) => ({
+          title: `${h.employee_name} (${h.start_time.slice(11,16)}-${h.end_time.slice(11,16)})`,
+          start: h.start_time,
+          end: h.end_time,
+          color: this.getColorByEmpleado(h.employee_name)
+        }));
+      },
       error: (err) => console.error(err)
     });
   }
 
+  getColorByEmpleado(nombre: string): string {
+    const colores = ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#E91E63'];
+    const index = Math.abs(nombre.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)) % colores.length;
+    return colores[index];
+  }
+
+  // ============================
+  // CRUD TURNOS
+  // ============================
   crearHorario() {
     this.mensaje = '';
     this.error = '';
@@ -96,6 +143,5 @@ export class AdminDashboard {
       }
     });
   }
-
 
 }
