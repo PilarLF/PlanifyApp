@@ -27,7 +27,7 @@ export class CreateUserComponent {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      role: ['EMPLOYEE', Validators.required] // por defecto empleado
+      role: ['', Validators.required]
     });
   }
 
@@ -48,7 +48,7 @@ export class CreateUserComponent {
     this.authService.register(formData).subscribe({
       next: () => {
          this.successMessage = 'Usuario creado correctamente';
-        this.router.navigate(['/admin/create-user']);
+        this.router.navigate(['/admin/empleados']);
       },
       error: (err) => {
         this.errorMessage = err.error?.message || 'Error al registrar';
