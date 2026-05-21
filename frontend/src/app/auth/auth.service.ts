@@ -63,8 +63,8 @@ setToken(token: string) {
   }
 
 
-  register(data: any) {
-    return this.http.post(`${environment.apiUrl}/auth/register`, data);
+  register(data: FormData) {
+    return this.http.post(`${this.apiUrl}/admin/create-user`, data);
   }
 
 private loadFromStorage() {

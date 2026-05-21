@@ -1,0 +1,33 @@
+<div class="create-user-container">
+
+  <h1>Crear nuevo usuario</h1>
+  <p>Solo los administradores pueden crear cuentas.</p>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+    <label>Nombre</label>
+    <input type="text" formControlName="name">
+
+    <label>Email</label>
+    <input type="email" formControlName="email">
+
+    <label>Contraseña</label>
+    <input type="password" formControlName="password">
+
+    <label>Rol</label>
+    <select formControlName="role">
+      <option value="EMPLOYEE">Empleado</option>
+      <option value="ADMIN">Administrador</option>
+    </select>
+
+    <label>Foto de perfil</label>
+    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+
+    <button type="submit" [disabled]="registerForm.invalid">Crear usuario</button>
+
+    <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  </form>
+
+</div>
