@@ -62,13 +62,28 @@ router.post(
   login
 );
 
+//ya no se usa el registro publico, esto pasa a admin
+// router.post(
+//   '/register',
+//   upload.single('photo'),
+//   [
+//     body('name').notEmpty().withMessage('El nombre es obligatorio'),
+//     body('email').isEmail().withMessage('Email inválido'),
+//     body('password').isLength({ min: 6 }).withMessage('Mínimo 6 caracteres')
+//   ],
+//   register
+// );
+// Crear usuarios (solo admin)
 router.post(
-  '/register',
+  '/admin/create-user',
+  authMiddleware,
+  requireAdmin,
   upload.single('photo'),
   [
     body('name').notEmpty().withMessage('El nombre es obligatorio'),
     body('email').isEmail().withMessage('Email inválido'),
-    body('password').isLength({ min: 6 }).withMessage('Mínimo 6 caracteres')
+    body('password').isLength({ min: 6 }).withMessage('Mínimo 6 caracteres'),
+    body('role').isIn(['EMPLOYEE', 'ADMIN']).withMessage('Rol inválido')
   ],
   register
 );
