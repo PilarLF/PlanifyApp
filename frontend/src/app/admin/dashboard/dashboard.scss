@@ -12,11 +12,10 @@
   color: #212529;
   min-height: 100vh;
 }
-
 .calendar-container {
-  background: #ffffff;
+  background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   padding: 1.5rem;
   margin-bottom: 2rem;
 }
@@ -37,11 +36,12 @@
 
 .fc-event {
   border: none;
-  border-radius: 6px;
-  padding: 2px 6px;
+  border-radius: 8px;
+  padding: 4px 8px;
   font-size: 0.85rem;
   font-weight: 500;
   color: #fff;
+  text-align: center;
 }
 
 .fc-event:hover {

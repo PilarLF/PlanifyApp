@@ -39,7 +39,7 @@ export class AdminDashboard {
   // ============================
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin],
-    initialView: 'dayGridMonth',
+    initialView: 'timeGridMonth',
     locale: esLocale,
     headerToolbar: {
       left: 'prev,next today',
