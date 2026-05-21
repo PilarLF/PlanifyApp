@@ -115,18 +115,24 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./admin/dashboard/dashboard').then(m => m.AdminDashboard)
       },
-      // NUEVO: listado de todos los empleados
+      // listado de todos los empleados
       {
         path: 'empleados',
         loadComponent: () =>
           import('./admin/empleados/empleados').then(m => m.AdminEmpleados)
+        
       },
-      // NUEVO: listado global de turnos con filtros
+      // listado global de turnos con filtros
       {
         path: 'turnos',
         loadComponent: () =>
           import('./admin/turnos/turnos').then(m => m.Turnos)
       },
+          {
+      path: 'create-user',
+      loadComponent: () =>
+        import('./admin/create-user/create-user').then(m => m.CreateUserComponent)
+    },
       // Redirección por defecto al dashboard
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
