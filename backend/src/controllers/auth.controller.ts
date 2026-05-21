@@ -61,7 +61,7 @@ export async function login(req: Request, res: Response) {
 }
 
 // ============================
-// REGISTRO (solo EMPLOYEE)
+// REGISTRO: solo para administradores
 // ============================
 export async function register(req: MulterRequest, res: Response) {
 
@@ -69,8 +69,8 @@ export async function register(req: MulterRequest, res: Response) {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { name, email, password } = req.body;
-  if (!name || !email || !password) {
+  const { name, email, password, role } = req.body;
+  if (!name || !email || !password || !role) {
     return res.status(400).json({ message: 'Faltan campos requeridos' });
   }
   try {
@@ -89,12 +89,12 @@ export async function register(req: MulterRequest, res: Response) {
         photoUrl = `https://planifyapp.onrender.com/uploads/${req.file.filename}`;
       }
     const defaultPhotoUrl = 'https://planifyapphrr.netlify.app/assets/default-img.jpg';
-    
+ 
     const result = await pool.query(
       `INSERT INTO usuarios (name, email, password, role, token_version, photo_url)
-       VALUES ($1, $2, $3, 'EMPLOYEE', 0, $4)
+       VALUES ($1, $2, $3, $4, 0, $5)
        RETURNING id, name, email, role, photo_url`,
-      [name, email, passwordHash, photoUrl]
+      [name, email, passwordHash, role, photoUrl]
     );
 
     return res.status(201).json(result.rows[0]);
