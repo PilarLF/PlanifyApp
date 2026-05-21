@@ -101,12 +101,16 @@ export class AdminDashboard {
     });
   }
 
-  getColorByEmpleado(name: string): string {
-    const colores = ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#E91E63'];
-     if (!name) return '#607D8B'; // gris azulado
-    const index = Math.abs(name.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)) % colores.length;
-    return colores[index];
-  }
+getColorByEmpleado(nombre: string | undefined): string {
+  const colores = ['#6EC1E4', '#A3D977', '#F7B267', '#D67AB1', '#7DD3FC'];
+  if (!nombre) return '#B0BEC5'; // gris para "sin asignar"
+
+  const index = Math.abs(
+    nombre.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
+  ) % colores.length;
+
+  return colores[index];
+}
 
   // ============================
   // CRUD TURNOS
