@@ -10,6 +10,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es';
+import timeGridPlugin from '@fullcalendar/timegrid';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -38,8 +39,8 @@ export class AdminDashboard {
   // CALENDARIO
   // ============================
   calendarOptions: CalendarOptions = {
-    plugins: [dayGridPlugin, interactionPlugin],
-    initialView: 'dayGridMonth',
+    plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
+    initialView: 'timeGridWeek',
     locale: esLocale,
     headerToolbar: {
       left: 'prev,next today',
