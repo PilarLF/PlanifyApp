@@ -72,11 +72,13 @@ export class AdminDashboard {
   // ============================
   // HORARIOS + CALENDARIO
   // ============================
-  loadHorarios() {
-    this.horariosService.getHorarios().subscribe({
-      next: (res: any) => {
-        this.horarios = res;
-      // Hacemos el join con empleados
+loadHorarios() {
+  this.horariosService.getHorarios().subscribe({
+    next: (res: any) => {
+      // Guardamos los horarios originales
+      this.horarios = res;
+
+      //  el join con empleados para sacar employee_name que falta en horarios
       const horariosConNombre = this.horarios.map((h: any) => {
         const empleado = this.empleados.find(e => e.id === h.employee_id);
         return {
@@ -84,22 +86,27 @@ export class AdminDashboard {
           employee_name: empleado ? empleado.name : 'Sin asignar'
         };
       });
-        // Cargar eventos en el calendario
-        this.calendarOptions.events = horariosConNombre.map((h: any) => {
-          const start = new Date(h.start_time);
-          const end = new Date(h.end_time);
 
-          return {
-            title: `${h.employee_name} (${start.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})} - ${end.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})})`,
-            start,
-            end,
-            color: this.getColorByEmpleado(h.employee_name)
-          };
-        });
-      },
-      error: (err) => console.error(err)
-    });
-  }
+      //lista de la tabla
+      this.horarios = horariosConNombre;
+
+      // Cargamos los eventos en el calendario
+      this.calendarOptions.events = horariosConNombre.map((h: any) => {
+        const start = new Date(h.start_time);
+        const end = new Date(h.end_time);
+
+        return {
+          title: `${h.employee_name} (${start.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})} - ${end.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})})`,
+          start,
+          end,
+          color: this.getColorByEmpleado(h.employee_name)
+        };
+      });
+    },
+    error: (err) => console.error(err)
+  });
+}
+
 
 getColorByEmpleado(id: number): string {
   const colores = [
