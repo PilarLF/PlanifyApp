@@ -48,7 +48,7 @@ export class CreateUserComponent {
     this.authService.register(formData).subscribe({
       next: () => {
          this.successMessage = 'Usuario creado correctamente';
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/admin/create-user']);
       },
       error: (err) => {
         this.errorMessage = err.error?.message || 'Error al registrar';

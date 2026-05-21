@@ -15,6 +15,7 @@ export class Register {
 
   registerForm: FormGroup;
   errorMessage = '';
+  successMessage = '';
   selectedFile: File | null = null; //para la imagen de perfil
 
   constructor(
@@ -45,7 +46,10 @@ export class Register {
       formData.append('photo', this.selectedFile);
     }
     this.authService.register(formData).subscribe({
-      next: () => this.router.navigate(['/auth/login']),
+      next: () => {
+         this.successMessage = 'Usuario creado correctamente';
+        this.router.navigate(['/auth/login']);
+      },
       error: (err) => {
         this.errorMessage = err.error?.message || 'Error al registrar';
       }
