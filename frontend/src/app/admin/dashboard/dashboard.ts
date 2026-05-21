@@ -39,17 +39,16 @@ export class AdminDashboard {
   // CALENDARIO
   // ============================
   calendarOptions: CalendarOptions = {
-    plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
+    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
     initialView: 'timeGridWeek',
     locale: esLocale,
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: ''
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
     events: []
   };
-
   constructor(
     private horariosService: Horarios,
     private empleadosService: UserService
