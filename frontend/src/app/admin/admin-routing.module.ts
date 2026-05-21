@@ -6,6 +6,7 @@ import { Turnos } from './turnos/turnos';
 import { AdminLayoutComponent } from './layout/admin-layout';
 import { adminGuard } from './admin-guard';
 import { CreateUserComponent } from './create-user/create-user';
+import { AdminEmpleados } from './empleados/empleados';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: AdminDashboard },
       { path: 'turnos', component: Turnos },
+      { path: 'empleados', component: AdminEmpleados },
       { path: 'create-user', component: CreateUserComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
