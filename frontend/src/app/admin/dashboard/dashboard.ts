@@ -76,9 +76,16 @@ export class AdminDashboard {
     this.horariosService.getHorarios().subscribe({
       next: (res: any) => {
         this.horarios = res;
-
+      // Hacemos el join con empleados
+      const horariosConNombre = this.horarios.map((h: any) => {
+        const empleado = this.empleados.find(e => e.id === h.employee_id);
+        return {
+          ...h,
+          employee_name: empleado ? empleado.name : 'Sin asignar'
+        };
+      });
         // Cargar eventos en el calendario
-        this.calendarOptions.events = this.horarios.map((h: any) => ({
+        this.calendarOptions.events = horariosConNombre.map((h: any) => ({
           title: `${h.employee_name} (${h.start_time.slice(11,16)}-${h.end_time.slice(11,16)})`,
           start: h.start_time,
           end: h.end_time,
