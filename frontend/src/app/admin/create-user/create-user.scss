@@ -1,0 +1,44 @@
+.create-user-container {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+input, select {
+  width: 100%;
+  padding: .6rem;
+  margin-top: .3rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: .8rem;
+  background: #0078ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #999;
+}
+
+.error {
+  color: #d9534f;
+  margin-top: 1rem;
+}
+
+.success {
+  color: #28a745;
+  margin-top: 1rem;
+}
