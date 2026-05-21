@@ -85,12 +85,17 @@ export class AdminDashboard {
         };
       });
         // Cargar eventos en el calendario
-        this.calendarOptions.events = horariosConNombre.map((h: any) => ({
-          title: `${h.employee_name} (${h.start_time.slice(11,16)}-${h.end_time.slice(11,16)})`,
-          start: h.start_time,
-          end: h.end_time,
-          color: this.getColorByEmpleado(h.employee_name)
-        }));
+        this.calendarOptions.events = horariosConNombre.map((h: any) => {
+          const start = new Date(h.start_time);
+          const end = new Date(h.end_time);
+
+          return {
+            title: `${h.employee_name} (${start.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})} - ${end.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})})`,
+            start,
+            end,
+            color: this.getColorByEmpleado(h.employee_name)
+          };
+        });
       },
       error: (err) => console.error(err)
     });
