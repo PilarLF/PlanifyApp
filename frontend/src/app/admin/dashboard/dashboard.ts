@@ -64,7 +64,9 @@ export class AdminDashboard {
   // ============================
   loadEmpleados() {
     this.empleadosService.getEmployees().subscribe({
-      next: (res: any) => this.empleados = res,
+      next: (res: any) => {
+        this.empleados = res; this.loadHorarios(); // recarga horarios para mostrar nombres
+      },
       error: (err) => console.error(err)
     });
   }
