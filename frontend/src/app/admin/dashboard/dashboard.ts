@@ -101,15 +101,13 @@ export class AdminDashboard {
     });
   }
 
-getColorByEmpleado(nombre: string | undefined): string {
-  const colores = ['#6EC1E4', '#A3D977', '#F7B267', '#D67AB1', '#7DD3FC'];
-  if (!nombre) return '#B0BEC5'; // gris para "sin asignar"
+getColorByEmpleado(id: number): string {
+  const colores = [
+    '#6EC1E4', '#A3D977', '#F7B267', '#D67AB1', '#7DD3FC',
+    '#FF9AA2', '#FFDAC1', '#E2F0CB', '#B5EAD7', '#C7CEEA'
+  ];
 
-  const index = Math.abs(
-    nombre.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
-  ) % colores.length;
-
-  return colores[index];
+  return colores[id % colores.length];
 }
 
   // ============================
