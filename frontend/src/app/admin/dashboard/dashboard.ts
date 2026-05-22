@@ -52,7 +52,7 @@ export class AdminDashboard {
   //   events: []
   // };
   calendarOptions: CalendarOptions = {
-    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+    schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
     plugins: [resourceTimeGridPlugin, interactionPlugin],
     initialView: 'resourceTimeGridWeek',
     locale: esLocale,
