@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-
+import { shareReplay, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class FichajesService {
 
@@ -61,27 +61,20 @@ export class FichajesService {
   //     headers: { Authorization: `Bearer ${token}` }
   //   });
   // }
-  getAllTurnos() {
+private turnosCache$: Observable<any[]> | null = null;
+
+getAllTurnos(): Observable<any[]> {
+  if (!this.turnosCache$) {
     const token = localStorage.getItem('token');
-
-    // Si ya tenemos datos en caché, los devolvemos directamente
-    if (this.cacheCargada) {
-      return this.turnosCache.asObservable();
-    }
-
-    // Si no, hacemos la petición HTTP
-    return this.http.get<any[]>(`${this.apiUrl}/turnos`, {
+    this.turnosCache$ = this.http.get<any[]>(`${this.apiUrl}/turnos`, {
       headers: { Authorization: `Bearer ${token}` }
-    }).pipe(
-      tap(data => {
-        this.turnosCache.next(data);   // Guardamos en caché
-        this.cacheCargada = true;
-      })
-    );
+    }).pipe(shareReplay(1));
   }
-limpiarCacheTurnos() {
-  this.cacheCargada = false;
-  this.turnosCache.next([]);
+  return this.turnosCache$;
+}
+
+limpiarCacheTurnos(): void {
+  this.turnosCache$ = null;
 }
 
 }

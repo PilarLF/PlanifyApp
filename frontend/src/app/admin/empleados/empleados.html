@@ -10,13 +10,7 @@
      - Focus visible por defecto (no se suprime con outline:0)
      ===================================================================== -->
 
-<div class="empleados-header">
-  <h1>Empleados</h1>
 
-  <button class="btn-crear" routerLink="/admin/create-user">
-    ➕ Crear empleado
-  </button>
-</div>
 <main class="admin-page" role="main" id="main-content">
 
   <!-- Cabecera de sección -->
@@ -26,6 +20,9 @@
       <p class="page-subtitle">Gestiona el listado de trabajadores registrados en el sistema</p>
     </div>
     <div class="page-header__stats" aria-label="Estadísticas rápidas">
+        <button class="btn-crear" routerLink="/admin/create-user">
+          ➕ Crear empleado
+        </button>
       <div class="stat-chip">
         <span class="stat-num" aria-live="polite">{{ empleados.length }}</span>
         <span class="stat-label">empleados</span>

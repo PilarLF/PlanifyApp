@@ -59,7 +59,7 @@
     </div>
     <div class="page-header__stats" aria-label="Resumen de turnos">
       <div class="stat-chip">
-        <span class="stat-num" aria-live="polite">{{ turnosFiltrados.length }}</span>
+        <span class="stat-num" aria-live="polite">{{ turnosFiltradosTodos.length }}</span>
         <span class="stat-label">turnos{{ filtroEmpleado ? ' filtrados' : '' }}</span>
       </div>
     </div>
@@ -230,7 +230,7 @@
       <button 
         class="btn btn--ghost"
         (click)="paginaActual = paginaActual + 1"
-        [disabled]="(paginaActual + 1) * itemsPorPagina >= todosLosTurnos.length">
+        [disabled]="(paginaActual + 1) * itemsPorPagina >= turnosFiltradosTodos.length">
         Siguiente
       </button>
     </div>

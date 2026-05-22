@@ -124,14 +124,23 @@ export class Dashboard implements OnInit, OnDestroy {
       setTimeout(() => this.mensajeError = null, 3000);
       return;
     }
-
-    this.fichajesService.clockIn(this.turnoActual.id).subscribe(() => {
-      this.loadStatus();
+    this.fichajesService.clockIn(this.turnoActual.id).subscribe({
+      next: () => this.loadStatus(),
+      error: (err) => {
+        this.mensajeError = err.error?.message || 'Error al fichar entrada';
+        setTimeout(() => this.mensajeError = null, 4000);
+      }
     });
   }
 
   clockOut() {
-    this.fichajesService.clockOut().subscribe(() => this.loadStatus());
+    this.fichajesService.clockOut().subscribe({
+      next: () => this.loadStatus(),
+      error: (err) => {
+        this.mensajeError = err.error?.message || 'Error al fichar salida';
+        setTimeout(() => this.mensajeError = null, 4000);
+      }
+    });
   }
 
   estaDentroDelTurno() {

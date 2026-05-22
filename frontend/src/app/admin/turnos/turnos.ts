@@ -126,24 +126,22 @@ export class Turnos implements OnInit {
   }
 
   /** Lista filtrada según los controles de filtro */
-  get turnosFiltrados(): any[] {
-    // return this.todosLosTurnos.filter(t => {
-    const filtrados = this.todosLosTurnos.filter(t => {
-      const porEmpleado = !this.filtroEmpleado ||
-        String(t.employee_id) === String(this.filtroEmpleado);
+    get turnosFiltradosTodos(): any[] {
+      return this.todosLosTurnos.filter(t => {
+        const porEmpleado = !this.filtroEmpleado ||
+          String(t.employee_id) === String(this.filtroEmpleado);
+        const porDesde = !this.filtroDesde ||
+          new Date(t.start_time) >= new Date(this.filtroDesde);
+        const porHasta = !this.filtroHasta ||
+          new Date(t.end_time) <= new Date(this.filtroHasta + 'T23:59:59');
+        return porEmpleado && porDesde && porHasta;
+      });
+    }
 
-      const porDesde = !this.filtroDesde ||
-        new Date(t.start_time) >= new Date(this.filtroDesde);
-
-      const porHasta = !this.filtroHasta ||
-        new Date(t.end_time) <= new Date(this.filtroHasta + 'T23:59:59');
-
-      return porEmpleado && porDesde && porHasta;
-    });
-    const inicio = this.paginaActual * this.itemsPorPagina;
-    const fin = inicio + this.itemsPorPagina;
-    return filtrados.slice(inicio, fin);
-  }
+    get turnosFiltrados(): any[] {
+      const inicio = this.paginaActual * this.itemsPorPagina;
+      return this.turnosFiltradosTodos.slice(inicio, inicio + this.itemsPorPagina);
+    }
 
   /** Calcula la duración en formato "Xh Ym" */
   getDuracion(start: string, end: string): string {
