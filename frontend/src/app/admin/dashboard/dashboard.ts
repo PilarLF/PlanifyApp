@@ -11,7 +11,9 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es';
 import timeGridPlugin from '@fullcalendar/timegrid';
-
+import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
+import resourceCommonPlugin from '@fullcalendar/resource-common';
+import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
@@ -38,17 +40,39 @@ export class AdminDashboard {
   // ============================
   // CALENDARIO
   // ============================
+  // calendarOptions: CalendarOptions = {
+  //   plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+  //   initialView: 'timeGridWeek',
+  //   locale: esLocale,
+  //   headerToolbar: {
+  //     left: 'prev,next today',
+  //     center: 'title',
+  //     right: 'dayGridMonth,timeGridWeek,timeGridDay'
+  //   },
+  //   events: []
+  // };
   calendarOptions: CalendarOptions = {
-    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-    initialView: 'timeGridWeek',
+    plugins: [resourceTimeGridPlugin, interactionPlugin],
+    initialView: 'resourceTimeGridWeek',
     locale: esLocale,
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      right: 'resourceTimeGridDay,resourceTimeGridWeek'
     },
-    events: []
+    resources: this.empleados.map(e => ({
+      id: e.id,
+      title: e.name
+    })),
+    events: this.horarios.map(h => ({
+      resourceId: h.employee_id,
+      start: h.start_time,
+      end: h.end_time,
+      title: `${h.employee_name}`
+    }))
   };
+
+
   constructor(
     private horariosService: Horarios,
     private empleadosService: UserService
