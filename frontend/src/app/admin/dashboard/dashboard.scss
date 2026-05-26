@@ -1,193 +1,547 @@
-// .admin-dashboard {
-//   padding: 32px;
-//   max-width: 1200px;
-//   margin: 0 auto;
-//   font-family: 'Nunito Sans', sans-serif;
-//   background-color: #f8f9fa;
-// }
+/**
+ * admin/dashboard/dashboard.scss
+ * Grid semanal tipo Bizneo para el panel de administración.
+ */
+
+@import '../../../styles/variables';
+
+// ── Tokens ─────────────────────────────────────────────────────────────
+$navy:       #1a1c37;
+$coral:      #D9866A;
+$coral-bg:   rgba(#D9866A, 0.1);
+$green:      #67A776;
+$green-bg:   rgba(#67A776, 0.12);
+$bg-page:    #f4f5fb;
+$surface:    #ffffff;
+$border:     #e2e6f3;
+$text-body:  #374151;
+$text-muted: #8892b0;
+$free-bg:    #f8f9fc;
+
+// ── Layout ──────────────────────────────────────────────────────────────
 .admin-dashboard {
-  padding: 2rem;
-  font-family: 'Nunito Sans', sans-serif;
-  background-color: #f8f9fa; // fondo claro
-  color: #212529;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  background: $bg-page;
   min-height: 100vh;
 }
-.calendar-container {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-}
 
-.fc {
-  font-family: 'Inter', 'Segoe UI', sans-serif;
-}
-
-.fc-toolbar-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #343a40;
-}
-
-.fc-daygrid-day-number {
-  color: #495057;
-}
-
-.fc-event {
-  border: none;
-  border-radius: 8px;
-  padding: 4px 8px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #fff;
-  text-align: center;
-}
-
-.fc-event:hover {
-  opacity: 0.9;
-  cursor: pointer;
-}
-
-/* CABECERA */
-.admin-header {
-  margin-bottom: 32px;
-
-  h1 {
-    font-size: 28px;
-    font-weight: 700;
-    color: #1A2060;
-    margin: 0;
-  }
-
-  .subtitle {
-    margin-top: 6px;
-    font-size: 15px;
-    opacity: 0.7;
-  }
-}
-
-/* SECCIONES */
-.admin-section {
-  margin-bottom: 40px;
-
-  h2 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: #1A2060;
-  }
-}
-
-/* TARJETAS */
-.card {
-  background: white;
-  padding: 24px;
-  border-radius: 14px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-  border: 1px solid #f0f0f0;
-}
-
-/* FORMULARIO */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+// ── Cabecera ─────────────────────────────────────────────────────────
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
   gap: 16px;
+  margin-bottom: 28px;
+}
+
+.dash-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: $navy;
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+
+  &::after {
+    content: '';
+    display: block;
+    margin-top: 5px;
+    width: 32px;
+    height: 3px;
+    border-radius: 2px;
+    background: $coral;
+  }
+}
+
+.dash-subtitle {
+  font-size: 13px;
+  color: $text-muted;
+  margin-top: 8px;
+}
+
+// ── KPI chips ───────────────────────────────────────────────────────
+.kpi-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.kpi-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $navy;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  min-width: 80px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 36px; height: 36px;
+    border-radius: 0 12px 0 100%;
+    opacity: 0.15;
+    background: #fff;
+  }
+
+  &--coral { background: $coral; }
+  &--green { background: $green; }
+
+  .kpi-num {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1;
+    position: relative;
+  }
+
+  .kpi-label {
+    font-size: 10px;
+    opacity: 0.75;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 3px;
+    white-space: nowrap;
+    position: relative;
+  }
+}
+
+// ── Card base ────────────────────────────────────────────────────────
+.card {
+  background: $surface;
+  border-radius: 16px;
+  box-shadow: 0 2px 14px rgba($navy, 0.07);
+  border: 1px solid $border;
   margin-bottom: 20px;
+  overflow: hidden;
 }
 
-label {
-  font-weight: 600;
-  margin-bottom: 6px;
-  display: block;
+// ── Card crear turno ────────────────────────────────────────────────
+.create-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid transparent;
+  transition: background 0.15s;
+
+  &:hover { background: rgba($navy, 0.03); }
+
+  &[aria-expanded="true"] {
+    border-bottom-color: $border;
+  }
 }
 
-input, select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #dcdfe6;
+.create-card__title {
   font-size: 14px;
-  background: #fafafa;
+  font-weight: 700;
+  color: $navy;
+}
 
-  &:focus {
-    border-color: #1A2060;
-    box-shadow: 0 0 0 3px rgba(26,32,96,0.15);
-    outline: none;
+.create-card__toggle {
+  font-size: 11px;
+  color: $text-muted;
+}
+
+.create-form {
+  padding: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr auto;
+  gap: 14px;
+  align-items: end;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
   }
 }
 
-/* BOTONES */
-.btn-primary {
-  background: #1A2060;
-  color: white;
-  padding: 12px 20px;
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-size: 11px;
+    font-weight: 700;
+    color: $navy;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  select, input {
+    padding: 9px 12px;
+    border: 1.5px solid $border;
+    border-radius: 8px;
+    font-size: 14px;
+    background: $bg-page;
+    color: #111;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: $navy;
+      box-shadow: 0 0 0 3px rgba($navy, 0.1);
+      background: $surface;
+    }
+  }
+
+  &--action { justify-content: flex-end; }
+}
+
+.btn--primary {
+  padding: 9px 20px;
+  background: $navy;
+  color: #fff;
+  border: none;
   border-radius: 8px;
-  border: none;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: 600;
-  transition: 0.2s ease;
+  font-family: inherit;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
 
-  &:hover {
-    background: lighten(#1A2060, 8%);
-    transform: translateY(-2px);
-  }
+  &:hover { background: lighten($navy, 8%); }
+  &:active { transform: scale(0.97); }
+  &:focus-visible { outline: 2px solid $navy; outline-offset: 2px; }
 }
 
-.btn-small {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
+.msg {
+  margin-top: 12px;
   font-size: 13px;
   font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 7px;
+  border-left: 3px solid;
+
+  &--success { background: rgba($green, 0.1); color: darken($green, 18%); border-color: $green; }
+  &--error   { background: rgba($coral, 0.1); color: darken($coral, 18%); border-color: $coral; }
 }
 
-.btn-edit {
-  background: #3498db;
-  color: white;
+// ── Schedule card ────────────────────────────────────────────────────
+.schedule-card {
+  overflow-x: auto; // scroll horizontal en móvil
+}
+
+// ── Navegación de semana ─────────────────────────────────────────────
+.schedule-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid $border;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: rgba($navy, 0.02);
+}
+
+.schedule-nav__left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-btn {
+  padding: 6px 12px;
+  border-radius: 7px;
+  border: 1.5px solid $border;
+  background: $surface;
+  color: $navy;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
 
   &:hover {
-    background: darken(#3498db, 8%);
+    background: $navy;
+    color: #fff;
+    border-color: $navy;
   }
+
+  &:focus-visible { outline: 2px solid $navy; outline-offset: 2px; }
 }
 
-.btn-delete {
-  background: #e74c3c;
-  color: white;
-
-  &:hover {
-    background: darken(#e74c3c, 8%);
-  }
+.schedule-nav__range {
+  font-size: 14px;
+  font-weight: 700;
+  color: $navy;
+  margin-left: 8px;
+  text-transform: capitalize;
 }
 
-/* TABLA */
-.turnos-table {
+.schedule-nav__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: $text-muted;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+
+  &--shift { background: rgba($navy, 0.75); }
+  &--free  { background: $border; }
+}
+
+.legend-label { font-weight: 600; }
+
+// ── Loading ──────────────────────────────────────────────────────────
+.loading-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 48px;
+  justify-content: center;
+  color: $text-muted;
+  font-size: 14px;
+}
+
+.spinner {
+  width: 22px; height: 22px;
+  border: 3px solid $border;
+  border-top-color: $coral;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+// ── Wrapper tabla (scroll horizontal) ───────────────────────────────
+.schedule-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+// ── Tabla del grid ───────────────────────────────────────────────────
+.schedule-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
+  min-width: 800px; // fuerza scroll en móvil
+
+  // Columna empleado: fija y ancha
+  .col-employee {
+    width: 180px;
+    min-width: 160px;
+  }
+
+  // Columnas de día: reparto igual del espacio restante
+  .col-day {
+    min-width: 110px;
+  }
+}
+
+// ── Cabecera de días ─────────────────────────────────────────────────
+thead th {
+  padding: 12px 10px 10px;
+  background: $navy;
+  border-right: 1px solid rgba(#fff, 0.08);
+  text-align: center;
+
+  &:last-child { border-right: none; }
+
+  &.col-day--today {
+    background: lighten($navy, 6%);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 28px; height: 3px;
+      background: $coral;
+      border-radius: 2px 2px 0 0;
+    }
+  }
+
+  &.col-day--weekend { background: rgba($navy, 0.85); }
+
+  // Primera columna (empleado)
+  &.col-employee {
+    text-align: left;
+    padding-left: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: rgba(#fff, 0.6);
+  }
+}
+
+.day-name {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(#fff, 0.6);
+  margin-bottom: 3px;
+}
+
+.day-num {
+  display: block;
+  font-size: 16px;
+  font-weight: 800;
+  color: rgba(#fff, 0.85);
+
+  &--today {
+    color: $coral;
+  }
+}
+
+// ── Filas de empleado ────────────────────────────────────────────────
+.emp-row {
+  border-bottom: 1px solid $border;
+  transition: background 0.12s;
+
+  &:last-child { border-bottom: none; }
+  &:hover { background: rgba($navy, 0.02); }
+}
+
+// ── Celda del nombre del empleado ────────────────────────────────────
+.cell-employee {
+  padding: 10px 14px;
+  vertical-align: middle;
+  border-right: 2px solid $border;
+  background: rgba($navy, 0.02);
+}
+
+.emp-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.emp-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: $navy;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+}
+
+.emp-text { display: flex; flex-direction: column; gap: 1px; overflow: hidden; }
+
+.emp-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: $navy;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.emp-hours {
+  font-size: 11px;
+  color: $text-muted;
+}
+
+// ── Celda de día ─────────────────────────────────────────────────────
+.cell-day {
+  padding: 6px 8px;
+  vertical-align: top;
+  text-align: center;
+  border-right: 1px solid $border;
+  min-height: 60px;
+
+  &:last-child { border-right: none; }
+
+  &--today { background: rgba($coral, 0.04); }
+  &--weekend { background: rgba($navy, 0.015); }
+}
+
+// ── Bloque de turno ──────────────────────────────────────────────────
+.shift-block {
+  background: rgba($navy, 0.08);
+  border: 1px solid rgba($navy, 0.15);
+  border-radius: 8px;
+  padding: 7px 8px;
+  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: background 0.12s;
+
+  &:hover {
+    background: rgba($navy, 0.14);
+  }
+}
+
+.shift-time {
+  font-size: 12px;
+  font-weight: 800;
+  color: $navy;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.shift-hours {
+  font-size: 10px;
+  font-weight: 700;
+  color: $green;
+  background: rgba($green, 0.1);
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+// ── Bloque día libre ─────────────────────────────────────────────────
+.free-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px 6px;
+  color: $text-muted;
+}
+
+.free-icon { font-size: 14px; opacity: 0.5; }
+
+.free-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+// ── Empty state ──────────────────────────────────────────────────────
+.empty-cell {
+  padding: 56px;
+  text-align: center;
+  color: $text-muted;
   font-size: 14px;
+}
 
-  thead {
-    background: #f5f7fa;
-
-    th {
-      text-align: left;
-      padding: 12px;
-      font-weight: 700;
-      color: #1A2060;
-      border-bottom: 2px solid #e0e0e0;
-    }
-  }
-
-  tbody tr {
-    border-bottom: 1px solid #eee;
-
-    &:hover {
-      background: #fafafa;
-    }
-  }
-
-  td {
-    padding: 12px;
-  }
+// ── Responsive ───────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .admin-dashboard { padding: 16px 12px 48px; }
+  .dash-header { flex-direction: column; }
+  .kpi-row { gap: 8px; }
+  .schedule-nav { flex-direction: column; align-items: flex-start; }
 }

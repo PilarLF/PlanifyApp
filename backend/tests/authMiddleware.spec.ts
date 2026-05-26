@@ -1,3 +1,12 @@
+jest.mock("pg", () => {
+  const mPool = {
+    connect: jest.fn(),
+    query: jest.fn(),
+    end: jest.fn(),
+    on: jest.fn(),
+  };
+  return { Pool: jest.fn(() => mPool) };
+});
 import { authMiddleware } from "../src/middleware/auth.middleware";
 import jwt from "jsonwebtoken";
 import { pool } from "../src/config/db";

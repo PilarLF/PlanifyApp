@@ -1,81 +1,157 @@
-<div class="admin-dashboard">
+<div class="admin-dashboard" role="main" id="main-content">
 
-  <h1>Panel de Administración</h1>
+  <!-- ===== CABECERA ===== -->
+  <header class="dash-header">
+    <div>
+      <h1 class="dash-title">Panel de Administración</h1>
+      <p class="dash-subtitle">Semana del {{ semanaActual[0] | date:'d MMM' : '' : 'es' }} al {{ semanaActual[6] | date:'d MMM yyyy' : '' : 'es' }}</p>
+    </div>
 
-  <!-- ============================
-       CALENDARIO
-  ============================ -->
-  <div class="calendar-container">
-    <full-calendar [options]="calendarOptions"></full-calendar>
+    <!-- KPI chips -->
+    <div class="kpi-row">
+      <div class="kpi-chip">
+        <span class="kpi-num">{{ empleados.length }}</span>
+        <span class="kpi-label">Empleados</span>
+      </div>
+      <div class="kpi-chip kpi-chip--coral">
+        <span class="kpi-num">{{ totalTurnosSemana }}</span>
+        <span class="kpi-label">Turnos semana</span>
+      </div>
+      <div class="kpi-chip kpi-chip--green">
+        <span class="kpi-num">{{ totalHorasSemana }}h</span>
+        <span class="kpi-label">Horas totales</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== CREAR TURNO ===== -->
+  <div class="card create-card">
+    <div class="create-card__header" (click)="toggleForm()" role="button" tabindex="0"
+         (keydown.enter)="toggleForm()" [attr.aria-expanded]="showForm"
+         aria-controls="create-form">
+      <span class="create-card__title">➕ Crear turno</span>
+      <span class="create-card__toggle">{{ showForm ? '▲' : '▼' }}</span>
+    </div>
+
+    <div id="create-form" *ngIf="showForm" class="create-form">
+      <form (ngSubmit)="crearHorario()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="emp-select">Empleado</label>
+            <select id="emp-select" [(ngModel)]="form.employee_id" name="employee_id" required>
+              <option value="" disabled>Selecciona empleado…</option>
+              <option *ngFor="let e of empleados" [value]="e.id">{{ e.name }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="start-time">Inicio</label>
+            <input id="start-time" type="datetime-local" [(ngModel)]="form.start_time" name="start_time" required>
+          </div>
+          <div class="form-group">
+            <label for="end-time">Fin</label>
+            <input id="end-time" type="datetime-local" [(ngModel)]="form.end_time" name="end_time" required>
+          </div>
+          <div class="form-group form-group--action">
+            <button type="submit" class="btn btn--primary">Crear turno</button>
+          </div>
+        </div>
+      </form>
+      <p class="msg msg--success" *ngIf="mensaje" role="status">✓ {{ mensaje }}</p>
+      <p class="msg msg--error" *ngIf="error" role="alert">⚠ {{ error }}</p>
+    </div>
   </div>
 
-  <hr>
+  <!-- ===== CALENDARIO SEMANAL ===== -->
+  <div class="card schedule-card">
 
-  <!-- ============================
-       FORMULARIO CREAR TURNOS
-  ============================ -->
-  <h2>Crear turno</h2>
+    <!-- Navegación de semana -->
+    <div class="schedule-nav">
+      <div class="schedule-nav__left">
+        <button type="button" class="nav-btn" (click)="semanaAnterior()" aria-label="Semana anterior">‹</button>
+        <button type="button" class="nav-btn" (click)="semanaActualHoy()" aria-label="Ir a hoy">Hoy</button>
+        <button type="button" class="nav-btn" (click)="semanaSiguiente()" aria-label="Semana siguiente">›</button>
+        <span class="schedule-nav__range">
+          {{ semanaActual[0] | date:'d MMM' : '' : 'es' }} – {{ semanaActual[6] | date:'d MMM yyyy' : '' : 'es' }}
+        </span>
+      </div>
+      <div class="schedule-nav__right">
+        <span class="legend-dot legend-dot--shift"></span><span class="legend-label">Turno</span>
+        <span class="legend-dot legend-dot--free"></span><span class="legend-label">Libre</span>
+      </div>
+    </div>
 
-  <form (ngSubmit)="crearHorario()">
-    <label>Empleado</label>
-    <select [(ngModel)]="form.employee_id" name="employee_id" required>
-      <option *ngFor="let e of empleados" [value]="e.id">
-        {{ e.name }}
-      </option>
-    </select>
+    <!-- Estado de carga -->
+    <div *ngIf="cargando" class="loading-row" role="status">
+      <div class="spinner"></div>
+      <span>Cargando horarios…</span>
+    </div>
 
-    <label>Inicio</label>
-    <input type="datetime-local" [(ngModel)]="form.start_time" name="start_time" required>
+    <!-- Grid semanal -->
+    <div *ngIf="!cargando" class="schedule-wrapper">
+      <table class="schedule-table" aria-label="Calendario semanal de turnos">
+        <thead>
+          <tr>
+            <th class="col-employee" scope="col">Empleado</th>
+            <th *ngFor="let dia of semanaActual"
+                scope="col"
+                class="col-day"
+                [class.col-day--today]="esHoy(dia)"
+                [class.col-day--weekend]="esFinDeSemana(dia)">
+              <span class="day-name">{{ dia | date:'EEE' : '' : 'es' }}</span>
+              <span class="day-num" [class.day-num--today]="esHoy(dia)">{{ dia | date:'d' }}</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Empty state -->
+          <tr *ngIf="empleados.length === 0">
+            <td [attr.colspan]="8" class="empty-cell">
+              <span>No hay empleados registrados</span>
+            </td>
+          </tr>
 
-    <label>Fin</label>
-    <input type="datetime-local" [(ngModel)]="form.end_time" name="end_time" required>
+          <tr *ngFor="let emp of empleados" class="emp-row">
+            <!-- Columna empleado -->
+            <td class="cell-employee">
+              <div class="emp-info">
+                <span class="emp-avatar">{{ getInitials(emp.name) }}</span>
+                <div class="emp-text">
+                  <span class="emp-name">{{ emp.name }}</span>
+                  <span class="emp-hours">{{ getHorasSemanales(emp.id) }}h semana</span>
+                </div>
+              </div>
+            </td>
 
-    <button type="submit">Crear turno</button>
-  </form>
+            <!-- Una celda por día -->
+            <td *ngFor="let dia of semanaActual"
+                class="cell-day"
+                [class.cell-day--today]="esHoy(dia)"
+                [class.cell-day--weekend]="esFinDeSemana(dia)">
 
-  <p class="success" *ngIf="mensaje">{{ mensaje }}</p>
-  <p class="error" *ngIf="error">{{ error }}</p>
+              <!-- Hay turno(s) ese día -->
+              <ng-container *ngIf="getTurnosDelDia(emp.id, dia) as turnos">
+                <div *ngIf="turnos.length > 0; else diaLibre">
+                  <div *ngFor="let t of turnos" class="shift-block">
+                    <span class="shift-time">
+                      {{ t.start_time | date:'HH:mm' }} – {{ t.end_time | date:'HH:mm' }}
+                    </span>
+                    <span class="shift-hours">{{ getDuracion(t.start_time, t.end_time) }}</span>
+                  </div>
+                </div>
+                <!-- Día libre -->
+                <ng-template #diaLibre>
+                  <div class="free-block">
+                    <span class="free-icon" aria-hidden="true">💤</span>
+                    <span class="free-label">Día libre</span>
+                  </div>
+                </ng-template>
+              </ng-container>
 
-  <hr>
-
-  <!-- ============================
-       LISTA DE TURNOS
-  ============================ -->
-  <h2>Turnos existentes</h2>
-
-  <table>
-    <tr>
-      <th>Empleado</th>
-      <th>Inicio</th>
-      <th>Fin</th>
-      <th>Acciones</th>
-    </tr>
-
-    <tr *ngFor="let h of horarios">
-      <td>{{ h.employee_name }}</td>
-      <td>{{ h.start_time | date:'short' }}</td>
-      <td>{{ h.end_time | date:'short' }}</td>
-      <td>
-        <button (click)="editar(h)">Editar</button>
-        <button (click)="borrar(h.id)">Eliminar</button>
-      </td>
-    </tr>
-  </table>
-
-  <!-- ============================
-       FORMULARIO EDITAR
-  ============================ -->
-  <div *ngIf="editando" class="edit-box">
-    <h3>Editar turno</h3>
-
-    <label>Inicio</label>
-    <input type="datetime-local" [(ngModel)]="editando.start_time">
-
-    <label>Fin</label>
-    <input type="datetime-local" [(ngModel)]="editando.end_time">
-
-    <button (click)="guardarEdicion()">Guardar</button>
-    <button (click)="editando = null">Cancelar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
 </div>
