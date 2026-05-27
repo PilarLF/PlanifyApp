@@ -53,7 +53,7 @@ export class Login {
         }
       },
       error: (err) => {
-        this.errorMessage = 'Login failed. Please check your credentials.';
+        this.errorMessage = 'Error de autenticación, por favor intenta de nuevo.';
       }
     });
   }

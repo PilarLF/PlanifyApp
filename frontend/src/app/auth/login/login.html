@@ -15,7 +15,7 @@
       <label>Contraseña</label>
       <input type="password" formControlName="password">
 
-      <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+      <button class="register-btn" type="submit" [disabled]="loginForm.invalid">Entrar</button>
 
       <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
     </form>
