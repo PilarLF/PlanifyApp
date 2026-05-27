@@ -22,7 +22,7 @@
 }
 
 // ── Tokens locales ─────────────────────────────────────────────────────
-$navy:        #1a1c37;
+
 $coral:       #D9866A;
 $coral-dark:  #b5573a;
 $green:       #67A776;
@@ -38,7 +38,6 @@ $text-muted:  #8892b0;
   max-width: 1200px;
   margin: 0 auto;
   padding: 36px 28px 72px;
-  background: $bg-page;
   min-height: 100vh;
 }
 
@@ -55,10 +54,10 @@ $text-muted:  #8892b0;
 .page-title {
   font-size: 28px;
   font-weight: 800;
-  color: $navy;
   margin: 0 0 4px;
   line-height: 1.1;
   letter-spacing: -0.02em;
+  color: $color-white;
 
   // Subrayado decorativo con el coral de marca
   &::after {
@@ -74,7 +73,7 @@ $text-muted:  #8892b0;
 
 .page-subtitle {
   font-size: 14px;
-  color: $text-muted;
+  color: $color-coral-text;
   margin: 10px 0 0;
 }
 
@@ -84,7 +83,7 @@ $text-muted:  #8892b0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: $navy;
+  background: $color-primary;
   color: #fff;
   padding: 12px 22px;
   border-radius: 14px;
@@ -155,7 +154,7 @@ $text-muted:  #8892b0;
   padding: 0;
   margin-bottom: 24px;
   background: $surface;
-  box-shadow: 0 2px 12px rgba($navy, 0.07);
+  box-shadow: 0 2px 12px rgba($color-primary, 0.07);
   overflow: hidden;
 }
 
@@ -163,16 +162,16 @@ $text-muted:  #8892b0;
 .filters-legend {
   display: block;
   width: 100%;
-  background: $navy;
+  background: $color-primary;
   color: rgba(#fff, 0.8);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  padding: 10px 20px;
+  padding: 10px 0px 10px 5px;
   margin: 0;
 
-  // Punto coral decorativo
+  //puntito decorativo
   &::before {
     content: '';
     display: inline-block;
@@ -200,7 +199,7 @@ $text-muted:  #8892b0;
   label {
     font-size: 11px;
     font-weight: 700;
-    color: $navy;
+    color: $color-primary;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
@@ -223,8 +222,8 @@ $text-muted:  #8892b0;
 
   &:focus {
     outline: none;
-    border-color: $navy;
-    box-shadow: 0 0 0 3px rgba($navy, 0.12);
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.12);
     background: $surface;
   }
 }
@@ -254,7 +253,7 @@ $text-muted:  #8892b0;
 .table-wrapper {
   background: $surface;
   border-radius: 16px;
-  box-shadow: 0 2px 16px rgba($navy, 0.08);
+  box-shadow: 0 2px 16px rgba($color-primary, 0.08);
   overflow: hidden;
   border: 1px solid $border;
 }
@@ -265,7 +264,7 @@ $text-muted:  #8892b0;
   font-size: 14px;
 
   thead {
-    background: $navy;
+    background: $color-primary;
 
     th {
       text-align: left;
@@ -291,10 +290,10 @@ $text-muted:  #8892b0;
     &:last-child { border-bottom: none; }
 
     &:hover {
-      background: rgba($navy, 0.025);
+      background: rgba($color-primary, 0.025);
 
       .employee-cell__name {
-        color: $navy;
+        color: $color-primary;
       }
     }
   }
@@ -331,18 +330,17 @@ $text-muted:  #8892b0;
   height: 38px;
   border-radius: 50%;
   object-fit: cover;
-  background: rgba($navy, 0.08);
+  background: rgba($color-primary, 0.08);
   flex-shrink: 0;
   border: 2px solid $border;
 }
 
-// ── Píldoras de día ────────────────────────────────────────────────────
 .day-pill {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  background: rgba($navy, 0.06);
-  color: $navy;
+  background: rgba($color-primary, 0.06);
+  color: $color-primary;
   padding: 4px 11px;
   border-radius: 20px;
   font-size: 12px;
@@ -356,10 +354,8 @@ $text-muted:  #8892b0;
   font-variant-numeric: tabular-nums;
   font-weight: 700;
   font-size: 15px;
-  color: $navy;
+  color: $color-primary;
 }
-
-// ── Badge de duración (verde de marca) ────────────────────────────────
 .duracion-badge {
   display: inline-flex;
   align-items: center;
@@ -387,7 +383,7 @@ $text-muted:  #8892b0;
   text-decoration: none;
 
   &:focus-visible {
-    outline: 2px solid $navy;
+    outline: 2px solid $color-primary;
     outline-offset: 2px;
   }
 
@@ -396,13 +392,13 @@ $text-muted:  #8892b0;
   &--sm { padding: 7px 14px; font-size: 13px; }
 
   &--ghost {
-    background: rgba($navy, 0.05);
-    color: $navy;
+    background: rgba($color-primary, 0.05);
+    color: $color-primary;
     border: 1.5px solid $border;
 
     &:hover {
-      background: rgba($navy, 0.1);
-      border-color: rgba($navy, 0.2);
+      background: rgba($color-primary, 0.1);
+      border-color: rgba($color-primary, 0.2);
     }
 
     &:disabled {
@@ -411,19 +407,19 @@ $text-muted:  #8892b0;
     }
   }
 
-  // Eliminar — coral de marca
-  &--danger {
-    background: rgba($coral, 0.1);
-    color: $coral-dark;
-    border: 1.5px solid rgba($coral, 0.35);
 
-    &:hover {
-      background: $coral;
-      color: #fff;
-      border-color: $coral;
-      box-shadow: 0 4px 12px rgba($coral, 0.3);
-    }
-  }
+  // &--danger {
+  //   background: rgba($coral, 0.1);
+  //   color: $coral-dark;
+  //   border: 1.5px solid rgba($coral, 0.35);
+
+  //   &:hover {
+  //     background: $coral;
+  //     color: #fff;
+  //     border-color: $coral;
+  //     box-shadow: 0 4px 12px rgba($coral, 0.3);
+  //   }
+  // }
 }
 
 // ── Paginación ────────────────────────────────────────────────────────
@@ -434,12 +430,12 @@ $text-muted:  #8892b0;
   gap: 12px;
   padding: 18px 24px;
   border-top: 1px solid $border;
-  background: rgba($navy, 0.02);
+  background: rgba($color-primary, 0.02);
 
   span {
     font-size: 13px;
     font-weight: 600;
-    color: $navy;
+    color: $color-primary;
     padding: 0 4px;
   }
 
@@ -450,15 +446,15 @@ $text-muted:  #8892b0;
     font-size: 13px;
     font-weight: 700;
     background: $surface;
-    color: $navy;
+    color: $color-primary;
     cursor: pointer;
     font-family: inherit;
     transition: all 0.15s;
 
     &:hover:not(:disabled) {
-      background: $navy;
+      background: $color-primary;
       color: #fff;
-      border-color: $navy;
+      border-color: $color-primary;
     }
 
     &:disabled {
@@ -486,7 +482,7 @@ $text-muted:  #8892b0;
   .empty-title {
     font-size: 16px;
     font-weight: 700;
-    color: $navy;
+    color: $color-primary;
     margin: 0 0 6px;
   }
 
@@ -516,7 +512,7 @@ $text-muted:  #8892b0;
       border-radius: 12px;
       margin-bottom: 12px;
       padding: 4px 0;
-      box-shadow: 0 2px 8px rgba($navy, 0.05);
+      box-shadow: 0 2px 8px rgba($color-primary, 0.05);
 
       // Borde izquierdo coral en tarjetas
       border-left: 3px solid $coral;
@@ -535,7 +531,7 @@ $text-muted:  #8892b0;
       &::before {
         content: attr(data-label);
         font-weight: 700;
-        color: $navy;
+        color: $color-primary;
         font-size: 10px;
         text-transform: uppercase;
         letter-spacing: 0.06em;
