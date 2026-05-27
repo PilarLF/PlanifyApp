@@ -21,6 +21,8 @@ export async function createHorario(req: AuthRequest, res: Response) {
     // ============================
     // VALIDACIÓN 1: Solapamientos
     // ============================
+    const startISO = start.toISOString();
+    const endISO = end.toISOString();
 
     const solapamiento = await pool.query(
       `SELECT * FROM horarios
@@ -28,7 +30,7 @@ export async function createHorario(req: AuthRequest, res: Response) {
        AND (
             (start_time < $3 AND end_time > $2)
        )`,
-      [employee_id, start, end]
+      [employee_id, startISO, endISO]
     );
 
     if (solapamiento.rows.length > 0) {
