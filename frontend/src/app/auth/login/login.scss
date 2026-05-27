@@ -1,8 +1,6 @@
 @import '../../../styles/variables';
 
-.h1{
-  color: $color-primary;
-}
+
 .auth-card {
   background: rgba(255,255,255,0.05);
   border-radius: 12px;
@@ -30,10 +28,16 @@
     font-size: 28px;
     margin-bottom: 8px;
   }
+  p {
+    color: $color-coral-text;
+    font-size: 16px;
+    margin: 0;
+  }
 }
 .login-container {
     text-align: center;
     margin-bottom: 24px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 6px;
 
     img {
         height: 48px;
