@@ -33,7 +33,7 @@
       <span class="create-card__toggle">{{ showForm ? '▲' : '▼' }}</span>
     </div>
 
-    <div id="create-form" *ngIf="showForm" class="create-form">
+    <div id="create-form" [hidden]="!showForm" class="create-form">
       <form (ngSubmit)="crearHorario()">
         <div class="form-row">
           <div class="form-group">
