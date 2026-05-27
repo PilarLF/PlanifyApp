@@ -46,19 +46,33 @@
   flex-wrap: wrap;
 }
 
+
 .page-title {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 800;
-  color: $color-primary;
   margin: 0 0 4px;
   line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: $color-white;
+
+  // Subrayado decorativo con el coral de marca
+  &::after {
+    content: '';
+    display: block;
+    margin-top: 6px;
+    width: 36px;
+    height: 3px;
+    border-radius: 2px;
+    background: $coral;
+  }
 }
 
 .page-subtitle {
   font-size: 14px;
-  color: #6b7280;
-  margin: 0;
+  color: $color-coral-text;
+  margin: 10px 0 0;
 }
+
 
 .stat-chip {
   display: flex;
@@ -425,23 +439,25 @@
 }
 
 .btn-crear {
-  background: #0078ff;
-  color: white;
+  background: $color-pink;
+  color: $color-coral-text;
   padding: .6rem 1.2rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 12px;
   cursor: pointer;
   font-weight: 600;
   transition: background .2s;
+  padding: 10px 16px;
+  margin: 10px 0;
 }
 
 .btn-crear:hover {
-  background: #005fcc;
+  background: $color-pink-hover;
 }
 .btn-crear:focus {
-  outline: 2px solid #0078ff;
+  outline: 2px solid $color-pink;
   outline-offset: 2px;
-  border-radius: 6px;
+  border-radius: 12px;
 }
 
 // ── RESPONSIVE: tabla → tarjetas en móvil ─────────────────────────────
