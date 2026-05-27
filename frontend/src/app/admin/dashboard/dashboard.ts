@@ -389,8 +389,19 @@ export class AdminDashboard implements OnInit {
         setTimeout(() => (this.mensaje = ''), 3000);
       },
       error: (err) => {
-        this.error = err.error?.message || 'Error al crear turno';
-      }
-    });
+      // 2. Log para depurar en consola 
+      console.error("DEBUG: Error capturado en el front:", err);
+      
+      // 3. Forzar el refresco del mensaje
+      const errorMsg = err.error?.message || 'Error al crear turno';
+      
+      //  que el DOM reaccione si el error es el mismo
+      this.error = ''; 
+      setTimeout(() => {
+        this.error = errorMsg;
+      }, 10);
+    }
+  });
   }
+
 }
