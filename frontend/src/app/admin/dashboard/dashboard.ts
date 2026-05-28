@@ -335,10 +335,6 @@ export class AdminDashboard implements OnInit {
     return m > 0 ? `${h}h ${m}m` : `${h}h`;
   }
 
-  /** Iniciales para avatar */
-  getInitials(name: string): string {
-    return name.split(' ').slice(0, 2).map(n => n[0]?.toUpperCase() ?? '').join('');
-  }
 
   // ── Carga de datos ────────────────────────────────────────────────
 

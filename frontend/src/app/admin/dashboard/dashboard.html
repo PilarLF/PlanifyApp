@@ -114,7 +114,7 @@
             <!-- Columna empleado -->
             <td class="cell-employee">
               <div class="emp-info">
-                <span class="emp-avatar">{{ getInitials(emp.name) }}</span>
+                  <img class="avatar" aria-hidden="true" [src]="emp.employee_photo_url || 'assets/default-img.jpg'" [alt]="'Foto de ' + (emp.employee_name || 'Empleado')" />
                 <div class="emp-text">
                   <span class="emp-name">{{ emp.name }}</span>
                   <span class="emp-hours">{{ getHorasSemanales(emp.id) }}h semana</span>

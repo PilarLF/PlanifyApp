@@ -88,8 +88,7 @@
           <!-- Nombre -->
           <td data-label="Nombre">
             <div class="employee-name">
-              <!-- Avatar generado por iniciales -->
-              <span class="avatar" aria-hidden="true">{{ getInitials(emp.name) }}</span>
+              <img class="avatar" aria-hidden="true" [src]="emp.employee_photo_url || 'assets/default-img.jpg'" [alt]="'Foto de ' + (emp.employee_name || 'Empleado')" />
               <span>{{ emp.name }}</span>
             </div>
           </td>

@@ -152,10 +152,6 @@ export class Turnos implements OnInit {
     return m > 0 ? `${h}h ${m}m` : `${h}h`;
   }
 
-  /** Iniciales para el avatar */
-  getInitials(name: string): string {
-    return name.split(' ').slice(0, 2).map(n => n[0]?.toUpperCase() ?? '').join('');
-  }
 
   /** Resetea los tres filtros */
   limpiarFiltros(): void {
