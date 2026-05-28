@@ -1,5 +1,5 @@
 TN:
-SF:..\src\config\db.ts
+SF:src\config\db.ts
 FN:13,(anonymous_1)
 FNF:1
 FNH:0
@@ -20,7 +20,7 @@ BRF:2
 BRH:0
 end_of_record
 TN:
-SF:..\src\controllers\auth.controller.ts
+SF:src\controllers\auth.controller.ts
 FN:12,login
 FN:66,register
 FN:111,getEmployees
@@ -103,7 +103,7 @@ BRF:20
 BRH:20
 end_of_record
 TN:
-SF:..\src\middleware\auth.middleware.ts
+SF:src\middleware\auth.middleware.ts
 FN:9,authMiddleware
 FNF:1
 FNH:1
@@ -136,7 +136,7 @@ BRF:6
 BRH:6
 end_of_record
 TN:
-SF:..\src\middleware\requireAdmin.ts
+SF:src\middleware\requireAdmin.ts
 FN:1,requireAdmin
 FNF:1
 FNH:1
