@@ -211,6 +211,16 @@
                 Eliminar
               </button>
             </div>
+            <div class="actions">
+              <button
+                type="button"
+                class="btn btn--danger btn--sm"
+                (click)="modificarTurno(t.id)"
+                [attr.aria-label]="'Modificar turno de ' + (t.employee_name || 'empleado') + ' del ' + (t.start_time | date:'d MMM':'UTC':'es')"
+              >
+                Modificar
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
