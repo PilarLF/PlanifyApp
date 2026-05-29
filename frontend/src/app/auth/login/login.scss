@@ -68,7 +68,7 @@
       transition: background-color 0.3s ease;
       
       &:disabled {
-        background-color: $color-gray;
+        background-color: $color-green-gray;
         cursor: not-allowed;
       }
        &:hover:not(:disabled) {

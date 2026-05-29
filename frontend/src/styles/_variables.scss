@@ -42,6 +42,7 @@ $color-primary-light: #2d3060;
 // ── Verde (acciones positivas, estados "dentro") ───────────────────────
 // Oscurecido de #67A776 para garantizar 4.5:1 cuando se usa como texto
 $color-green:        #4a7c59;   // texto sobre blanco → 7.2:1
+$color-green-gray:   #a8c0b0;   // para estados inactivos o secundarios
 $color-green-bg:     #e8f5ee;   // fondo claro para badges
 
 // ── Coral / salmon (acciones de salida, alertas secundarias) ──────────
