@@ -89,18 +89,6 @@ export class AdminEmpleados implements OnInit {
     return this.todosLosHorarios.filter(h => h.employee_id === employeeId).length;
   }
 
-  /**
-   * Genera las iniciales del nombre para el avatar accesible.
-   * Ej: "María García" → "MG"
-   */
-  getInitials(name: string): string {
-    return name
-      .split(' ')
-      .slice(0, 2)
-      .map(n => n[0]?.toUpperCase() ?? '')
-      .join('');
-  }
-
   /** Abre el panel lateral con los turnos del empleado */
   verTurnos(emp: any): void {
     this.empleadoSeleccionado = emp;
