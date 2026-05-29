@@ -180,9 +180,7 @@ export class Turnos implements OnInit {
 
   /** Modifica un turno (redirecciona a la página de edición) */
   modificarTurno(id: string): void {
-    // Aquí podrías usar el Router de Angular para navegar a una página de edición
-    // pasando el ID del turno como parámetro.
-    // Ejemplo: this.router.navigate(['/admin/turnos', id, 'editar']);
+    // Redirigiría a la pagina de edicion o a un modal, lo tengo que implementar
     alert('Funcionalidad de modificación no implementada en esta demo.');
   }
 }
