@@ -183,14 +183,14 @@
           <!-- Inicio -->
           <td data-label="Inicio">
             <time [attr.datetime]="t.start_time" class="time-value">
-              {{ t.start_time | date:'HH:mm' }}
+              {{ t.start_time | date:'HH:mm':'UTC':'es' }}
             </time>
           </td>
 
           <!-- Fin -->
           <td data-label="Fin">
             <time [attr.datetime]="t.end_time" class="time-value">
-              {{ t.end_time | date:'HH:mm' }}
+              {{ t.end_time | date:'HH:mm':'UTC':'es' }}
             </time>
           </td>
 

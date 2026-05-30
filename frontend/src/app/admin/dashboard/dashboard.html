@@ -4,7 +4,7 @@
   <header class="dash-header">
     <div>
       <h1 class="dash-title">Panel de Administración</h1>
-      <p class="dash-subtitle">Semana del {{ semanaActual[0] | date:'d MMM' : '' : 'es' }} al {{ semanaActual[6] | date:'d MMM yyyy' : '' : 'es' }}</p>
+      <p class="dash-subtitle">Semana del {{ semanaActual[0] | date:'d MMM' :'UTC' : 'es' }} al {{ semanaActual[6] | date:'d MMM yyyy' : 'UTC' : 'es' }}</p>
     </div>
 
     <!-- KPI chips -->
@@ -71,7 +71,7 @@
         <button type="button" class="nav-btn" (click)="semanaActualHoy()" aria-label="Ir a hoy">Hoy</button>
         <button type="button" class="nav-btn" (click)="semanaSiguiente()" aria-label="Semana siguiente">›</button>
         <span class="schedule-nav__range">
-          {{ semanaActual[0] | date:'d MMM' : '' : 'es' }} – {{ semanaActual[6] | date:'d MMM yyyy' : '' : 'es' }}
+          {{ semanaActual[0] | date:'d MMM' :'UTC' : 'es' }} – {{ semanaActual[6] | date:'d MMM yyyy' : 'UTC' : 'es' }}
         </span>
       </div>
       <div class="schedule-nav__right">
@@ -97,8 +97,8 @@
                 class="col-day"
                 [class.col-day--today]="esHoy(dia)"
                 [class.col-day--weekend]="esFinDeSemana(dia)">
-              <span class="day-name">{{ dia | date:'EEE' : '' : 'es' }}</span>
-              <span class="day-num" [class.day-num--today]="esHoy(dia)">{{ dia | date:'d' }}</span>
+              <span class="day-name">{{ dia | date:'EEE' : 'UTC' : 'es' }}</span>
+              <span class="day-num" [class.day-num--today]="esHoy(dia)">{{ dia | date:'d' : 'UTC' : 'es' }}</span>
             </th>
           </tr>
         </thead>
@@ -133,7 +133,7 @@
                 <div *ngIf="turnos.length > 0; else diaLibre">
                   <div *ngFor="let t of turnos" class="shift-block">
                     <span class="shift-time">
-                      {{ t.start_time | date:'HH:mm' }} – {{ t.end_time | date:'HH:mm' }}
+                      {{ t.start_time | date:'HH:mm':'UTC' }} – {{ t.end_time | date:'HH:mm':'UTC' }}
                     </span>
                     <span class="shift-hours">{{ getDuracion(t.start_time, t.end_time) }}</span>
                   </div>

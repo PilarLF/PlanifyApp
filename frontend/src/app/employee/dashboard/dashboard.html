@@ -59,7 +59,7 @@
     <div class="turno-times">
       <div class="turno-time-block">
         <span class="time-label">Inicio</span>
-        <span class="time-value">{{ turnoActual.start_time | date:'HH:mm' }}</span>
+        <span class="time-value">{{ turnoActual.start_time | date:'HH:mm':'UTC':'es' }}</span>
         <span class="time-date">{{ turnoActual.start_time | date:'d MMM' : 'UTC' : 'es' }}</span>
       </div>
       <div class="turno-divider">
@@ -69,7 +69,7 @@
       </div>
       <div class="turno-time-block">
         <span class="time-label">Fin</span>
-        <span class="time-value">{{ turnoActual.end_time | date:'HH:mm' }}</span>
+        <span class="time-value">{{ turnoActual.end_time | date:'HH:mm':'UTC':'es' }}</span>
         <span class="time-date">{{ turnoActual.end_time | date:'d MMM' : 'UTC' : 'es' }}</span>
       </div>
     </div>
@@ -96,7 +96,7 @@
         </div>
         <div class="turno-item-info">
           <span class="turno-item-hours">
-            {{ t.start_time | date:'HH:mm' }} → {{ t.end_time | date:'HH:mm' }}
+            {{ t.start_time | date:'HH:mm':'UTC':'es' }} → {{ t.end_time | date:'HH:mm':'UTC':'es' }}
           </span>
           <span class="turno-item-day-name">{{ t.start_time | date:'EEEE' : 'UTC' : 'es' }}</span>
         </div>

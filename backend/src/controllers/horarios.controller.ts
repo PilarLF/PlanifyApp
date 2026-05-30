@@ -2,13 +2,6 @@ import { Request, Response } from 'express';
 import { pool } from '../config/db';
 import { AuthRequest } from '../middleware/auth.middleware';
 
-// Utilidad para convertir datetime-local a UTC sin desfase
-function toUTC(dateString: string) {
-  const d = new Date(dateString);
-  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-  return d.toISOString();
-}
-
 // =========================
 // 1. Crear un nuevo horario
 // =========================
@@ -17,12 +10,9 @@ export async function createHorario(req: AuthRequest, res: Response) {
   const { employee_id, start_time, end_time } = req.body;
 
   try {
-    // Convertir correctamente a UTC
-    const startUTC = toUTC(start_time);
-    const endUTC = toUTC(end_time);
-
-    const start = new Date(startUTC);
-    const end = new Date(endUTC);
+    // Convertir a Date
+    const start = new Date(start_time);
+    const end = new Date(end_time);
 
     if (end <= start) {
       return res.status(400).json({ message: "El fin del turno debe ser posterior al inicio" });
@@ -31,6 +21,8 @@ export async function createHorario(req: AuthRequest, res: Response) {
     // ============================
     // VALIDACIÓN 1: Solapamientos
     // ============================
+    const startISO = start.toISOString();
+    const endISO = end.toISOString();
 
     const solapamiento = await pool.query(
       `SELECT * FROM horarios
@@ -38,7 +30,7 @@ export async function createHorario(req: AuthRequest, res: Response) {
        AND (
             (start_time < $3 AND end_time > $2)
        )`,
-      [employee_id, startUTC, endUTC]
+      [employee_id, startISO, endISO]
     );
 
     if (solapamiento.rows.length > 0) {
@@ -55,7 +47,7 @@ export async function createHorario(req: AuthRequest, res: Response) {
        AND end_time <= $2
        ORDER BY end_time DESC
        LIMIT 1`,
-      [employee_id, startUTC]
+      [employee_id, start]
     );
 
     if (turnoAnterior.rows.length > 0) {
@@ -72,7 +64,10 @@ export async function createHorario(req: AuthRequest, res: Response) {
     // ==========================================
     // VALIDACIÓN 3: Máximo 11 días consecutivos
     // ==========================================
+    // Objetivo: contar la racha de días consecutivos que terminaría en 'start' si añadimos este turno.
+    // Tomamos las fechas distintas anteriores (hasta 11) y comprobamos día a día.
 
+    // Fecha sin hora (solo día) para comparar
     const startDateOnly = new Date(start.getFullYear(), start.getMonth(), start.getDate());
 
     const consecutivosRes = await pool.query(
@@ -85,25 +80,31 @@ export async function createHorario(req: AuthRequest, res: Response) {
       [employee_id, startDateOnly]
     );
 
+    // Construir un Set de strings 'YYYY-MM-DD' con las fechas existentes
     const existingDays = new Set<string>(
-      consecutivosRes.rows.map((r: any) => {
-        const d = new Date(r.dia);
-        return d.toISOString().slice(0, 10);
-      })
+      consecutivosRes.rows
+        .map((r: any) => {
+          const d = new Date(r.dia);
+          // normalizar a YYYY-MM-DD
+          return d.toISOString().slice(0, 10);
+        })
     );
 
+    // Simulamos que el nuevo día está presente (porque vamos a insertarlo)
     const newDayKey = startDateOnly.toISOString().slice(0, 10);
+    // No hace falta añadir si ya existe, pero lo añadimos para la lógica
     existingDays.add(newDayKey);
 
+    // Contar racha consecutiva hacia atrás desde newDayKey
     let consecutiveCount = 0;
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 12; i++) { // comprobamos hasta 12 para detectar >11
       const checkDate = new Date(startDateOnly);
       checkDate.setDate(startDateOnly.getDate() - i);
       const key = checkDate.toISOString().slice(0, 10);
       if (existingDays.has(key)) {
         consecutiveCount++;
       } else {
-        break;
+        break; // racha interrumpida
       }
     }
 
@@ -121,7 +122,7 @@ export async function createHorario(req: AuthRequest, res: Response) {
       `INSERT INTO horarios (employee_id, start_time, end_time)
        VALUES ($1, $2, $3)
        RETURNING *`,
-      [employee_id, startUTC, endUTC]
+      [employee_id, start, end]
     );
 
     return res.status(201).json(result.rows[0]);
@@ -173,15 +174,12 @@ export async function updateHorario(req: AuthRequest, res: Response) {
   const { start_time, end_time } = req.body;
 
   try {
-    const startUTC = toUTC(start_time);
-    const endUTC = toUTC(end_time);
-
     const result = await pool.query(
       `UPDATE horarios
        SET start_time = $1, end_time = $2
        WHERE id = $3
        RETURNING *`,
-      [startUTC, endUTC, id]
+      [start_time, end_time, id]
     );
 
     if (result.rows.length === 0) {
