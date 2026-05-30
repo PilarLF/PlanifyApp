@@ -91,7 +91,7 @@
           class="turno-item"
           [style.animation-delay]="(0.35 + i * 0.05) + 's'">
         <div class="turno-item-date">
-          <span class="turno-day">{{ t.start_time | date:'d' }}</span>
+          <span class="turno-day">{{ t.start_time | date:'d': 'UTC' : 'es' }}</span>
           <span class="turno-month">{{ t.start_time | date:'MMM' : 'UTC' : 'es' }}</span>
         </div>
         <div class="turno-item-info">
