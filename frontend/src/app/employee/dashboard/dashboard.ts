@@ -99,14 +99,19 @@ export class Dashboard implements OnInit, OnDestroy {
         this.misTurnos = res;
         this.calendarOptions = {
           ...this.calendarOptions,
-          events: this.misTurnos.map(t => ({
-            title: `${new Date(t.start_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-                    - 
-                    ${new Date(t.end_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`,
-            start: t.start_time,
-            end: t.end_time,
-            color: '#1A2060'
-          }))
+            events: this.misTurnos.map(t => {
+              const start = new Date(t.start_time);
+              const end = new Date(t.end_time);
+              // Formatear en UTC para que coincida con lo que muestra la pipe
+              const startHora = start.toISOString().slice(11, 16);
+              const endHora = end.toISOString().slice(11, 16);
+              return {
+                title: `${startHora} - ${endHora}`,
+                start: t.start_time,  
+                end: t.end_time,
+                color: '#1A2060'
+              };
+            })
         };
         this.cdr.detectChanges();
       },
@@ -143,11 +148,11 @@ export class Dashboard implements OnInit, OnDestroy {
     });
   }
 
-  estaDentroDelTurno() {
-    if (!this.turnoActual) return false;
-
-    const now = new Date();
-    return now >= new Date(this.turnoActual.start_time) &&
-           now <= new Date(this.turnoActual.end_time);
-  }
+    estaDentroDelTurno(): boolean {
+      if (!this.turnoActual) return false;
+      const nowUtc = Date.now(); // ms desde epoch, igual en UTC y local
+      const startUtc = new Date(this.turnoActual.start_time).getTime();
+      const endUtc = new Date(this.turnoActual.end_time).getTime();
+      return nowUtc >= startUtc && nowUtc <= endUtc;
+    }
 }
