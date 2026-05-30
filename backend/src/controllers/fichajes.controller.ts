@@ -34,10 +34,11 @@ await client.query(
     const { start_time, end_time } = turnoRes.rows[0];
 
     // Validar que clock-in está dentro del turno
-    if (!(now >= new Date(start_time) && now <= new Date(end_time))) {
-      await client.query('ROLLBACK');
-      return res.status(400).json({ message: "No puedes fichar fuera del turno" });
-    }
+ const nowMadrid = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Madrid' }));  //para que detecte la hora de madrid 
+if (!(nowMadrid >= new Date(start_time) && nowMadrid <= new Date(end_time))) {
+  await client.query('ROLLBACK');
+  return res.status(400).json({ message: "No puedes fichar fuera del turno" });
+}
 
     // Validar que no tiene un fichaje abierto
     const abiertoRes = await client.query(
@@ -187,12 +188,12 @@ export async function getTurnoActual(req: AuthRequest, res: Response) {
       `SELECT *
        FROM horarios
        WHERE employee_id = $1
-       AND start_time <= $2
-       AND end_time >= $2
+      AND start_time <= (NOW() AT TIME ZONE 'Europe/Madrid')
+      AND end_time >= (NOW() AT TIME ZONE 'Europe/Madrid')
        LIMIT 1`,
-      [employee_id, now]
+      [employee_id]
     );
-
+ 
     if (result.rows.length === 0) {
       return res.json(null);
     }
