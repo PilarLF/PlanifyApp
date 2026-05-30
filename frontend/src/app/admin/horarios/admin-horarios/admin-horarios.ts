@@ -63,39 +63,39 @@ export class AdminHorarios implements OnInit {
   }
 
   // Inicia edición: clona el turno para editar sin mutar la lista hasta guardar
-  // startEdit(turno: any) {
-  //   this.editando = { ...turno };
-  //   this.showEditForm = true;
-  //   this.mensaje = '';
-  //   this.error = '';
-  // }
+  startEdit(turno: any) {
+    this.editando = { ...turno };
+    this.showEditForm = true;
+    this.mensaje = '';
+    this.error = '';
+  }
 
-  // // Cancela la edición
-  // cancelEdit() {
-  //   this.editando = null;
-  //   this.showEditForm = false;
-  // }
+  // Cancela la edición
+  cancelEdit() {
+    this.editando = null;
+    this.showEditForm = false;
+  }
 
   // Guarda la edición actual
-  // guardarEdicion() {
-  //   if (!this.editando || !this.editando.id) {
-  //     this.error = 'No hay turno seleccionado para editar';
-  //     return;
-  //   }
+  guardarEdicion() {
+    if (!this.editando || !this.editando.id) {
+      this.error = 'No hay turno seleccionado para editar';
+      return;
+    }
 
-  //   this.horariosService.updateHorario(this.editando.id, this.editando).subscribe({
-  //     next: () => {
-  //       this.mensaje = 'Horario actualizado correctamente';
-  //       this.editando = null;
-  //       this.showEditForm = false;
-  //       this.loadHorarios();
-  //     },
-  //     error: (err) => {
-  //       console.error('ERROR guardarEdicion', err);
-  //       this.error = err?.error?.message || 'Error al actualizar';
-  //     }
-  //   });
-  // }
+    this.horariosService.updateHorario(this.editando.id, this.editando).subscribe({
+      next: () => {
+        this.mensaje = 'Horario actualizado correctamente';
+        this.editando = null;
+        this.showEditForm = false;
+        this.loadHorarios();
+      },
+      error: (err) => {
+        console.error('ERROR guardarEdicion', err);
+        this.error = err?.error?.message || 'Error al actualizar';
+      }
+    });
+  }
 
   // Borrar con confirmación
   borrar(id: string) {
@@ -113,8 +113,8 @@ export class AdminHorarios implements OnInit {
     });
   }
 
-  // // Método auxiliar para abrir edición desde plantilla (compatibilidad con nombres previos)
-  // editar(turno: any) {
-  //   this.startEdit(turno);
-  // }
+  // Método auxiliar para abrir edición desde plantilla (compatibilidad con nombres previos)
+  editar(turno: any) {
+    this.startEdit(turno);
+  }
 }
