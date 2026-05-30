@@ -5,6 +5,7 @@ import { FichajesService } from '../fichajes/fichajes';
 import dayGridPlugin  from '@fullcalendar/daygrid';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/es';
+import { NamedTimeZoneImpl } from '@fullcalendar/core/internal';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +25,7 @@ export class Dashboard implements OnInit, OnDestroy {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin],
     locale: esLocale,
+    timeZone: 'UTC',
     events: []
   };
 
